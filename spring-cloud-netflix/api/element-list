@@ -1,0 +1,11 @@
+org.springframework.cloud.netflix.eureka
+org.springframework.cloud.netflix.eureka.config
+org.springframework.cloud.netflix.eureka.http
+org.springframework.cloud.netflix.eureka.loadbalancer
+org.springframework.cloud.netflix.eureka.metadata
+org.springframework.cloud.netflix.eureka.reactive
+org.springframework.cloud.netflix.eureka.server
+org.springframework.cloud.netflix.eureka.server.event
+org.springframework.cloud.netflix.eureka.server.metrics
+org.springframework.cloud.netflix.eureka.serviceregistry
+org.springframework.cloud.netflix.eureka.support

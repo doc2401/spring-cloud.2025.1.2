@@ -1,0 +1,88 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:41:50.088Z",
+  "url": "https://docs.spring.io/spring-cloud-zookeeper/reference",
+  "components": {
+    "cloud-zookeeper": {
+      "title": "Spring Cloud Zookeeper",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Zookeeper"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "config.adoc",
+              "url": "/config.html",
+              "title": "Distributed Configuration with Zookeeper"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "dependencies.adoc",
+              "url": "/dependencies.html",
+              "title": "Zookeeper Dependencies"
+            },
+            {
+              "path": "dependency-watcher.adoc",
+              "url": "/dependency-watcher.html",
+              "title": "Spring Cloud Zookeeper Dependency Watcher"
+            },
+            {
+              "path": "discovery.adoc",
+              "url": "/discovery.html",
+              "title": "Service Discovery with Zookeeper"
+            },
+            {
+              "path": "install.adoc",
+              "url": "/install.html",
+              "title": "Working with Zookeeper"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Spring Cloud Zookeeper"
+            },
+            {
+              "path": "other-componentes.adoc",
+              "url": "/other-componentes.html",
+              "title": "Using Spring Cloud Zookeeper with Spring Cloud Components"
+            },
+            {
+              "path": "quickstart.adoc",
+              "url": "/quickstart.html",
+              "title": "Quick Start"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "service-registry.adoc",
+              "url": "/service-registry.html",
+              "title": "Spring Cloud Zookeeper and Service Registry"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

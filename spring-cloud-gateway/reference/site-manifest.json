@@ -1,0 +1,608 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:25:50.914Z",
+  "url": "https://docs.spring.io/spring-cloud-gateway/reference",
+  "components": {
+    "cloud-gateway": {
+      "title": "Spring Cloud Gateway",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Gateway"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Spring Cloud Gateway"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-cloud-gateway-proxy-exchange.adoc",
+              "url": "/spring-cloud-gateway-proxy-exchange.html",
+              "title": "Proxy Exchange Gateway with Spring Web MVC or WebFlux"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux.adoc",
+              "url": "/spring-cloud-gateway-server-webflux.html",
+              "title": "Spring Cloud Gateway Server WebFlux"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/actuator-api.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/actuator-api.html",
+              "title": "Actuator API"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/aot-and-native-image-support.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/aot-and-native-image-support.html",
+              "title": "AOT and Native Image Support"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/configuration-properties.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/configuration-properties.html",
+              "title": "Configuration properties"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/configuration.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/configuration.html",
+              "title": "Configuration"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/configuring-route-predicate-factories-and-filter-factories.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/configuring-route-predicate-factories-and-filter-factories.html",
+              "title": "Configuring Route Predicate Factories and Gateway Filter Factories"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/cors-configuration.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/cors-configuration.html",
+              "title": "CORS Configuration"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/developer-guide.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/developer-guide.html",
+              "title": "Developer Guide"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/fluent-java-routes-api.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/fluent-java-routes-api.html",
+              "title": "Fluent Java Routes API"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories.html",
+              "title": "<code>GatewayFilter</code> Factories"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/addrequestheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/addrequestheader-factory.html",
+              "title": "<code>AddRequestHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/addrequestheadersifnotpresent-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/addrequestheadersifnotpresent-factory.html",
+              "title": "<code>AddRequestHeadersIfNotPresent</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/addrequestparameter-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/addrequestparameter-factory.html",
+              "title": "<code>AddRequestParameter</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/addresponseheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/addresponseheader-factory.html",
+              "title": "<code>AddResponseHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/cacherequestbody-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/cacherequestbody-factory.html",
+              "title": "<code>CacheRequestBody</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/circuitbreaker-filter-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/circuitbreaker-filter-factory.html",
+              "title": "<code>CircuitBreaker</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/deduperesponseheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/deduperesponseheader-factory.html",
+              "title": "<code>DedupeResponseHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/default-filters.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/default-filters.html",
+              "title": "Default Filters"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/fallback-headers.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/fallback-headers.html",
+              "title": "<code>FallbackHeaders</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/jsontogrpc-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/jsontogrpc-factory.html",
+              "title": "<code>JsonToGrpc</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/local-cache-response-filter.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/local-cache-response-filter.html",
+              "title": "<code>LocalResponseCache</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/maprequestheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/maprequestheader-factory.html",
+              "title": "<code>MapRequestHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/modifyrequestbody-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/modifyrequestbody-factory.html",
+              "title": "<code>ModifyRequestBody</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/modifyresponsebody-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/modifyresponsebody-factory.html",
+              "title": "<code>ModifyResponseBody</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/prefixpath-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/prefixpath-factory.html",
+              "title": "<code>PrefixPath</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/preservehostheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/preservehostheader-factory.html",
+              "title": "<code>PreserveHostHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/redirectto-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/redirectto-factory.html",
+              "title": "<code>RedirectTo</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/removejsonattributesresponsebody-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/removejsonattributesresponsebody-factory.html",
+              "title": "<code>RemoveJsonAttributesResponseBody</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/removerequestheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/removerequestheader-factory.html",
+              "title": "<code>RemoveRequestHeader</code> GatewayFilter Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/removerequestparameter-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/removerequestparameter-factory.html",
+              "title": "<code>RemoveRequestParameter</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/removeresponseheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/removeresponseheader-factory.html",
+              "title": "<code>RemoveResponseHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestheadersize-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestheadersize-factory.html",
+              "title": "<code>RequestHeaderSize</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestheadertorequesturi-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestheadertorequesturi-factory.html",
+              "title": "<code>RequestHeaderToRequestUri</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestratelimiter-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestratelimiter-factory.html",
+              "title": "<code>RequestRateLimiter</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestsize-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/requestsize-factory.html",
+              "title": "<code>RequestSize</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/retry-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/retry-factory.html",
+              "title": "<code>Retry</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewritelocationresponseheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewritelocationresponseheader-factory.html",
+              "title": "<code>RewriteLocationResponseHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewritepath-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewritepath-factory.html",
+              "title": "<code>RewritePath</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewriterequestparameter-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewriterequestparameter-factory.html",
+              "title": "<code>RewriteRequestParameter</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewriteresponseheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/rewriteresponseheader-factory.html",
+              "title": "<code>RewriteResponseHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/savesession-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/savesession-factory.html",
+              "title": "<code>SaveSession</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/secureheaders-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/secureheaders-factory.html",
+              "title": "<code>SecureHeaders</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/setpath-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/setpath-factory.html",
+              "title": "<code>SetPath</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/setrequestheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/setrequestheader-factory.html",
+              "title": "<code>SetRequestHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/setrequesthostheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/setrequesthostheader-factory.html",
+              "title": "<code>SetRequestHostHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/setresponseheader-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/setresponseheader-factory.html",
+              "title": "<code>SetResponseHeader</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/setstatus-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/setstatus-factory.html",
+              "title": "<code>SetStatus</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/seturi-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/seturi-factory.html",
+              "title": "<code>SetRequestUri</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/stripprefix-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/stripprefix-factory.html",
+              "title": "<code>StripPrefix</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/gatewayfilter-factories/tokenrelay-factory.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/gatewayfilter-factories/tokenrelay-factory.html",
+              "title": "<code>TokenRelay</code> <code>GatewayFilter</code> Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/global-filters.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/global-filters.html",
+              "title": "Global Filters"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/glossary.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/glossary.html",
+              "title": "Glossary"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/how-it-works.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/how-it-works.html",
+              "title": "How It Works"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/http-client.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/http-client.html",
+              "title": "The HttpClientCustomizer"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/http-timeouts-configuration.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/http-timeouts-configuration.html",
+              "title": "Http timeouts configuration"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/httpheadersfilters.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/httpheadersfilters.html",
+              "title": "HttpHeadersFilters"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/reactor-netty-access-logs.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/reactor-netty-access-logs.html",
+              "title": "Reactor Netty Access Logs"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/request-predicates-factories.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/request-predicates-factories.html",
+              "title": "Route Predicate Factories"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/route-metadata-configuration.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/route-metadata-configuration.html",
+              "title": "Route Metadata Configuration"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/sharing-routes.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/sharing-routes.html",
+              "title": "Sharing Routes between multiple Gateway instances"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/starter.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/starter.html",
+              "title": "How to Include Spring Cloud Gateway"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/the-discoveryclient-route-definition-locator.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/the-discoveryclient-route-definition-locator.html",
+              "title": "<code>DiscoveryClient</code> Route Definition Locator"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/tls-and-ssl.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/tls-and-ssl.html",
+              "title": "TLS and SSL"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webflux/troubleshooting.adoc",
+              "url": "/spring-cloud-gateway-server-webflux/troubleshooting.html",
+              "title": "Troubleshooting"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc.html",
+              "title": "Spring Cloud Gateway Server Web MVC"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/addrequestheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/addrequestheader.html",
+              "title": "<code>AddRequestHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/addrequestheadersifnotpresent.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/addrequestheadersifnotpresent.html",
+              "title": "<code>AddRequestHeadersIfNotPresent</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/addrequestparameter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/addrequestparameter.html",
+              "title": "<code>AddRequestParameter</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/addresponseheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/addresponseheader.html",
+              "title": "<code>AddResponseHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/circuitbreaker-filter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/circuitbreaker-filter.html",
+              "title": "<code>CircuitBreaker</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/deduperesponseheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/deduperesponseheader.html",
+              "title": "<code>DedupeResponseHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/fallback-headers.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/fallback-headers.html",
+              "title": "<code>FallbackHeaders</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/loadbalancer.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/loadbalancer.html",
+              "title": "LoadBalancer Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/local-cache-response-filter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/local-cache-response-filter.html",
+              "title": "<code>LocalResponseCache</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/maprequestheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/maprequestheader.html",
+              "title": "<code>MapRequestHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/modifyrequestbody.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/modifyrequestbody.html",
+              "title": "<code>ModifyRequestBody</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/modifyresponsebody.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/modifyresponsebody.html",
+              "title": "<code>ModifyResponseBody</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/prefixpath.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/prefixpath.html",
+              "title": "<code>PrefixPath</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/preservehostheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/preservehostheader.html",
+              "title": "<code>PreserveHostHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/ratelimiter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/ratelimiter.html",
+              "title": "RateLimiter Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/redirectto.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/redirectto.html",
+              "title": "<code>RedirectTo</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/removejsonattributesresponsebody.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/removejsonattributesresponsebody.html",
+              "title": "<code>RemoveJsonAttributesResponseBody</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/removerequestheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/removerequestheader.html",
+              "title": "<code>RemoveRequestHeader</code> GatewayFilter Factory"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/removerequestparameter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/removerequestparameter.html",
+              "title": "<code>RemoveRequestParameter</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/removeresponseheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/removeresponseheader.html",
+              "title": "<code>RemoveResponseHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/requestheadersize.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/requestheadersize.html",
+              "title": "<code>RequestHeaderSize</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/requestsize.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/requestsize.html",
+              "title": "<code>RequestSize</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/retry.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/retry.html",
+              "title": "<code>Retry</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/rewritelocationresponseheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/rewritelocationresponseheader.html",
+              "title": "<code>RewriteLocationResponseHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/rewritepath.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/rewritepath.html",
+              "title": "<code>RewritePath</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/rewriterequestparameter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/rewriterequestparameter.html",
+              "title": "<code>RewriteRequestParameter</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/rewriteresponseheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/rewriteresponseheader.html",
+              "title": "<code>RewriteResponseHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/savesession.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/savesession.html",
+              "title": "<code>SaveSession</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/setpath.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/setpath.html",
+              "title": "<code>SetPath</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/setrequestheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/setrequestheader.html",
+              "title": "<code>SetRequestHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/setrequesthostheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/setrequesthostheader.html",
+              "title": "<code>SetRequestHostHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/setresponseheader.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/setresponseheader.html",
+              "title": "<code>SetResponseHeader</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/setstatus.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/setstatus.html",
+              "title": "<code>SetStatus</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/stripcontextpath.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/stripcontextpath.html",
+              "title": "<code>StripContextPath</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/stripprefix.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/stripprefix.html",
+              "title": "<code>StripPrefix</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/filters/tokenrelay.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/filters/tokenrelay.html",
+              "title": "<code>TokenRelay</code> Filter"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/gateway-handler-filter-functions.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/gateway-handler-filter-functions.html",
+              "title": "Gateway Handler Filter Functions"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/gateway-request-predicates.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/gateway-request-predicates.html",
+              "title": "Gateway Request Predicates"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/glossary.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/glossary.html",
+              "title": "Glossary"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/how-it-works.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/how-it-works.html",
+              "title": "How It Works"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/httpheadersfilters.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/httpheadersfilters.html",
+              "title": "HttpHeadersFilters"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/java-routes-api.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/java-routes-api.html",
+              "title": "Java Routes API"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/starter.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/starter.html",
+              "title": "How to Include Spring Cloud Gateway Server Web MVC"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/tls-and-ssl.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/tls-and-ssl.html",
+              "title": "TLS and SSL"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/working-with-servlets-and-filters.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/working-with-servlets-and-filters.html",
+              "title": "Working with Servlets and Servlet Filters"
+            },
+            {
+              "path": "spring-cloud-gateway-server-webmvc/writing-custom-predicates-and-filters.adoc",
+              "url": "/spring-cloud-gateway-server-webmvc/writing-custom-predicates-and-filters.html",
+              "title": "Writing Custom Predicates and Filters"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

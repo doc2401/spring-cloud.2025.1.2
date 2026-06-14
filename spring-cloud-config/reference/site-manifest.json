@@ -1,0 +1,252 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:21:46.552Z",
+  "url": "https://docs.spring.io/spring-cloud-config/reference",
+  "components": {
+    "cloud-config": {
+      "title": "Spring Cloud Config",
+      "latest": "5.0.4",
+      "versions": {
+        "5.0.4": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Config"
+            },
+            {
+              "path": "client.adoc",
+              "url": "/client.html",
+              "title": "Spring Cloud Config Client"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Spring Cloud Config"
+            },
+            {
+              "path": "observability.adoc",
+              "url": "/observability.html"
+            },
+            {
+              "path": "quickstart.adoc",
+              "url": "/quickstart.html",
+              "title": "Quick Start"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "server.adoc",
+              "url": "/server.html",
+              "title": "Spring Cloud Config Server"
+            },
+            {
+              "path": "server/actuator-and-security.adoc",
+              "url": "/server/actuator-and-security.html",
+              "title": "Actuator and Security"
+            },
+            {
+              "path": "server/aot-and-native-image-support.adoc",
+              "url": "/server/aot-and-native-image-support.html",
+              "title": "AOT and Native Image Support"
+            },
+            {
+              "path": "server/creating-a-key-store-for-testing.adoc",
+              "url": "/server/creating-a-key-store-for-testing.html",
+              "title": "Creating a Key Store for Testing"
+            },
+            {
+              "path": "server/embedding.adoc",
+              "url": "/server/embedding.html",
+              "title": "Embedding the Config Server"
+            },
+            {
+              "path": "server/encryption-and-decryption.adoc",
+              "url": "/server/encryption-and-decryption.html",
+              "title": "Encryption and Decryption"
+            },
+            {
+              "path": "server/environment-repository.adoc",
+              "url": "/server/environment-repository.html",
+              "title": "Environment Repository"
+            },
+            {
+              "path": "server/environment-repository/accessing-backends-through-a-proxy.adoc",
+              "url": "/server/environment-repository/accessing-backends-through-a-proxy.html",
+              "title": "Accessing Backends Through a Proxy"
+            },
+            {
+              "path": "server/environment-repository/aws-parameter-store-backend.adoc",
+              "url": "/server/environment-repository/aws-parameter-store-backend.html",
+              "title": "AWS Parameter Store Backend"
+            },
+            {
+              "path": "server/environment-repository/aws-parameter-store.adoc",
+              "url": "/server/environment-repository/aws-parameter-store.html",
+              "title": "AWS Parameter Store"
+            },
+            {
+              "path": "server/environment-repository/aws-s3-backend.adoc",
+              "url": "/server/environment-repository/aws-s3-backend.html",
+              "title": "AWS S3 Backend"
+            },
+            {
+              "path": "server/environment-repository/aws-secrets-manager-backend.adoc",
+              "url": "/server/environment-repository/aws-secrets-manager-backend.html",
+              "title": "AWS Secrets Manager Backend"
+            },
+            {
+              "path": "server/environment-repository/aws-secrets-manager.adoc",
+              "url": "/server/environment-repository/aws-secrets-manager.html",
+              "title": "AWS Secrets Manager"
+            },
+            {
+              "path": "server/environment-repository/composite-repositories.adoc",
+              "url": "/server/environment-repository/composite-repositories.html",
+              "title": "Composite Environment Repositories"
+            },
+            {
+              "path": "server/environment-repository/credhub-backend.adoc",
+              "url": "/server/environment-repository/credhub-backend.html",
+              "title": "CredHub Backend"
+            },
+            {
+              "path": "server/environment-repository/custom-enviroment-repository.adoc",
+              "url": "/server/environment-repository/custom-enviroment-repository.html",
+              "title": "Custom Environment Repositories"
+            },
+            {
+              "path": "server/environment-repository/file-system-backend.adoc",
+              "url": "/server/environment-repository/file-system-backend.html",
+              "title": "File System Backend"
+            },
+            {
+              "path": "server/environment-repository/gcp-secret-manager-backend.adoc",
+              "url": "/server/environment-repository/gcp-secret-manager-backend.html",
+              "title": "Google Secret Manager Backend"
+            },
+            {
+              "path": "server/environment-repository/git-backend.adoc",
+              "url": "/server/environment-repository/git-backend.html",
+              "title": "Git Backend"
+            },
+            {
+              "path": "server/environment-repository/jdbc-backend.adoc",
+              "url": "/server/environment-repository/jdbc-backend.html",
+              "title": "JDBC Backend"
+            },
+            {
+              "path": "server/environment-repository/mongo-backend.adoc",
+              "url": "/server/environment-repository/mongo-backend.html",
+              "title": "MongoDB Backend"
+            },
+            {
+              "path": "server/environment-repository/overriding-properties-using-placeholders.adoc",
+              "url": "/server/environment-repository/overriding-properties-using-placeholders.html",
+              "title": "Overriding Properties Using Placeholders"
+            },
+            {
+              "path": "server/environment-repository/overriding-properties-using-profiles.adoc",
+              "url": "/server/environment-repository/overriding-properties-using-profiles.html",
+              "title": "Overriding Properties Using Profiles"
+            },
+            {
+              "path": "server/environment-repository/property-overrides.adoc",
+              "url": "/server/environment-repository/property-overrides.html",
+              "title": "Property Overrides"
+            },
+            {
+              "path": "server/environment-repository/redis-backend.adoc",
+              "url": "/server/environment-repository/redis-backend.html",
+              "title": "Redis Backend"
+            },
+            {
+              "path": "server/environment-repository/sharing-configuration-with-all-applications.adoc",
+              "url": "/server/environment-repository/sharing-configuration-with-all-applications.html",
+              "title": "Sharing Configuration With All Applications"
+            },
+            {
+              "path": "server/environment-repository/using-bootstrap-to-override-properties.adoc",
+              "url": "/server/environment-repository/using-bootstrap-to-override-properties.html",
+              "title": "Using Bootstrap To Override Properties"
+            },
+            {
+              "path": "server/environment-repository/vault-backend.adoc",
+              "url": "/server/environment-repository/vault-backend.html",
+              "title": "Vault Backend"
+            },
+            {
+              "path": "server/environment-repository/version-control-backend-filesystem-use.adoc",
+              "url": "/server/environment-repository/version-control-backend-filesystem-use.html",
+              "title": "Version Control Backend Filesystem Use"
+            },
+            {
+              "path": "server/health-indicator.adoc",
+              "url": "/server/health-indicator.html",
+              "title": "Health Indicator"
+            },
+            {
+              "path": "server/key-management.adoc",
+              "url": "/server/key-management.html",
+              "title": "Key Management"
+            },
+            {
+              "path": "server/push-notifications-and-bus.adoc",
+              "url": "/server/push-notifications-and-bus.html",
+              "title": "Push Notifications and Spring Cloud Bus"
+            },
+            {
+              "path": "server/security.adoc",
+              "url": "/server/security.html",
+              "title": "Security"
+            },
+            {
+              "path": "server/serving-alternative-formats.adoc",
+              "url": "/server/serving-alternative-formats.html",
+              "title": "Serving Alternative Formats"
+            },
+            {
+              "path": "server/serving-binary-files.adoc",
+              "url": "/server/serving-binary-files.html",
+              "title": "Serving Binary Files"
+            },
+            {
+              "path": "server/serving-encrypted-properties.adoc",
+              "url": "/server/serving-encrypted-properties.html",
+              "title": "Serving Encrypted Properties"
+            },
+            {
+              "path": "server/serving-plain-text.adoc",
+              "url": "/server/serving-plain-text.html",
+              "title": "Serving Plain Text"
+            },
+            {
+              "path": "server/using-multiple-keys-and-key-rotation.adoc",
+              "url": "/server/using-multiple-keys-and-key-rotation.html",
+              "title": "Using Multiple Keys and Key Rotation"
+            },
+            {
+              "path": "spring-cloud-config.adoc",
+              "url": "/spring-cloud-config.html",
+              "title": "Spring Cloud Config"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

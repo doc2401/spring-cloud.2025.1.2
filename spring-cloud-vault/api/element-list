@@ -1,0 +1,5 @@
+org.springframework.cloud.vault.config
+org.springframework.cloud.vault.config.aws
+org.springframework.cloud.vault.config.consul
+org.springframework.cloud.vault.config.databases
+org.springframework.cloud.vault.config.rabbitmq

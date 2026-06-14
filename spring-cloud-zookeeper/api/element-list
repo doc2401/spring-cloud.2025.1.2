@@ -1,0 +1,11 @@
+org.springframework.cloud.zookeeper
+org.springframework.cloud.zookeeper.config
+org.springframework.cloud.zookeeper.discovery
+org.springframework.cloud.zookeeper.discovery.configclient
+org.springframework.cloud.zookeeper.discovery.dependency
+org.springframework.cloud.zookeeper.discovery.reactive
+org.springframework.cloud.zookeeper.discovery.watcher
+org.springframework.cloud.zookeeper.discovery.watcher.presence
+org.springframework.cloud.zookeeper.sample
+org.springframework.cloud.zookeeper.serviceregistry
+org.springframework.cloud.zookeeper.support

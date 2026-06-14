@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Actuator API :: Spring Cloud Gateway</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-gateway/reference/spring-cloud-gateway-server-webflux/actuator-api.html">
+    <link rel="prev" href="cors-configuration.html">
+    <link rel="next" href="sharing-routes.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-gateway">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-gateway" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring Cloud Gateway</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../index.html">Introduction</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webflux.html">Spring Cloud Gateway Server WebFlux</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="starter.html">How to Include Spring Cloud Gateway</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="glossary.html">Glossary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="how-it-works.html">How It Works</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="configuring-route-predicate-factories-and-filter-factories.html">Configuring Route Predicate Factories and Gateway Filter Factories</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="request-predicates-factories.html">Route Predicate Factories</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="gatewayfilter-factories.html"><code>GatewayFilter</code> Factories</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/addrequestheader-factory.html"><code>AddRequestHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/addrequestheadersifnotpresent-factory.html"><code>AddRequestHeadersIfNotPresent</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/addrequestparameter-factory.html"><code>AddRequestParameter</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/addresponseheader-factory.html"><code>AddResponseHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/circuitbreaker-filter-factory.html"><code>CircuitBreaker</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/cacherequestbody-factory.html"><code>CacheRequestBody</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/deduperesponseheader-factory.html"><code>DedupeResponseHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/fallback-headers.html"><code>FallbackHeaders</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/jsontogrpc-factory.html"><code>JsonToGrpc</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/local-cache-response-filter.html"><code>LocalResponseCache</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/maprequestheader-factory.html"><code>MapRequestHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/modifyrequestbody-factory.html"><code>ModifyRequestBody</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/modifyresponsebody-factory.html"><code>ModifyResponseBody</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/prefixpath-factory.html"><code>PrefixPath</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/preservehostheader-factory.html"><code>PreserveHostHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/redirectto-factory.html"><code>RedirectTo</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/removejsonattributesresponsebody-factory.html"><code>RemoveJsonAttributesResponseBody</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/removerequestheader-factory.html"><code>RemoveRequestHeader</code> GatewayFilter Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/removerequestparameter-factory.html"><code>RemoveRequestParameter</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/removeresponseheader-factory.html"><code>RemoveResponseHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/requestheadersize-factory.html"><code>RequestHeaderSize</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/requestheadertorequesturi-factory.html"><code>RequestHeaderToRequestUri</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/requestratelimiter-factory.html"><code>RequestRateLimiter</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/rewritelocationresponseheader-factory.html"><code>RewriteLocationResponseHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/rewritepath-factory.html"><code>RewritePath</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/rewriterequestparameter-factory.html"><code>RewriteRequestParameter</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/rewriteresponseheader-factory.html"><code>RewriteResponseHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/savesession-factory.html"><code>SaveSession</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/secureheaders-factory.html"><code>SecureHeaders</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/setpath-factory.html"><code>SetPath</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/setrequestheader-factory.html"><code>SetRequestHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/setresponseheader-factory.html"><code>SetResponseHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/setstatus-factory.html"><code>SetStatus</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/stripprefix-factory.html"><code>StripPrefix</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/retry-factory.html"><code>Retry</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/requestsize-factory.html"><code>RequestSize</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/setrequesthostheader-factory.html"><code>SetRequestHostHeader</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/tokenrelay-factory.html"><code>TokenRelay</code> <code>GatewayFilter</code> Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="gatewayfilter-factories/default-filters.html">Default Filters</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="global-filters.html">Global Filters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="httpheadersfilters.html">HttpHeadersFilters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="tls-and-ssl.html">TLS and SSL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="http-client.html">The HttpClientCustomizer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="configuration.html">Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="route-metadata-configuration.html">Route Metadata Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="http-timeouts-configuration.html">Http timeouts configuration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="fluent-java-routes-api.html">Fluent Java Routes API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="the-discoveryclient-route-definition-locator.html"><code>DiscoveryClient</code> Route Definition Locator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="reactor-netty-access-logs.html">Reactor Netty Access Logs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="cors-configuration.html">CORS Configuration</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="actuator-api.html">Actuator API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="sharing-routes.html">Sharing Routes between multiple Gateway instances</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="troubleshooting.html">Troubleshooting</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="developer-guide.html">Developer Guide</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="aot-and-native-image-support.html">AOT and Native Image Support</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="configuration-properties.html">Configuration properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc.html">Spring Cloud Gateway Server Web MVC</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/starter.html">How to Include Spring Cloud Gateway Server Web MVC</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/glossary.html">Glossary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/how-it-works.html">How It Works</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/java-routes-api.html">Java Routes API</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/gateway-request-predicates.html">Gateway Request Predicates</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/gateway-handler-filter-functions.html">Gateway Handler Filter Functions</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/addrequestheader.html"><code>AddRequestHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/addrequestheadersifnotpresent.html"><code>AddRequestHeadersIfNotPresent</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/addrequestparameter.html"><code>AddRequestParameter</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/addresponseheader.html"><code>AddResponseHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/circuitbreaker-filter.html"><code>CircuitBreaker</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/deduperesponseheader.html"><code>DedupeResponseHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/fallback-headers.html"><code>FallbackHeaders</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/loadbalancer.html">LoadBalancer Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/maprequestheader.html"><code>MapRequestHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/modifyrequestbody.html"><code>ModifyRequestBody</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/modifyresponsebody.html"><code>ModifyResponseBody</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/prefixpath.html"><code>PrefixPath</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/preservehostheader.html"><code>PreserveHostHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/redirectto.html"><code>RedirectTo</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/removerequestheader.html"><code>RemoveRequestHeader</code> GatewayFilter Factory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/removerequestparameter.html"><code>RemoveRequestParameter</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/removeresponseheader.html"><code>RemoveResponseHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/requestheadersize.html"><code>RequestHeaderSize</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/ratelimiter.html">RateLimiter Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/rewritelocationresponseheader.html"><code>RewriteLocationResponseHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/rewritepath.html"><code>RewritePath</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/rewriteresponseheader.html"><code>RewriteResponseHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/setpath.html"><code>SetPath</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/setrequestheader.html"><code>SetRequestHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/setresponseheader.html"><code>SetResponseHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/setstatus.html"><code>SetStatus</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/stripcontextpath.html"><code>StripContextPath</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/stripprefix.html"><code>StripPrefix</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/retry.html"><code>Retry</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/requestsize.html"><code>RequestSize</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/setrequesthostheader.html"><code>SetRequestHostHeader</code> Filter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/filters/tokenrelay.html"><code>TokenRelay</code> Filter</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/httpheadersfilters.html">HttpHeadersFilters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/writing-custom-predicates-and-filters.html">Writing Custom Predicates and Filters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/working-with-servlets-and-filters.html">Working with Servlets and Servlet Filters</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../spring-cloud-gateway-server-webmvc/tls-and-ssl.html">TLS and SSL</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../spring-cloud-gateway-proxy-exchange.html">Proxy Exchange Gateway with Spring Web MVC or WebFlux</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../appendix.html">Common application properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Actuator API"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-gateway/docs/modules/ROOT/pages/spring-cloud-gateway-server-webflux/actuator-api.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-gateway" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Spring Cloud Gateway</a></li>
+      <li><a href="../spring-cloud-gateway-server-webflux.html">Spring Cloud Gateway Server WebFlux</a></li>
+      <li><a href="actuator-api.html">Actuator API</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Actuator API</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>/gateway</code> actuator endpoint lets you monitor and interact with a Spring Cloud Gateway application.
+The `/gateway' actuator endpoint has its access disabled by default.  To enable the endpoint you need to set the access to <a href="https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.controlling-access">'read-only' or 'unrestricted'</a> and <a href="https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.exposing">exposed it over HTTP or JMX</a> in the application properties.
+The following listing shows how to do so:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">management.endpoint.gateway.access=read-only
+management.endpoints.web.exposure.include=gateway</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+It is suggested that you set <code>management.endpoint.gateway.access</code> to <code>read-only</code>.  This will disable the ability
+to refresh, create, and delete routes.  If you need the ability to create, refresh, and delete routes using the actuator
+endpoint you need to set <code>management.endpoint.gateway.access</code> to <code>unrestricted</code> OR set <code>management.endpoint.gateway.enabled=true</code>.
+If you enable the ability to create, delete, and refresh routes via the actuator endpoint you should take the proper steps to
+make sure your actuator endpoints are <a href="https://docs.spring.io/spring-boot/reference/actuator/endpoints.html#actuator.endpoints.security">secured</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This endpoint provides an overview of what is available on the child actuator endpoint and the available methods for each reference. The resulting response is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+   {
+      "href":"/actuator/gateway/",
+      "methods":[ "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/routedefinitions",
+      "methods":[ "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/globalfilters",
+      "methods":[ "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/routefilters",
+      "methods":[ "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/routes",
+      "methods":[ "POST", "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/routepredicates",
+      "methods":[ "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/refresh",
+      "methods":[ "POST" ]
+   },
+   {
+      "href":"/actuator/gateway/routes/route-id-1/combinedfilters",
+      "methods":[ "GET" ]
+   },
+   {
+      "href":"/actuator/gateway/routes/route-id-1",
+      "methods":[ "POST", "DELETE", "GET" ]
+   }
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="verbose-actuator-format"><a class="anchor" href="#verbose-actuator-format"></a>Verbose Actuator Format</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A new, more verbose format has been added to Spring Cloud Gateway.
+It adds more detail to each route, letting you view the predicates and filters associated with each route along with any configuration that is available.
+The following example configures <code>/actuator/gateway/routes</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[
+  {
+    "predicate": "(Hosts: [**.addrequestheader.org] &amp;&amp; Paths: [/headers], match trailing slash: true)",
+    "route_id": "add_request_header_test",
+    "filters": [
+      "[[AddResponseHeader X-Response-Default-Foo = 'Default-Bar'], order = 1]",
+      "[[AddRequestHeader X-Request-Foo = 'Bar'], order = 1]",
+      "[[PrefixPath prefix = '/httpbin'], order = 2]"
+    ],
+    "uri": "lb://testservice",
+    "order": 0
+  }
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This feature is enabled by default. To disable it, set the following property:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">spring.cloud.gateway.server.webflux.actuator.verbose.enabled=false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will default to <code>true</code> in a future release.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="retrieving-route-filters"><a class="anchor" href="#retrieving-route-filters"></a>Retrieving Route Filters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section details how to retrieve route filters, including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#gateway-global-filters">Global Filters</a></p>
+</li>
+<li>
+<p><a href="#gateway-route-filters">Route Filters</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="gateway-global-filters"><a class="anchor" href="#gateway-global-filters"></a>Global Filters</h3>
+<div class="paragraph">
+<p>To retrieve the <a href="global-filters.html" class="xref page">global filters</a> applied to all routes, make a <code>GET</code> request to <code>/actuator/gateway/globalfilters</code>. The resulting response is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter@77856cc5": 10100,
+  "org.springframework.cloud.gateway.filter.RouteToRequestUrlFilter@4f6fd101": 10000,
+  "org.springframework.cloud.gateway.filter.NettyWriteResponseFilter@32d22650": -1,
+  "org.springframework.cloud.gateway.filter.ForwardRoutingFilter@106459d9": 2147483647,
+  "org.springframework.cloud.gateway.filter.NettyRoutingFilter@1fbd5e0": 2147483647,
+  "org.springframework.cloud.gateway.filter.ForwardPathFilter@33a71d23": 0,
+  "org.springframework.cloud.gateway.filter.AdaptCachedBodyGlobalFilter@135064ea": 2147483637,
+  "org.springframework.cloud.gateway.filter.WebsocketRoutingFilter@23c05889": 2147483646
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The response contains the details of the global filters that are in place.
+For each global filter, there is a string representation of the filter object (for example, <code>org.springframework.cloud.gateway.filter.ReactiveLoadBalancerClientFilter@77856cc5</code>) and the corresponding <a href="global-filters.html#gateway-combined-global-filter-and-gatewayfilter-ordering" class="xref page">order</a> in the filter chain.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gateway-route-filters"><a class="anchor" href="#gateway-route-filters"></a>Route Filters</h3>
+<div class="paragraph">
+<p>To retrieve the <a href="gatewayfilter-factories.html" class="xref page"><code>GatewayFilter</code> factories</a> applied to routes, make a <code>GET</code> request to <code>/actuator/gateway/routefilters</code>.
+The resulting response is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "[AddRequestHeaderGatewayFilterFactory@570ed9c configClass = AbstractNameValueGatewayFilterFactory.NameValueConfig]": null,
+  "[SecureHeadersGatewayFilterFactory@fceab5d configClass = Object]": null,
+  "[SaveSessionGatewayFilterFactory@4449b273 configClass = Object]": null
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The response contains the details of the <code>GatewayFilter</code> factories applied to any particular route.
+For each factory there is a string representation of the corresponding object (for example, <code>[SecureHeadersGatewayFilterFactory@fceab5d configClass = Object]</code>).
+Note that the <code>null</code> value is due to an incomplete implementation of the endpoint controller, because it tries to set the order of the object in the filter chain, which does not apply to a <code>GatewayFilter</code> factory object.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="refreshing-the-route-cache"><a class="anchor" href="#refreshing-the-route-cache"></a>Refreshing the Route Cache</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To clear the routes cache, make a <code>POST</code> request to <code>/actuator/gateway/refresh</code>.
+The request returns a 200 without a response body.</p>
+</div>
+<div class="paragraph">
+<p>To clear the routes with specific metadata values, add the Query parameter <code>metadata</code> specifying the <code>key:value</code> pairs that the routes to be cleared should match.
+If an error is produced during the asynchronous refresh, the refresh will not modify the existing routes.</p>
+</div>
+<div class="paragraph">
+<p>Sending <code>POST</code> request to <code>/actuator/gateway/refresh?metadata=group:group-1</code> will only refresh the routes whose <code>group</code> metadata is <code>group-1</code>: <code>first_route</code> and <code>third_route</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">[{
+  "route_id": "first_route",
+  "route_object": {
+    "predicate": "...",
+  },
+  "metadata": { "group": "group-1" }
+},
+{
+  "route_id": "second_route",
+  "route_object": {
+    "predicate": "...",
+  },
+  "metadata": { "group": "group-2" }
+},
+{
+  "route_id": "third_route",
+  "route_object": {
+    "predicate": "...",
+  },
+  "metadata": { "group": "group-1" }
+}]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="retrieving-the-routes-defined-in-the-gateway"><a class="anchor" href="#retrieving-the-routes-defined-in-the-gateway"></a>Retrieving the Routes Defined in the Gateway</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To retrieve the routes defined in the gateway, make a <code>GET</code> request to <code>/actuator/gateway/routes</code>.
+The resulting response is similar to the following (verbose format, which is the default):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[{
+  "predicate": "Paths: [/first], match trailing slash: true",
+  "route_id": "first_route",
+  "filters": [
+    "[[PreserveHostHeader], order = 0]"
+  ],
+  "uri": "https://www.uri-destination.org",
+  "order": 0
+},
+{
+  "predicate": "Paths: [/second], match trailing slash: true",
+  "route_id": "second_route",
+  "filters": [],
+  "uri": "https://www.uri-destination.org",
+  "order": 0
+}]</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When <code>spring.cloud.gateway.server.webflux.actuator.verbose.enabled=false</code>, predicates and filters are shown as raw Java class strings instead of human-readable descriptions.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The response contains the details of all the routes defined in the gateway.
+The following table describes the structure of each element (each is a route) of the response:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 22.2222%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>route_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The route ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>predicate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable string representation of the route predicates (verbose format).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>filters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <a href="gatewayfilter-factories.html" class="xref page"><code>GatewayFilter</code> factories</a> applied to the route.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The destination URI of the route.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The route order.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gateway-retrieving-information-about-a-particular-route"><a class="anchor" href="#gateway-retrieving-information-about-a-particular-route"></a>Retrieving Information about a Particular Route</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To retrieve information about a single route, make a <code>GET</code> request to <code>/actuator/gateway/routes/{id}</code> (for example, <code>/actuator/gateway/routes/first_route</code>).
+The resulting response is similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "route_id": "first_route",
+  "predicate": "(Paths: [/first], match trailing slash: true)",
+  "filters": [],
+  "uri": "https://www.uri-destination.org",
+  "order": 0
+}</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The response format for <code>GET /actuator/gateway/routes/{id}</code> represents predicates as a single human-readable string. This is different from the shortcut DSL string format required when creating routes via <code>POST</code>. See <a href="#creating-and-deleting-a-particular-route-definition">Creating and Deleting a Particular Route Definition</a> for the correct POST request body format.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following table describes the structure of the response:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 22.2222%;">
+<col style="width: 44.4445%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>route_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The route ID.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>predicate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable string representation of the route predicates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>filters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The collection of filters applied to the route.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uri</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The destination URI of the route.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>order</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The route order.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-and-deleting-a-particular-route-definition"><a class="anchor" href="#creating-and-deleting-a-particular-route-definition"></a>Creating and Deleting a Particular Route Definition</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Only routes created through the actuator endpoint can be modified or deleted via these endpoints.
+Routes defined in application configuration (for example, <code>application.yml</code> or via <code>@Bean</code>) are read-only from the actuator&#8217;s perspective.
+Attempting to delete a configuration-defined route will return <code>404 Not Found</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To create a route definition, make a <code>POST</code> request to <code>/actuator/gateway/routes/{id_route_to_create}</code> with a JSON body specifying the route fields.
+Predicates and filters must be provided as shortcut DSL strings (for example, <code>"Path=/foo/**"</code> or <code>"StripPrefix=1"</code>), which is different from the structured format returned by <code>GET /actuator/gateway/routes/{id}</code>.
+The following example shows the correct request format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+  "predicates": ["Path=/mypath/**", "Weight=mygroup,20"],
+  "filters": ["StripPrefix=1"],
+  "uri": "http://backend-service:8080",
+  "order": 0
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A successful creation returns <code>201 Created</code>.
+After creating a route, call <code>POST /actuator/gateway/refresh</code> to apply the change without restarting the application.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Do <strong>not</strong> <code>POST</code> to an existing route ID without first deleting it.
+Doing so duplicates the route definition internally, which causes a <code>500 Internal Server Error</code> on subsequent <code>GET /actuator/gateway/routes</code> requests.
+To update an existing actuator-managed route, you must delete it first and then recreate it:
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Send <code>DELETE</code> to <code>/actuator/gateway/routes/{id}</code>.</p>
+</li>
+<li>
+<p>Send <code>POST</code> to <code>/actuator/gateway/routes/{id}</code> with the updated definition.</p>
+</li>
+<li>
+<p>Send <code>POST</code> to <code>/actuator/gateway/refresh</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To delete a route definition, make a <code>DELETE</code> request to <code>/actuator/gateway/routes/{id_route_to_delete}</code>.
+A successful deletion returns <code>200 OK</code>.
+After deleting a route, call <code>POST /actuator/gateway/refresh</code> to apply the change without restarting the application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-multiple-route-definitions"><a class="anchor" href="#creating-multiple-route-definitions"></a>Creating multiple Route Definitions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To create multiple route definitions in a single request, make a <code>POST</code> request to <code>/gateway/routes</code> with a JSON body that specifies the fields of the route, including the route id (see <a href="#gateway-retrieving-information-about-a-particular-route">Retrieving Information about a Particular Route</a>).</p>
+</div>
+<div class="paragraph">
+<p>The route definitions will be discarded if any route raises an error during the creation of the routes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="recap:-the-list-of-all-endpoints"><a class="anchor" href="#recap:-the-list-of-all-endpoints"></a>Recap: The List of All endpoints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following table below summarizes the Spring Cloud Gateway actuator endpoints (note that each endpoint has <code>/actuator/gateway</code> as the base-path):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 22.2222%;">
+<col style="width: 22.2222%;">
+<col style="width: 55.5556%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ID</th>
+<th class="tableblock halign-left valign-top">HTTP Method</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>globalfilters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the list of global filters applied to the routes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>routefilters</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the list of <code>GatewayFilter</code> factories applied to a particular route.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refresh</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clears the routes cache.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>routes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays the list of routes defined in the gateway.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>routes/{id}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Displays information about a particular route.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>routes/{id}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds a new route to the gateway. Uses shortcut DSL string format for predicates and filters. Returns <code>201 Created</code> on success.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>routes/{id}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Removes an existing route from the gateway. Routes defined in application configuration cannot be removed via this endpoint (returns <code>404 Not Found</code>).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="cors-configuration.html">CORS Configuration</a></span>
+  <span class="next"><a href="sharing-routes.html">Sharing Routes between multiple Gateway instances</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">Spring Cloud Gateway</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-gateway"></script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:23:25.526Z",
+  "url": "https://docs.spring.io/spring-cloud-consul/reference",
+  "components": {
+    "cloud-consul": {
+      "title": "Spring Cloud Consul",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Consul"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "bus.adoc",
+              "url": "/bus.html",
+              "title": "Spring Cloud Bus with Consul"
+            },
+            {
+              "path": "config.adoc",
+              "url": "/config.html",
+              "title": "Distributed Configuration with Consul"
+            },
+            {
+              "path": "discovery.adoc",
+              "url": "/discovery.html",
+              "title": "Service Discovery with Consul"
+            },
+            {
+              "path": "install.adoc",
+              "url": "/install.html",
+              "title": "Install Consul"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Spring Cloud Consul"
+            },
+            {
+              "path": "quickstart.adoc",
+              "url": "/quickstart.html",
+              "title": "Quick Start"
+            },
+            {
+              "path": "retry.adoc",
+              "url": "/retry.html",
+              "title": "Consul Retry"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

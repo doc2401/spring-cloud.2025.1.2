@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Spring Cloud LoadBalancer :: Spring Cloud Commons</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/loadbalancer.html">
+    <link rel="prev" href="common-abstractions.html">
+    <link rel="next" href="cachedrandompropertysource.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-commons">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-commons" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring Cloud Commons</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../index.html">Cloud Native Applications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="application-context-services.html">Spring Cloud Context: Application Context Services</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="common-abstractions.html">Spring Cloud Commons: Common Abstractions</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="loadbalancer.html">Spring Cloud LoadBalancer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="cachedrandompropertysource.html">CachedRandomPropertySource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="security.html">Security</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../spring-cloud-circuitbreaker.html">Spring Cloud Circuit Breaker</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../appendix.html">Common application properties</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../configprops.html">Configuration Properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Spring Cloud LoadBalancer"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-commons/docs/modules/ROOT/pages/spring-cloud-commons/loadbalancer.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-commons" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Spring Cloud Commons</a></li>
+      <li><a href="../index.html">Cloud Native Applications</a></li>
+      <li><a href="loadbalancer.html">Spring Cloud LoadBalancer</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Spring Cloud LoadBalancer</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud provides its own client-side load-balancer abstraction and implementation. For the load-balancing
+mechanism, <code>ReactiveLoadBalancer</code> interface has been added and a <strong>Round-Robin-based</strong> and <strong>Random</strong> implementations
+have been provided for it. In order to get instances to select from reactive <code>ServiceInstanceListSupplier</code>
+is used. Currently we support a service-discovery-based implementation of <code>ServiceInstanceListSupplier</code>
+that retrieves available instances from Service Discovery using a <a href="common-abstractions.html#discovery-client" class="xref page">Discovery Client</a> available in the classpath.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is possible to disable Spring Cloud LoadBalancer by setting the value of <code>spring.cloud.loadbalancer.enabled</code> to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="eager-loading-of-loadbalancer-contexts"><a class="anchor" href="#eager-loading-of-loadbalancer-contexts"></a>Eager loading of LoadBalancer contexts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud LoadBalancer creates a separate Spring child context for each service id. By default, these contexts are initialised lazily, whenever the first request for a service id is being load-balanced.</p>
+</div>
+<div class="paragraph">
+<p>You can choose to load those contexts eagerly. In order to do that, specify the service ids for which you want to do eager load using the <code>spring.cloud.loadbalancer.eager-load.clients</code> property, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud-loadbalancer.eager-load.clients[0]=my-first-client
+spring.cloud-loadbalancer.eager-load.clients[1]=my-second-client</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="switching-between-the-load-balancing-algorithms"><a class="anchor" href="#switching-between-the-load-balancing-algorithms"></a>Switching between the load-balancing algorithms</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>ReactiveLoadBalancer</code> implementation that is used by default is <code>RoundRobinLoadBalancer</code>. To switch to a different implementation, either for selected services or all of them, you can use the <a href="#custom-loadbalancer-configuration">custom LoadBalancer configurations mechanism</a>.</p>
+</div>
+<div class="paragraph">
+<p>For example, the following configuration can be passed via <code>@LoadBalancerClient</code> annotation to switch to using the <code>RandomLoadBalancer</code>:</p>
+</div>
+<div id="random-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	ReactorLoadBalancer&lt;ServiceInstance&gt; randomLoadBalancer(Environment environment,
+			LoadBalancerClientFactory loadBalancerClientFactory) {
+		String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
+		return new RandomLoadBalancer(loadBalancerClientFactory
+				.getLazyProvider(name, ServiceInstanceListSupplier.class),
+				name);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The classes you pass as <code>@LoadBalancerClient</code> or <code>@LoadBalancerClients</code> configuration arguments should either not be annotated with <code>@Configuration</code> or be outside component scan scope.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-loadbalancer-integrations"><a class="anchor" href="#spring-cloud-loadbalancer-integrations"></a>Spring Cloud LoadBalancer integrations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To make it easy to use Spring Cloud LoadBalancer, we provide <code>ReactorLoadBalancerExchangeFilterFunction</code> (which can be used with <code>WebClient</code>) and <code>BlockingLoadBalancerClient</code> (which works with <code>RestTemplate</code> and <code>RestClient</code>).
+You can see more information and examples of usage in the following sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="common-abstractions.html#rest-template-loadbalancer-client" class="xref page">Spring <code>RestTemplate</code> as a LoadBalancer Client</a></p>
+</li>
+<li>
+<p><a href="common-abstractions.html#rest-client-loadbalancer-client" class="xref page">Spring <code>RestClient</code> as a LoadBalancer Client</a></p>
+</li>
+<li>
+<p><a href="common-abstractions.html#webclinet-loadbalancer-client" class="xref page">Spring <code>WebClient</code> as a LoadBalancer Client</a></p>
+</li>
+<li>
+<p><a href="common-abstractions.html#webflux-with-reactive-loadbalancer" class="xref page">Spring <code>WebFlux WebClient</code> with <code>ReactorLoadBalancerExchangeFilterFunction</code></a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loadbalancer-caching"><a class="anchor" href="#loadbalancer-caching"></a>Spring Cloud LoadBalancer Caching</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Apart from the basic <code>ServiceInstanceListSupplier</code> implementation that retrieves instances via <code>DiscoveryClient</code> each time it has to choose an instance, we provide two caching implementations.</p>
+</div>
+<div class="sect2">
+<h3 id="caffeine-backed-loadbalancer-cache-implementation"><a class="anchor" href="#caffeine-backed-loadbalancer-cache-implementation"></a><a href="https://github.com/ben-manes/caffeine">Caffeine</a>-backed LoadBalancer Cache Implementation</h3>
+<div class="paragraph">
+<p>If you have <code>com.github.ben-manes.caffeine:caffeine</code> in the classpath, Caffeine-based implementation will be used.
+See the <a href="#loadbalancer-cache-configuration">LoadBalancerCacheConfiguration</a> section for information on how to configure it.</p>
+</div>
+<div class="paragraph">
+<p>If you are using Caffeine, you can also override the default Caffeine Cache setup for the LoadBalancer by passing your own <a href="https://static.javadoc.io/com.github.ben-manes.caffeine/caffeine/2.2.2/com/github/benmanes/caffeine/cache/CaffeineSpec.html">Caffeine Specification</a>
+in the <code>spring.cloud.loadbalancer.cache.caffeine.spec</code> property.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Passing your own Caffeine specification will override any other LoadBalancerCache settings, including <a href="#loadbalancer-cache-configuration">General LoadBalancer Cache Configuration</a> fields, such as <code>ttl</code> and <code>capacity</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="default-loadbalancer-cache-implementation"><a class="anchor" href="#default-loadbalancer-cache-implementation"></a>Default LoadBalancer Cache Implementation</h3>
+<div class="paragraph">
+<p>If you do not have Caffeine in the classpath, the <code>DefaultLoadBalancerCache</code>, which comes automatically with <code>spring-cloud-starter-loadbalancer</code>, will be used.
+See the <a href="#loadbalancer-cache-configuration">LoadBalancerCacheConfiguration</a> section for information on how to configure it.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+To use Caffeine instead of the default cache, add the <code>com.github.ben-manes.caffeine:caffeine</code> dependency to classpath.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="loadbalancer-cache-configuration"><a class="anchor" href="#loadbalancer-cache-configuration"></a>LoadBalancer Cache Configuration</h3>
+<div class="paragraph">
+<p>You can set your own <code>ttl</code> value (the time after write after which entries should be expired), expressed as <code>Duration</code>, by passing a <code>String</code> compliant with the <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-conversion-duration">Spring Boot <code>String</code> to <code>Duration</code> converter syntax</a>.
+as the value of the <code>spring.cloud.loadbalancer.cache.ttl</code> property.
+You can also set your own LoadBalancer cache initial capacity by setting the value of the <code>spring.cloud.loadbalancer.cache.capacity</code> property.</p>
+</div>
+<div class="paragraph">
+<p>The default setup includes <code>ttl</code> set to 35 seconds and the default <code>initialCapacity</code> is <code>256</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can also altogether disable loadBalancer caching by setting the value of <code>spring.cloud.loadbalancer.cache.enabled</code>
+to <code>false</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Although the basic, non-cached, implementation is useful for prototyping and testing, it&#8217;s much less efficient than the cached versions, so we recommend always using the cached version in production. If the caching is already done by the <code>DiscoveryClient</code> implementation, for example <code>EurekaDiscoveryClient</code>, the load-balancer caching should be disabled to prevent double caching.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When you create your own configuration, if you use <code>CachingServiceInstanceListSupplier</code> make sure to place it in the hierarchy directly after the supplier that retrieves the instances over the network, for example, <code>DiscoveryClientServiceInstanceListSupplier</code>, before any other filtering suppliers.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="weighted-load-balancing"><a class="anchor" href="#weighted-load-balancing"></a>Weighted Load-Balancing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To enable weighted load-balancing, we provide the <code>WeightedServiceInstanceListSupplier</code>. We use <code>WeightFunction</code> to calculate the weight of each instance.
+By default, we try to read and parse the weight from the metadata map (the key is <code>weight</code>).</p>
+</div>
+<div class="paragraph">
+<p>If the weight is not specified in the metadata map, we default the weight of this instance to be 1.</p>
+</div>
+<div class="paragraph">
+<p>You can configure it either by setting the value of <code>spring.cloud.loadbalancer.configurations</code> to <code>weighted</code> or by providing your own <code>ServiceInstanceListSupplier</code> bean, for example:</p>
+</div>
+<div id="weighted-custom-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+					.withCaching()
+					.withWeighted()
+					.build(context);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can also customize the weight calculation logic by providing <code>WeightFunction</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can use this sample configuration to make all instances have a random weight:</p>
+</div>
+<div id="random-weight-weighted-custom-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+					.withCaching()
+					.withWeighted(instance -&gt; ThreadLocalRandom.current().nextInt(1, 101))
+					.build(context);
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="zone-based-load-balancing"><a class="anchor" href="#zone-based-load-balancing"></a>Zone-Based Load-Balancing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To enable zone-based load-balancing, we provide the <code>ZonePreferenceServiceInstanceListSupplier</code>.
+We use <code>DiscoveryClient</code>-specific <code>zone</code> configuration (for example, <code>eureka.instance.metadata-map.zone</code>) to pick the zone that the client tries to filter available service instances for.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You can also override <code>DiscoveryClient</code>-specific zone setup by setting the value of <code>spring.cloud.loadbalancer.zone</code> property.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+For the time being, only Eureka Discovery Client is instrumented to set the LoadBalancer zone. For other discovery client, set the <code>spring.cloud.loadbalancer.zone</code> property. More instrumentations coming shortly.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To determine the zone of a retrieved <code>ServiceInstance</code>, we check the value under the <code>"zone"</code> key in its metadata map.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>ZonePreferenceServiceInstanceListSupplier</code> filters retrieved instances and only returns the ones within the same zone.
+If the zone is <code>null</code> or there are no instances within the same zone, it returns all the retrieved instances.</p>
+</div>
+<div class="paragraph">
+<p>In order to use the zone-based load-balancing approach, you will have to instantiate a <code>ZonePreferenceServiceInstanceListSupplier</code> bean in a <a href="#custom-loadbalancer-configuration">custom configuration</a>.</p>
+</div>
+<div class="paragraph">
+<p>We use delegates to work with <code>ServiceInstanceListSupplier</code> beans.
+We suggest using a <code>DiscoveryClientServiceInstanceListSupplier</code> delegate, wrapping it with a <code>CachingServiceInstanceListSupplier</code> to leverage <a href="#loadbalancer-caching">LoadBalancer caching mechanism</a>, and then passing the resulting bean in the constructor of <code>ZonePreferenceServiceInstanceListSupplier</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can use this sample configuration to set it up:</p>
+</div>
+<div id="zoned-based-custom-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+                    .withCaching()
+					.withZonePreference()
+					.build(context);
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instance-health-check-for-loadbalancer"><a class="anchor" href="#instance-health-check-for-loadbalancer"></a>Instance Health-Check for LoadBalancer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is possible to enable a scheduled HealthCheck for the LoadBalancer. The <code>HealthCheckServiceInstanceListSupplier</code>
+is provided for that. It regularly verifies if the instances provided by a delegate
+<code>ServiceInstanceListSupplier</code> are still alive and only returns the healthy instances,
+unless there are none - then it returns all the retrieved instances.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This mechanism is particularly helpful while using the <code>SimpleDiscoveryClient</code>. For the
+clients backed by an actual Service Registry, it&#8217;s not necessary to use, as we already get
+healthy instances after querying the external ServiceDiscovery.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This supplier is also recommended for setups with a small number of instances per service
+in order to avoid retrying calls on a failing instance.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If using any of the Service Discovery-backed suppliers, adding this health-check mechanism is usually not necessary, as we retrieve the health state of the instances directly
+from the Service Registry.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>HealthCheckServiceInstanceListSupplier</code> relies on having updated instances provided by a delegate flux. In the rare cases when you want to use a delegate that does not refresh the instances, even though the list of instances may change (such as the <code>DiscoveryClientServiceInstanceListSupplier</code> provided by us), you can set <code>spring.cloud.loadbalancer.health-check.refetch-instances</code> to <code>true</code> to have the instance list refreshed by the <code>HealthCheckServiceInstanceListSupplier</code>. You can then also adjust the refretch intervals by modifying the value of <code>spring.cloud.loadbalancer.health-check.refetch-instances-interval</code> and opt to disable the additional healthcheck repetitions by setting <code>spring.cloud.loadbalancer.health-check.repeat-health-check</code> to <code>false</code> as every instances refetch
+will also trigger a healthcheck.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>HealthCheckServiceInstanceListSupplier</code> uses properties prefixed with
+<code>spring.cloud.loadbalancer.health-check</code>. You can set the <code>initialDelay</code> and <code>interval</code>
+for the scheduler. You can set the default path for the healthcheck URL by setting
+the value of the <code>spring.cloud.loadbalancer.health-check.path.default</code> property. You can also set a specific value for any given service by setting the value of the <code>spring.cloud.loadbalancer.health-check.path.[SERVICE_ID]</code> property, substituting <code>[SERVICE_ID]</code> with the correct ID of your service. If the <code>[SERVICE_ID]</code> is not specified, <code>/actuator/health</code> is used by default.  If the <code>[SERVICE_ID]</code> is set to <code>null</code> or empty as a value, then the health check will not be executed. You can also set a custom port for health-check requests by setting the value of <code>spring.cloud.loadbalancer.health-check.port</code>. If none is set, the port under which the requested service is available at the service instance.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you rely on the default path (<code>/actuator/health</code>), make sure you add <code>spring-boot-starter-actuator</code> to your collaborator&#8217;s dependencies, unless you are planning to add such an endpoint on your own.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default, the <code>healthCheckFlux</code> will emit on each alive <code>ServiceInstance</code> that has been retrieved. You can modify this behaviour by setting the value of <code>spring.cloud.loadbalancer.health-check.update-results-list</code> to <code>false</code>. If this property is set to <code>false</code>, the entire alive instances sequence is first collected into a list and only then emitted, which ensures the flux does not emit values in between the health-check intervals set in properties.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In order to use the health-check scheduler approach, you will have to instantiate a <code>HealthCheckServiceInstanceListSupplier</code> bean in a <a href="#custom-loadbalancer-configuration">custom configuration</a>.</p>
+</div>
+<div class="paragraph">
+<p>We use delegates to work with <code>ServiceInstanceListSupplier</code> beans.
+We suggest passing a <code>DiscoveryClientServiceInstanceListSupplier</code> delegate in the constructor of <code>HealthCheckServiceInstanceListSupplier</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can use this sample configuration to set it up:</p>
+</div>
+<div id="health-check-based-custom-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+					.withHealthChecks()
+					.build(context);
+	    }
+	}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For the non-reactive stack, create this supplier with the <code>withBlockingHealthChecks()</code>.
+You can also pass your own <code>WebClient</code>, <code>RestTemplate</code> or <code>RestClient</code> instance to be used for the checks.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<code>HealthCheckServiceInstanceListSupplier</code> has its own caching mechanism based on Reactor Flux <code>replay()</code>. Therefore, if it&#8217;s being used, you may want to skip wrapping that supplier with <code>CachingServiceInstanceListSupplier</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When you create your own configuration, <code>HealthCheckServiceInstanceListSupplier</code>, make sure to place it in the hierarchy directly after the supplier that retrieves the instances over the network, for example, <code>DiscoveryClientServiceInstanceListSupplier</code>, before any other filtering suppliers.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="same-instance-preference-for-loadbalancer"><a class="anchor" href="#same-instance-preference-for-loadbalancer"></a>Same instance preference for LoadBalancer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can set up the LoadBalancer in such a way that it prefers the instance that was previously selected, if that instance is available.</p>
+</div>
+<div class="paragraph">
+<p>For that, you need to use <code>SameInstancePreferenceServiceInstanceListSupplier</code>. You can configure it either by setting the value of <code>spring.cloud.loadbalancer.configurations</code> to <code>same-instance-preference</code> or by providing your own <code>ServiceInstanceListSupplier</code> bean&#8201;&#8212;&#8201;for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+					.withSameInstancePreference()
+					.build(context);
+	    }
+	}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This is also a replacement for Zookeeper <code>StickyRule</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="request-based-sticky-session-for-loadbalancer"><a class="anchor" href="#request-based-sticky-session-for-loadbalancer"></a>Request-based Sticky Session for LoadBalancer</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can set up the LoadBalancer in such a way that it prefers the instance with <code>instanceId</code> provided in a request cookie. We currently support this if the request is being passed to the LoadBalancer through either <code>ClientRequestContext</code> or <code>ServerHttpRequestContext</code>, which are used by the SC LoadBalancer exchange filter functions and filters.</p>
+</div>
+<div class="paragraph">
+<p>For that, you need to use the <code>RequestBasedStickySessionServiceInstanceListSupplier</code>. You can configure it either by setting the value of <code>spring.cloud.loadbalancer.configurations</code> to <code>request-based-sticky-session</code> or by providing your own <code>ServiceInstanceListSupplier</code> bean&#8201;&#8212;&#8201;for example:</p>
+</div>
+<div id="health-check-based-custom-loadbalancer-configuration-example" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+					.withRequestBasedStickySession()
+					.build(context);
+	    }
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For that functionality, it is useful to have the selected service instance (which can be different from the one in the original request cookie if that one is not available) to be updated before sending the request forward. To do that, set the value of <code>spring.cloud.loadbalancer.sticky-session.add-service-instance-cookie</code> to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, the name of the cookie is <code>sc-lb-instance-id</code>. You can modify it by changing the value of the <code>spring.cloud.loadbalancer.instance-id-cookie-name</code> property.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This feature is currently supported for WebClient-backed load-balancing.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-loadbalancer-hints"><a class="anchor" href="#spring-cloud-loadbalancer-hints"></a>Spring Cloud LoadBalancer Hints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud LoadBalancer lets you set <code>String</code> hints that are passed to the LoadBalancer within the <code>Request</code> object and that can later be used in <code>ReactiveLoadBalancer</code> implementations that can handle them.</p>
+</div>
+<div class="paragraph">
+<p>You can set a default hint for all services by setting the value of the <code>spring.cloud.loadbalancer.hint.default</code> property. You can also set a specific value
+for any given service by setting the value of the <code>spring.cloud.loadbalancer.hint.[SERVICE_ID]</code> property, substituting <code>[SERVICE_ID]</code> with the correct ID of your service. If the hint is not set by the user, <code>default</code> is used.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hints-based-loadbalancing"><a class="anchor" href="#hints-based-loadbalancing"></a>Hint-Based Load-Balancing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We also provide a <code>HintBasedServiceInstanceListSupplier</code>, which is a <code>ServiceInstanceListSupplier</code> implementation for hint-based instance selection.</p>
+</div>
+<div class="paragraph">
+<p><code>HintBasedServiceInstanceListSupplier</code> checks for a hint request header (the default header-name is <code>X-SC-LB-Hint</code>, but you can modify it by changing the value of the <code>spring.cloud.loadbalancer.hint-header-name</code> property) and, if it finds a hint request header, uses the hint value passed in the header  to filter service instances.</p>
+</div>
+<div class="paragraph">
+<p>If no hint header has been added, <code>HintBasedServiceInstanceListSupplier</code> uses <a href="#spring-cloud-loadbalancer-hints">hint values from properties</a> to filter service instances.</p>
+</div>
+<div class="paragraph">
+<p>If no hint is set, either by the header or by properties, all service instances provided by the delegate are returned.</p>
+</div>
+<div class="paragraph">
+<p>While filtering, <code>HintBasedServiceInstanceListSupplier</code> looks for service instances that have a matching value set under the <code>hint</code> key in their <code>metadataMap</code>. If no matching instances are found, all instances provided by the delegate are returned.</p>
+</div>
+<div class="paragraph">
+<p>You can use the following sample configuration to set it up:</p>
+</div>
+<div id="hints-based-custom-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+                    .withCaching()
+					.withHints()
+					.build(context);
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="transform-the-load-balanced-http-request"><a class="anchor" href="#transform-the-load-balanced-http-request"></a>Transform the load-balanced HTTP request</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use the selected <code>ServiceInstance</code> to transform the load-balanced HTTP Request.</p>
+</div>
+<div class="paragraph">
+<p>For <code>RestTemplate</code> and <code>RestClient</code>, you need to implement and define <code>LoadBalancerRequestTransformer</code> as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public LoadBalancerRequestTransformer transformer() {
+	return new LoadBalancerRequestTransformer() {
+		@Override
+		public HttpRequest transformRequest(HttpRequest request, ServiceInstance instance) {
+			return new HttpRequestWrapper(request) {
+				@Override
+				public HttpHeaders getHeaders() {
+					HttpHeaders headers = new HttpHeaders();
+					headers.putAll(super.getHeaders());
+					headers.add("X-InstanceId", instance.getInstanceId());
+					return headers;
+				}
+			};
+		}
+	};
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For <code>WebClient</code>, you need to implement and define <code>LoadBalancerClientRequestTransformer</code> as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public LoadBalancerClientRequestTransformer transformer() {
+	return new LoadBalancerClientRequestTransformer() {
+		@Override
+		public ClientRequest transformRequest(ClientRequest request, ServiceInstance instance) {
+			return ClientRequest.from(request)
+					.header("X-InstanceId", instance.getInstanceId())
+					.build();
+		}
+	};
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If multiple transformers are defined, they are applied in the order in which Beans are defined.
+Alternatively, you can use <code>LoadBalancerRequestTransformer.DEFAULT_ORDER</code> or <code>LoadBalancerClientRequestTransformer.DEFAULT_ORDER</code> to specify the order.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loadbalancer-subset"><a class="anchor" href="#loadbalancer-subset"></a>Spring Cloud LoadBalancer Subset</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>SubsetServiceInstanceListSupplier</code> implements a <a href="https://sre.google/sre-book/load-balancing-datacenter/">deterministic subsetting algorithm</a> to select a limited number of instances in the <code>ServiceInstanceListSupplier</code> delegates hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>You can configure it either by setting the value of <code>spring.cloud.loadbalancer.configurations</code> to <code>subset</code> or by providing your own <code>ServiceInstanceListSupplier</code> bean&#8201;&#8212;&#8201;for example:</p>
+</div>
+<div id="subset-custom-loadbalancer-configuration-example" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+					.withCaching()
+					.withSubset()
+					.build(context);
+	    }
+	}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default, each service instance is assigned a unique <code>instanceId</code>, and different <code>instanceId</code> values often select different subsets. Normally, you need not pay attention to it. However, if you need to have multiple instances select the same subset, you can set it with <code>spring.cloud.loadbalancer.subset.instance-id</code> (which supports placeholders).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+By default, the size of the subset is set to 100. You can also set it with <code>spring.cloud.loadbalancer.subset.size</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="api-version-based-load-balancing"><a class="anchor" href="#api-version-based-load-balancing"></a>API Version-Based Load-Balancing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To enable API version-based load-balancing, we provide the <code>BlockingApiVersionServiceInstanceListSupplier</code> and <code>ReactiveApiVersionServiceInstanceListSupplier</code>, that you can use depending on whether you client uses Spring <code>RestClient</code> or <code>WebClient</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can enable API versioning by setting <code>spring.cloud.loadbalancer.configurations</code> to <code>api-version</code> or by providing a <code>ServiceInstanceListSupplier</code> bean configured for API versioning for all or specific LoadBalancer <code>serviceIds</code>:</p>
+</div>
+<div id="api-version-based-custom-loadbalancer-configuration" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class CustomLoadBalancerConfiguration {
+
+	@Bean
+	public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+			ConfigurableApplicationContext context) {
+		return ServiceInstanceListSupplier.builder()
+					.withDiscoveryClient()
+                    .withCaching()
+					// Use withBlockingApiVersioning() for blocking clients
+					.withReactiveApiVersioning()
+					.build(context);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Under the hood, we use Spring Framework&#8217;s <a href="https://docs.spring.io/spring-framework/reference/7.0/web/webmvc-versioning.html#mvc-versioning-strategy">blocking</a> and <a href="https://docs.spring.io/spring-framework/reference/7.0/web/webflux-versioning.html#webflux-versioning-strategy">reactive</a> API versioning support. Please see the Framework documentation on how versions are parsed, compared, and matched based on request elements. One point in which the provided LoadBalancer API versioning strategies differ from the default one is we do not perform validation of the versions, instead allowing the users to pass any desired version.</p>
+</div>
+<div class="paragraph">
+<p>In order to use this feature, you need to specify the request elements that you need to retrieve the version from using <code>LoadBalancerProperties.ApiVersion</code>. Using the <code>spring.cloud.load-balancer.clients.&lt;serviceId&gt;.api-version</code> property prefix, you can specify a <code>header</code>, <code>queryParameter</code>, <code>pathSegment</code> or <code>mediaTypeParameters</code> to be used to pass the desired version in the request. You can also set the <code>defaultVersion</code> (used when no version passed in the request) and whether passing the API version is <code>required</code>.</p>
+</div>
+<div class="paragraph">
+<p>Once the API versioning feature has been enabled and a version has been provided through any of the request elements of through <code>defaultVersion</code>, we will look for service instances with matching <code>API_VERSION</code> set in their <code>metadata</code> map.</p>
+</div>
+<div class="paragraph">
+<p>If no service instance with matching version is found, an empty instance list will be returned. You can modify this behaviour by setting <code>spring.cloud.load-balancer.clients.&lt;serviceId&gt;.api-version.fallbackToAvailableInstances</code> to <code>true</code>, which will trigger returning all available instances if no instances matching by API version are found.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+We use delegates to work with <code>ServiceInstanceListSupplier</code> beans.
+We suggest using a <code>DiscoveryClientServiceInstanceListSupplier</code> delegate, wrapping it with a <code>CachingServiceInstanceListSupplier</code> to leverage <a href="#loadbalancer-caching">LoadBalancer caching mechanism</a>, and then passing the resulting bean in the constructor of <code>ReactiveApiVersionServiceInstanceListSupplier</code> or <code>BlockingApiVersionServiceInstanceListSupplier</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+By default, we use <code>org.springframework.web.accept.SemanticApiVersionParser</code> for version parsing. You can provide your own <code>ApiVersionParser</code> bean in the context to override it.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-loadbalancer-starter"><a class="anchor" href="#spring-cloud-loadbalancer-starter"></a>Spring Cloud LoadBalancer Starter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We also provide a starter that allows you to easily add Spring Cloud LoadBalancer in a Spring Boot app.
+In order to use it, just add <code>org.springframework.cloud:spring-cloud-starter-loadbalancer</code> to your Spring Cloud dependencies in your build file.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Spring Cloud LoadBalancer starter includes
+<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html">Spring Boot Caching</a>
+and <a href="https://github.com/stoyanr/Evictor">Evictor</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom-loadbalancer-configuration"><a class="anchor" href="#custom-loadbalancer-configuration"></a>Passing Your Own Spring Cloud LoadBalancer Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also use the <code>@LoadBalancerClient</code> annotation to pass your own load-balancer client configuration, passing the name of the load-balancer client and the configuration class, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+@LoadBalancerClient(value = "stores", configuration = CustomLoadBalancerConfiguration.class)
+public class MyConfiguration {
+
+	@Bean
+	@LoadBalanced
+	public WebClient.Builder loadBalancedWebClientBuilder() {
+		return WebClient.builder();
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In order to make working on your own LoadBalancer configuration easier, we have added a <code>builder()</code> method to the <code>ServiceInstanceListSupplier</code> class.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can also use our alternative predefined configurations in place of the default ones by setting the value of <code>spring.cloud.loadbalancer.configurations</code> property to <code>zone-preference</code> to use <code>ZonePreferenceServiceInstanceListSupplier</code> with caching or to <code>health-check</code> to use <code>HealthCheckServiceInstanceListSupplier</code> with caching.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can use this feature to instantiate different implementations of <code>ServiceInstanceListSupplier</code> or <code>ReactorLoadBalancer</code>, either written by you, or provided by us as alternatives (for example <code>ZonePreferenceServiceInstanceListSupplier</code>) to override the default setup.</p>
+</div>
+<div class="paragraph">
+<p>You can see an example of a custom configuration <a href="#zoned-based-custom-loadbalancer-configuration">here</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The annotation <code>value</code> arguments (<code>stores</code> in the example above) specifies the service id of the service that we should send the requests to with the given custom configuration.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can also pass multiple configurations (for more than one load-balancer client) through the <code>@LoadBalancerClients</code> annotation, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+@LoadBalancerClients({@LoadBalancerClient(value = "stores", configuration = StoresLoadBalancerClientConfiguration.class), @LoadBalancerClient(value = "customers", configuration = CustomersLoadBalancerClientConfiguration.class)})
+public class MyConfiguration {
+
+	@Bean
+	@LoadBalanced
+	public WebClient.Builder loadBalancedWebClientBuilder() {
+		return WebClient.builder();
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The classes you pass as <code>@LoadBalancerClient</code> or <code>@LoadBalancerClients</code> configuration arguments should either not be annotated with <code>@Configuration</code> or be outside component scan scope.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When you create your own configuration, if you use <code>CachingServiceInstanceListSupplier</code> or <code>HealthCheckServiceInstanceListSupplier</code>, makes sure to use one of them, not both, and make sure to place it in the hierarchy directly after the supplier that retrieves the instances over the network, for example, <code>DiscoveryClientServiceInstanceListSupplier</code>, before any other filtering suppliers.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loadbalancer-lifecycle"><a class="anchor" href="#loadbalancer-lifecycle"></a>Spring Cloud LoadBalancer Lifecycle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One type of bean that it may be useful to register using <a href="#custom-loadbalancer-configuration">Custom LoadBalancer configuration</a> is <code>LoadBalancerLifecycle</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>LoadBalancerLifecycle</code> beans provide callback methods, named <code>onStart(Request&lt;RC&gt; request)</code>, <code>onStartRequest(Request&lt;RC&gt; request, Response&lt;T&gt; lbResponse)</code> and <code>onComplete(CompletionContext&lt;RES, T, RC&gt; completionContext)</code>, that you should implement to specify what actions should take place before and after load-balancing.</p>
+</div>
+<div class="paragraph">
+<p><code>onStart(Request&lt;RC&gt; request)</code> takes a <code>Request</code> object as a parameter. It contains data that is used to select an appropriate instance, including the downstream client request and <a href="#spring-cloud-loadbalancer-hints">hint</a>. <code>onStartRequest</code> also takes the <code>Request</code> object and, additionally, the <code>Response&lt;T&gt;</code> object as parameters.  On the other hand, a <code>CompletionContext</code> object is provided to the <code>onComplete(CompletionContext&lt;RES, T, RC&gt; completionContext)</code> method. It contains the LoadBalancer <code>Response</code>, including the selected service instance, the <code>Status</code> of the request executed against that service instance and (if available) the response returned to the downstream client, and (if an exception has occurred) the corresponding <code>Throwable</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>supports(Class requestContextClass, Class responseClass,
+Class serverTypeClass)</code> method can be used to determine whether the processor in question handles objects of provided types. If not overridden by the user, it returns <code>true</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the preceding method calls, <code>RC</code> means <code>RequestContext</code> type, <code>RES</code> means client response type, and <code>T</code> means returned server type.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loadbalancer-micrometer-stats-lifecycle"><a class="anchor" href="#loadbalancer-micrometer-stats-lifecycle"></a>Spring Cloud LoadBalancer Statistics</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We provide a <code>LoadBalancerLifecycle</code> bean called <code>MicrometerStatsLoadBalancerLifecycle</code>, which uses Micrometer to provide statistics for load-balanced calls.</p>
+</div>
+<div class="paragraph">
+<p>In order to get this bean added to your application context,
+set the value of the <code>spring.cloud.loadbalancer.stats.micrometer.enabled</code> to <code>true</code> and have a <code>MeterRegistry</code> available (for example, by adding <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html">Spring Boot Actuator</a> to your project).</p>
+</div>
+<div class="paragraph">
+<p><code>MicrometerStatsLoadBalancerLifecycle</code> registers the following meters in <code>MeterRegistry</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>loadbalancer.requests.active</code>: A gauge that allows you to monitor the number of currently active requests for any service instance (service instance data available via tags);</p>
+</li>
+<li>
+<p><code>loadbalancer.requests.success</code>: A timer that measures the time of execution of any load-balanced requests that have ended in passing a response on to the underlying client;</p>
+</li>
+<li>
+<p><code>loadbalancer.requests.failed</code>: A timer that measures the time of execution of any load-balanced requests that have ended with an exception;</p>
+</li>
+<li>
+<p><code>loadbalancer.requests.discard</code>: A counter that measures the number of discarded load-balanced requests, i.e. requests where a service instance to run the request on has not been retrieved by the LoadBalancer.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Additional information regarding the service instances, request data, and response data is added to metrics via tags whenever available.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For <code>WebClient</code> and <code>RestClient</code>-backed load-balancing, we use <code>uriTemplate</code> for the <code>uri</code> tag whenever available.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is possible to disable adding <code>path</code> to <code>uri</code> tag by setting <code>spring.cloud.loadbalancer.stats.include-path</code> to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+As with <code>RestTemplate</code>-backed load-balancing, we don&#8217;t have access to <code>uriTemplate</code>, full path is always used in the <code>uri</code> tag. In order to avoid high cardinality issues, if path is a high cardinality value (for example, <code>/orders/{id}</code>, where <code>id</code> takes a big number of values), it is strongly recommended to disable adding path to <code>uri</code> tag by setting <code>spring.cloud.loadbalancer.stats.include-path</code> to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For some implementations, such as <code>BlockingLoadBalancerClient</code>, request and response data might not be available, as we establish generic types from arguments and might not be able to determine the types and read the data.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The meters are registered in the registry when at least one record is added for a given meter.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can further configure the behavior of those metrics (for example, add <a href="https://micrometer.io/docs/concepts#_histograms_and_percentiles">publishing percentiles and histograms</a>) by <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-metrics-per-meter-properties">adding <code>MeterFilters</code></a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring-individual-loadbalancerclients"><a class="anchor" href="#configuring-individual-loadbalancerclients"></a>Configuring Individual LoadBalancerClients</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Individual Loadbalancer clients may be configured individually with a different prefix <code>spring.cloud.loadbalancer.clients.&lt;clientId&gt;.<strong></code> where <code>clientId</code> is the name of the loadbalancer. Default configuration values may be set in the <code>spring.cloud.loadbalancer.</strong></code> namespace and will be merged with the client specific values taking precedence</p>
+</div>
+<div class="listingblock">
+<div class="title">application.yml</div>
+<div class="content">
+<pre>spring:
+  cloud:
+    loadbalancer:
+      health-check:
+        initial-delay: 1s
+      clients:
+        myclient:
+          health-check:
+            interval: 30s</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example will result in a merged health-check <code>@ConfigurationProperties</code> object with <code>initial-delay=1s</code> and <code>interval=30s</code>.</p>
+</div>
+<div class="paragraph">
+<p>The per-client configuration properties work for most of the properties, apart from the following global ones:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>spring.cloud.loadbalancer.enabled</code> - globally enables or disables load-balancing</p>
+</li>
+<li>
+<p><code>spring.cloud.loadbalancer.retry.enabled</code> - globally enables or disables load-balanced retries. If you enable it globally, you can still disable retries for specific clients using the <code>client</code>-prefixed properties, but not the other way round</p>
+</li>
+<li>
+<p><code>spring.cloud.loadbalancer.cache.enabled</code> - globally enables or disables LoadBalancer caching. If you enable it globally, you can still disable caching for specific clients by creating a <a href="#custom-loadbalancer-configuration">custom configuration</a> that does not include the <code>CachingServiceInstanceListSupplier</code> in the <code>ServiceInstanceListSupplier</code> delegates hierarchy, but not the other way round.</p>
+</li>
+<li>
+<p><code>spring.cloud.loadbalancer.stats.micrometer.enabled</code> - globally enables or disables LoadBalancer Micrometer metrics</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For the properties where maps where already used, where you can specify a different value per-client without using the <code>clients</code> keyword (for example, <code>hints</code>, <code>health-check.path</code>), we have kept that behaviour in order to keep the library backwards compatible. It will be modified in the next major release.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Starting with <code>4.1.0</code>, we have introduced the <code>callGetWithRequestOnDelegates</code> flag in <code>LoadBalancerProperties</code>. If this flag is set to <code>true</code>, <code>ServiceInstanceListSupplier#get(Request request)</code> method will be implemented to call <code>delegate.get(request)</code> in classes assignable from <code>DelegatingServiceInstanceListSupplier</code> that don&#8217;t already implement that method, with the exclusion of <code>CachingServiceInstanceListSupplier</code> and <code>HealthCheckServiceInstanceListSupplier</code>, which should be placed in the instance supplier hierarchy directly after the supplier performing instance retrieval over the network, before any request-based filtering is done. It is set to <code>true</code> by default.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="aot-and-native-image-support"><a class="anchor" href="#aot-and-native-image-support"></a>AOT and Native Image Support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since <code>4.0.0</code>, Spring Cloud LoadBalancer supports Spring AOT transformations and native images. However, to use this feature, you need to explicitly define your <code>LoadBalancerClient</code> service IDs. You can do so by using the <code>value</code> or <code>name</code> attributes of the <code>@LoadBalancerClient</code> annotation or as values of the <code>spring.cloud.loadbalancer.eager-load.clients</code> property.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_loadbalancer_integration_for_spring_http_service_clients_autoconfiguration"><a class="anchor" href="#_loadbalancer_integration_for_spring_http_service_clients_autoconfiguration"></a>LoadBalancer Integration for Spring HTTP Service Clients AutoConfiguration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since <code>5.0.0</code>, Spring Cloud LoadBalancer supports <a href="https://docs.spring.io/spring-framework/reference/7.0-SNAPSHOT/integration/rest-clients.html#rest-http-service-client">Spring HTTP Service Clients</a> AutoConfiguration through the <code>LoadBalancerRestClientHttpServiceGroupConfigurer</code> and <code>LoadBalancerWebClientHttpServiceGroupConfigurer</code>.</p>
+</div>
+<div class="paragraph">
+<p>For each HTTP Service Client group, if the group <code>baseUrl</code> (defined under the
+<code>spring.http.serviceclient.[groupName].base-url</code> property) is <code>null</code>, a <code>serviceId</code>-based URL for load-balancing is set up as the <code>baseUrl</code>, with <code>serviceId</code> resolved from the HTTP Service Client <code>groupName</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the group <code>baseUrl</code> is <code>null</code> or its scheme is set to <code>lb</code>, a
+<code>DeferringLoadBalancerInterceptor</code> instance is picked from the application context for blocking scenarios, and a <code>DeferringLoadBalancerExchangeFilterFunction</code> instance for reactive scenarios, and is added to the group&#8217;s <code>RestClient.Builder</code> or <code>WebClient.Builder</code> if available, allowing for the requests to be load-balanced.</p>
+</div>
+<div class="paragraph">
+<p>For example, in an app with the following HTTP Service Clients configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@ImportHttpServices(group = "verificationClient", types = {VerificationService.class,
+		PersonService.class})
+public class HttpVerificationClientApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HttpVerificationClientApplication.class, args);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the <code>spring.http.serviceclient.verificationClient.base-url</code> property is not set, it will be automatically set to <code><a href="http://verificationClient" class="bare">verificationClient</a></code>.
+The default scheme (<code>http</code>) is used initially; however, if a secure <code>ServiceInstance</code> is selected through load-balancing, it will be changed to <code>https</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>spring.http.serviceclient.verificationClient.base-url</code> property is set to a URL that has the <code>lb</code> scheme, (for example, <code>lb://verificationClient/path</code>), it will be used with <code>http</code> being initially set as the default scheme.
+If a secure <code>ServiceInstance</code> is selected through load-balancing, the scheme will be changed to <code>https</code>.
+In both of these cases, either a <code>DeferringLoadBalancerInterceptor</code> or <code>DeferringLoadBalancerExchangeFilterFunction</code> will be added to the group&#8217;s client builder, enabling the requests to be load-balanced.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>spring.http.serviceclient.verificationClient.base-url</code> property is set to a URL that does not have the scheme set to <code>lb</code>, (for example, <code><a href="http://verificationClient/path" class="bare">verificationClient/path</a></code>), no load-balancer integration will be applied.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="common-abstractions.html">Spring Cloud Commons: Common Abstractions</a></span>
+  <span class="next"><a href="cachedrandompropertysource.html">CachedRandomPropertySource</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">Spring Cloud Commons</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-commons"></script>
+  </body>
+</html>

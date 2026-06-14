@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Producing and Consuming Messages :: Spring Cloud Stream</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-stream/reference/spring-cloud-stream/producing-and-consuming-messages.html">
+    <link rel="prev" href="binding_visualization_control.html">
+    <link rel="next" href="event-routing.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-stream">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-stream" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">spring-cloud-stream</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../preface.html">A Brief History of Spring&#8217;s Data Integration Journey</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../index.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream.html">Spring Cloud Stream Reference Documentation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Main Concepts and Abstractions</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-application-model.html">Spring Cloud Stream&#8217;s application model</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-binder-abstraction.html">The Binder Abstraction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-persistent-publish-subscribe-support.html">Persistent publish-subscribe support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="consumer-groups.html">Consumer group support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-partitioning.html">Partitioning support</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="programming-model.html">Programming Model</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="destination-binders.html">Destination Binders</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="bindings.html">Bindings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="binding-names.html">Binding and Binding names</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="functional-binding-names.html">Functional binding names</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="explicit-binding-creation.html">Explicit binding creation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="binding_visualization_control.html">Binding visualization and control</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link page"  href="producing-and-consuming-messages.html">Producing and Consuming Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="event-routing.html">Event Routing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="post-processing-after-sending-message.html">Post processing (after sending message)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="binders.html">Binder abstraction</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-binder-api.html">A pluggable Binder SPI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="binder-detection.html">Binder Detection</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="multiple-binders.html">Multiple Binders on the Classpath</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="multiple-systems.html">Connecting to Multiple Systems</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="binder-customizer.html">Customizing binders in multi binder applications</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="overview-error-handling.html">Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../observability.html">Observability</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="configuration-options.html">Configuration Options</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="binding-service-properties.html">Binding Service Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="binding-properties.html">Binding Properties</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="content-type.html">Content Type Negotiation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="mechanics.html">Mechanics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="provided-messageconverters.html">Provided MessageConverters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-user-defined-message-converters.html">User-defined Message Converters</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="application-communication.html">Inter-Application Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-connecting-multiple-application-instances.html">Connecting Multiple Application Instances</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="overview-instance-index-instance-count.html">Instance Index and Instance Count</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="overview-partitioning.html">Partitioning</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="spring_integration_test_binder.html">Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="health-indicator.html">Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="samples.html">Samples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Binders</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Apache Kafka</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kafka Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/config-options.html">Configuration Options</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/reset-offsets.html">Resetting Offsets</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/consume-batches.html">Consuming Batches</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/manual-ack.html">Manual Acknowledgement</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/security-config.html">Security Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/pause_resume.html">Pausing and Resuming the Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/transactional.html">Transactional Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/error-channels.html">Error Channels</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/metrics.html">Kafka Metrics</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/tombstone.html">Tombstone Records</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/rebalance_listener.html">KafkaBindingRebalanceListener</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/retry-dlq.html">Retry and Dead Letter Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/container-cust-kafka-binder.html">Kafka Binder Listener Container Customizers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/cons-prod-config-cust.html">Customizing Consumer and Producer configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/admin-client-config-cust.html">Customizing AdminClient Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/custom-health-ind.html">Custom Kafka Binder Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/dlq.html">Dead-Letter Topic Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/dlq-partition.html">Dead-Letter Topic Partition Selection</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/partitions.html">Partitioning with the Kafka Binder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reactive Kafka Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/usage.html">Maven Coordinates</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/examples.html">Basic Example using the Reactive Kafka Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/consuming.html">Consuming Records</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/concurrency.html">Concurrency</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/multiplex.html">Multiplex</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/pattern.html">Destination is Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/sender_result.html">Sender Result Channel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/health_indicator.html">Reactor Kafka Binder Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/reactive_observability.html">Observability in Reactive Kafka Binder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kafka Stream Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/programming-model.html">Programming Model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/ancillaries-to-the-programming-model.html">Ancillaries to the programming model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/record-serialization-and-deserialization.html">Record serialization and deserialization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/error-handling.html">Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/retrying-critical-business-logic.html">Retrying critical business logic</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/state-store.html">State Store</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/interactive-queries.html">Interactive Queries</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/health-indicator.html">Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/accessing-metrics.html">Accessing Kafka Streams Metrics</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/mixing-high-level-dsl-and-low-level-processor-api.html">Mixing high level DSL and low level Processor API</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/partition-support-on-the-outbound.html">Partition support on the outbound</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/streamsbuilderfactorybean-customizer.html">StreamsBuilderFactoryBean configurer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/timestamp-extractor.html">Timestamp extractor</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/multi-binders-with-based-binders-and-regular-binder.html">Multi binders with Kafka Streams based binders and regular Kafka Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/state-cleanup.html">State Cleanup</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/topology-visualization.html">Kafka Streams topology visualization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/event-type-based-routing-in-applications.html">Event type based routing in Kafka Streams applications</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/binding-visualization-and-control-in-binder.html">Binding visualization and control in Kafka Streams binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/manually-starting-processors.html">Manually starting Kafka Streams processors</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/manually-starting-processors-selectively.html">Manually starting Kafka Streams processors selectively</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/tracing-using-spring-cloud-sleuth.html">Tracing using Spring Cloud Sleuth</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/configuration-options.html">Configuration Options</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tips and Recipes</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka_tips.html">Tips, Tricks and Recipes</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../rabbit/rabbit_overview.html">RabbitMQ Binder Reference Guide</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Configuration Options</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/binder-properties.html">RabbitMQ Binder Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-consumer-properties.html">RabbitMQ Consumer Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/prod-props.html">RabbitMQ Producer Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/advanced-listener-container-configuration.html">Advanced Listener Container Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/advanced-binding-configuration.html">Advanced Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/receiving-batch.html">Receiving Batched Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/publisher-confirms.html">Publisher Confirms</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-stream-consumer.html">Initial Consumer Support for the RabbitMQ Stream Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-stream-producer.html">Initial Producer Support for the RabbitMQ Stream Plugin</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/existing-destinations.html">Using Existing Queues/Exchanges</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-retry.html">Retry With the RabbitMQ Binder</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/putting-it-all-together.html">Putting it All Together</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/error-channels.html">Error Channels</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_partitions.html">Partitioning with the RabbitMQ Binder</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/health-indicator.html">Rabbit Binder Health Indicator</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Apache Pulsar</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../pulsar/pulsar_binder.html">Spring Cloud Stream Binder for Apache Pulsar</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="https://github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-starters/solace-spring-cloud-stream-starter#spring-cloud-stream-binder-for-solace-pubsub">Solace</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/main/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc">Amazon Kinesis</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../schema-registry/spring-cloud-stream-schema-registry.html">Spring Cloud Stream Schema Registry</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Producing and Consuming Messages"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-stream/docs/modules/ROOT/pages/spring-cloud-stream/producing-and-consuming-messages.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-stream" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">spring-cloud-stream</a></li>
+      <li><a href="../spring-cloud-stream.html">Spring Cloud Stream Reference Documentation</a></li>
+      <li><a href="programming-model.html">Programming Model</a></li>
+      <li><a href="producing-and-consuming-messages.html">Producing and Consuming Messages</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Producing and Consuming Messages</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can write a Spring Cloud Stream application by simply writing functions and exposing them as <code>@Bean</code> s.
+You can also use Spring Integration annotations based configuration or
+Spring Cloud Stream annotation based configuration, although starting with spring-cloud-stream 3.x
+we recommend using functional implementations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring_cloud_function"><a class="anchor" href="#spring_cloud_function"></a>Spring Cloud Function support</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="overview"><a class="anchor" href="#overview"></a>Overview</h3>
+<div class="paragraph">
+<p>Since Spring Cloud Stream v2.1, another alternative for defining <em>stream handlers</em> and <em>sources</em> is to use built-in
+support for <a href="https://cloud.spring.io/spring-cloud-function/">Spring Cloud Function</a> where they can be expressed as beans of
+ type <code>java.util.function.[Supplier/Function/Consumer]</code>.</p>
+</div>
+<div class="paragraph">
+<p>To specify which functional bean to bind to the external destination(s) exposed by the bindings,
+you must provide <code>spring.cloud.function.definition</code> property.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the event you only have single bean of type <code>java.util.function.[Supplier/Function/Consumer]</code>, you can
+skip the <code>spring.cloud.function.definition</code> property, since such functional bean will be auto-discovered. However,
+it is considered best practice to use such property to avoid any confusion.
+Some time this auto-discovery can get in the way, since single bean of type <code>java.util.function.[Supplier/Function/Consumer]</code>
+could be there for purposes other then handling messages, yet being single it is auto-discovered and auto-bound.
+For these rare scenarios you can disable auto-discovery by providing <code>spring.cloud.stream.function.autodetect</code> property with value set to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Here is the example of the application exposing message handler as <code>java.util.function.Function</code> effectively supporting
+<em>pass-thru</em> semantics by acting as consumer and producer of data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public class MyFunctionBootApp {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyFunctionBootApp.class);
+	}
+
+	@Bean
+	public Function&lt;String, String&gt; toUpperCase() {
+		return s -&gt; s.toUpperCase();
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, we define a bean of type <code>java.util.function.Function</code> called <em>toUpperCase</em> to be acting as message handler
+whose 'input' and 'output' must be bound to the external destinations exposed by the provided destination binder.
+By default the 'input' and 'output' binding names will be <code>toUpperCase-in-0</code> and <code>toUpperCase-out-0</code>.
+Please see <a href="functional-binding-names.html#functional-binding-names" class="xref page">Functional Binding Names</a> section for details on naming convention used to establish binding names.</p>
+</div>
+<div class="paragraph">
+<p>Below are the examples of simple functional applications to support other semantics:</p>
+</div>
+<div class="paragraph">
+<p>Here is the example of a <em>source</em> semantics exposed as <code>java.util.function.Supplier</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SourceFromSupplier {
+
+	@Bean
+	public Supplier&lt;Date&gt; date() {
+		return () -&gt; new Date(12345L);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the example of a <em>sink semantics</em> exposed as <code>java.util.function.Consumer</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SinkFromConsumer {
+
+	@Bean
+	public Consumer&lt;String&gt; sink() {
+		return System.out::println;
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="suppliers-sources"><a class="anchor" href="#suppliers-sources"></a>Suppliers (Sources)</h3>
+<div class="paragraph">
+<p><code>Function</code> and <code>Consumer</code> are pretty straightforward when it comes to how their invocation is triggered. They are triggered based
+on data (events) sent to the destination they are bound to. In other words, they are classic event-driven components.</p>
+</div>
+<div class="paragraph">
+<p>However, <code>Supplier</code> is in its own category when it comes to triggering. Since it is, by definition, the source (the origin) of the data, it does not
+subscribe to any in-bound destination and, therefore, has to be triggered by some other mechanism(s).
+There is also a question of <code>Supplier</code> implementation, which could be <em>imperative</em> or <em>reactive</em> and which directly relates to the triggering of such suppliers.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following sample:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SupplierConfiguration {
+
+	@Bean
+	public Supplier&lt;String&gt; stringSupplier() {
+		return () -&gt; "Hello from Supplier";
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The preceding <code>Supplier</code> bean produces a string whenever its <code>get()</code> method is invoked. However, who invokes this method and how often?
+The framework provides a default polling mechanism (answering the question of "Who?") that will trigger the invocation of the supplier and by default it will do so
+every second (answering the question of "How often?").
+In other words, the above configuration produces a single message every second and each message is sent to an <code>output</code> destination that is exposed by the binder.
+To learn how to customize the polling mechanism, see <a href="#polling-configuration-properties">Polling Configuration Properties</a> section.</p>
+</div>
+<div class="paragraph">
+<p>Consider a different example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SupplierConfiguration {
+
+    @Bean
+    public Supplier&lt;Flux&lt;String&gt;&gt; stringSupplier() {
+        return () -&gt; Flux.fromStream(Stream.generate(new Supplier&lt;String&gt;() {
+            @Override
+            public String get() {
+                try {
+                    Thread.sleep(1000);
+                    return "Hello from Supplier";
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+        })).subscribeOn(Schedulers.elastic()).share();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The preceding <code>Supplier</code> bean adopts the reactive programming style. Typically, and unlike the imperative supplier,
+it should be triggered only once, given that the invocation of its <code>get()</code> method produces (supplies) the continuous stream of messages and not an
+individual message.</p>
+</div>
+<div class="paragraph">
+<p>The framework recognizes the difference in the programming style and guarantees that such a supplier is triggered only once.</p>
+</div>
+<div class="paragraph">
+<p>However, imagine the use case where you want to poll some data source and return a finite stream of data representing the result set.
+The reactive programming style is a perfect mechanism for such a Supplier. However, given the finite nature of the produced stream,
+such Supplier still needs to be invoked periodically.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following sample, which emulates such use case by producing a finite stream of data:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SupplierConfiguration {
+
+	@PollableBean
+	public Supplier&lt;Flux&lt;String&gt;&gt; stringSupplier() {
+		return () -&gt; Flux.just("hello", "bye");
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The bean itself is annotated with <code>PollableBean</code> annotation (sub-set of <code>@Bean</code>), thus signaling to the framework that although the implementation
+of such a supplier is reactive, it still needs to be polled.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There is a <code>splittable</code> attribute defined in <code>PollableBean</code> which signals to the post processors of this annotation
+that the result produced by the annotated component has to be split and is set to <code>true</code> by default. It means that
+the framework will split the returning sending out each item as an individual message. If this is not
+he desired behavior you can set it to <code>false</code> at which point such supplier will simply return
+the produced Flux without splitting it.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="supplier-threading"><a class="anchor" href="#supplier-threading"></a>Supplier &amp; threading</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As you have learned by now, unlike <code>Function</code> and <code>Consumer</code>, which are triggered by an event (they have input data), <code>Supplier</code> does not have
+any input and thus triggered by a different mechanism - <em>poller</em>, which may have an unpredictable threading mechanism. And while the details of the
+threading mechanism most of the time are not relevant to the downstream execution of the function it may present an issue in certain cases
+especially with integrated frameworks that may have certain expectations to thread affinity. For example, <a href="https://spring.io/projects/spring-cloud-sleuth">Spring Cloud Sleuth</a> which relies
+on tracing data stored in thread local.
+For those cases we have another mechanism via <code>StreamBridge</code>, where user has more control over threading mechanism. You can get more details
+in <a href="#sending-arbitrary-data-to-an-output-e-g-foreign-event-driven-sources">Sending arbitrary data to an output (e.g. Foreign event-driven sources)</a> section.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="consumer-reactive"><a class="anchor" href="#consumer-reactive"></a>Consumer (Reactive)</h3>
+<div class="paragraph">
+<p>Reactive <code>Consumer</code> is a little bit special because it has a void return type, leaving framework with no reference to subscribe to.
+Most likely you will not need to write <code>Consumer&lt;Flux&lt;?&gt;&gt;</code>, and instead write it as a <code>Function&lt;Flux&lt;?&gt;, Mono&lt;Void&gt;&gt;</code> invoking <code>then</code>
+operator as the last operator on your stream.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public Function&lt;Flux&lt;?&gt;, Mono&lt;Void&gt;&gt; consumer() {
+	return flux -&gt; flux.map(..).filter(..).then();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But if you do need to write an explicit <code>Consumer&lt;Flux&lt;?&gt;&gt;</code>, remember to subscribe to the incoming Flux.</p>
+</div>
+<div class="paragraph">
+<p>Also, keep in mind that the same rule applies for function composition when mixing reactive and imperative functions.
+Spring Cloud Function indeed supports composing reactive functions with imperative, however you must be aware of certain limitations.
+For example, assume you have composed reactive function with imperative consumer.
+The result of such composition is a reactive <code>Consumer</code>. However, there is no way to subscribe to such consumer as discussed earlier in this section,
+so this limitation can only be addressed by either making your consumer reactive and subscribing manually (as discussed earlier), or changing your function to be imperative.</p>
+</div>
+<div class="sect3">
+<h4 id="polling-configuration-properties"><a class="anchor" href="#polling-configuration-properties"></a>Polling Configuration Properties</h4>
+<div class="paragraph">
+<p>The following properties are exposed by Spring Cloud Stream and are prefixed with the <code>spring.integration.poller.</code>:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">fixedDelay</dt>
+<dd>
+<p>Fixed delay for default poller in milliseconds.</p>
+<div class="paragraph">
+<p>Default: 1000L.</p>
+</div>
+</dd>
+<dt class="hdlist1">maxMessagesPerPoll</dt>
+<dd>
+<p>Maximum messages for each polling event of the default poller.</p>
+<div class="paragraph">
+<p>Default: 1L.</p>
+</div>
+</dd>
+<dt class="hdlist1">cron</dt>
+<dd>
+<p>Cron expression value for the Cron Trigger.</p>
+<div class="paragraph">
+<p>Default: none.</p>
+</div>
+</dd>
+<dt class="hdlist1">initialDelay</dt>
+<dd>
+<p>Initial delay for periodic triggers.</p>
+<div class="paragraph">
+<p>Default: 0.</p>
+</div>
+</dd>
+<dt class="hdlist1">timeUnit</dt>
+<dd>
+<p>The TimeUnit to apply to delay values.</p>
+<div class="paragraph">
+<p>Default: MILLISECONDS.</p>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>For example <code>--spring.integration.poller.fixed-delay=2000</code> sets the poller interval to poll every two seconds.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="per-binding-polling-configuration"><a class="anchor" href="#per-binding-polling-configuration"></a>Per-binding polling configuration</h4>
+<div class="paragraph">
+<p>The previous section shows how to configure a single default poller that will be applied to all bindings. While it fits well with the model of microservices spring-cloud-stream designed for where each microservice represents a single component (e.g., Supplier) and thus default poller configuration is enough, there are edge cases where
+you may have several components that require different polling configurations</p>
+</div>
+<div class="paragraph">
+<p>For such cases please use per-binding way of configuring poller. For example, assume you have an output binding <code>supply-out-0</code>. In this case you can configure poller for such
+binding using <code>spring.cloud.stream.bindings.supply-out-0.producer.poller..</code> prefix (e.g., <code>spring.cloud.stream.bindings.supply-out-0.producer.poller.fixed-delay=2000</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sending-arbitrary-data-to-an-output-e-g-foreign-event-driven-sources"><a class="anchor" href="#sending-arbitrary-data-to-an-output-e-g-foreign-event-driven-sources"></a>Sending arbitrary data to an output (e.g. Foreign event-driven sources)</h3>
+<div class="paragraph">
+<p>There are cases where the actual source of data may be coming from the external (foreign) system that is not a binder. For example, the
+source of the data may be a classic REST endpoint. How do we bridge such source with the functional mechanism used by spring-cloud-stream?</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Stream provides two mechanisms, so let&#8217;s look at them in more details</p>
+</div>
+<div class="paragraph">
+<p>Here, for both samples we&#8217;ll use a standard MVC endpoint method called <code>delegateToSupplier</code> bound to the root web context,
+delegating incoming requests to stream via StreamBridge mechanism.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@Controller
+public class WebSourceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(WebSourceApplication.class, "--spring.cloud.stream.output-bindings=toStream");
+	}
+
+	@Autowired
+	private StreamBridge streamBridge;
+
+	@RequestMapping
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void delegateToSupplier(@RequestBody String body) {
+		System.out.println("Sending " + body);
+		streamBridge.send("toStream", body);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we autowire a <code>StreamBridge</code> bean which allows us to send data to an output binding effectively
+bridging non-stream application with spring-cloud-stream. Note that preceding example does not have any
+source functions defined (e.g., Supplier bean) leaving the framework with no trigger to create source bindings in advance, which would be typical for cases where configuration contains function beans. And that is fine, since <code>StreamBridge</code> will initiate creation of output bindings (as well as
+destination auto-provisioning if necessary) for non existing bindings on the first call to its <code>send(..)</code> operation caching it for
+subsequent reuse (see <a href="#streambridge-and-dynamic-destinations">StreamBridge and Dynamic Destinations</a> for more details).</p>
+</div>
+<div class="paragraph">
+<p>However, if you want to pre-create an output binding at the initialization (startup) time you can benefit from <code>spring.cloud.stream.output-bindings</code> property where you can declare the name of your sources.
+The provided name will be used as a trigger to create a source binding.
+You can use <code>;</code> to signify multiple sources (multiple output bindings)
+(e.g., <code>--spring.cloud.stream.output-bindings=foo;bar</code>)</p>
+</div>
+<div class="paragraph">
+<p>Also, note that <code>streamBridge.send(..)</code> method takes an <code>Object</code> for data. This means you can send POJO or <code>Message</code> to it and it
+will go through the same routine when sending output as if it was from any Function or Supplier providing the same level
+of consistency as with functions. This means the output type conversion, partitioning etc are honored as if it was from the output produced by functions.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Unlike it is explained in <a href="explicit-binding-creation.html" class="xref page">Explicit Binding Creation</a>, <em>StreamBridge</em> was designed with both performance in mind and ability to create as many bindings on the fly as necessary. To achieve that the actual bindings created by the <em>StreamBridge</em> are not cached in the application context and therefore can not be managed as explained in <a href="binding_visualization_control.html" class="xref page">Binding visualization and control</a>.
+However if it is still your desire to use <em>StreamBridge</em> to create bindings dynamically and manage them after, please use the following mechanism to create binding explicitly before using <em>StreamBridge</em> - ref:spring-cloud-stream/binding_visualization_control.adocl#_define_new_and_manage_existing_bindings[Define New Binding Programmatically]
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_streambridge_with_async_send"><a class="anchor" href="#_streambridge_with_async_send"></a>StreamBridge with async send</h4>
+<div class="paragraph">
+<p><code>StreamBridge</code> uses sending mechanism provided by <em>Spring Integration</em> framework which is at the core of the <em>Spring Cloud Stream</em>. By default this mechanism uses the sender’s thread. In other words, the send is blocking. While this is ok for many cases, there are cases when you want such send to be async. To do that use <code>setAsync(true)</code> method of the <code>StreamBridge</code> before invoking one of the send methods.</p>
+</div>
+<div class="paragraph">
+<p><strong>Observability Context propagation with asynchronous send</strong></p>
+</div>
+<div class="paragraph">
+<p>When using Observability support provided by the framework as well as supporting Spring frameworks, breaking thread boundaries will affect consistency of Observability context, thus your tracing history.  To avoid that all you need is to add <code>context-propagation</code> dependency form Micrometer (see below)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.micrometer&lt;/groupId&gt;
+    &lt;artifactId&gt;context-propagation&lt;/artifactId&gt;
+    &lt;version&gt;1.1.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="streambridge-and-dynamic-destinations"><a class="anchor" href="#streambridge-and-dynamic-destinations"></a>StreamBridge and Dynamic Destinations</h4>
+<div class="paragraph">
+<p><code>StreamBridge</code> can also be used for cases when output destination(s) are not known ahead of time similar to the use cases
+described in <a href="event-routing.html#routing-from-consumer" class="xref page">Routing FROM consumer</a> section.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at the example</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@Controller
+public class WebSourceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(WebSourceApplication.class, args);
+	}
+
+	@Autowired
+	private StreamBridge streamBridge;
+
+	@RequestMapping
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void delegateToSupplier(@RequestBody String body) {
+		System.out.println("Sending " + body);
+		streamBridge.send("myDestination", body);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see the preceding example is very similar to the previous one with the exception of explicit binding instruction provided via
+<code>spring.cloud.stream.output-bindings</code> property (which is not provided).
+Here we&#8217;re sending data to <code>myDestination</code> name which does not exist as a binding. Therefore such name will be treated as dynamic destination
+as described in <a href="event-routing.html#routing-from-consumer" class="xref page">Routing FROM consumer</a> section.</p>
+</div>
+<div class="paragraph">
+<p>In the preceding example, we are using <code>ApplicationRunner</code> as a <em>foreign source</em> to feed the stream.</p>
+</div>
+<div class="paragraph">
+<p>A more practical example, where the foreign source is REST endpoint.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@Controller
+public class WebSourceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(WebSourceApplication.class);
+	}
+
+	@Autowired
+	private StreamBridge streamBridge;
+
+	@RequestMapping
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void delegateToSupplier(@RequestBody String body) {
+		streamBridge.send("myBinding", body);
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see inside of <code>delegateToSupplier</code> method we&#8217;re using StreamBridge to send data to <code>myBinding</code> binding. And here you&#8217;re also benefiting from
+the dynamic features of <code>StreamBridge</code> where if <code>myBinding</code> doesn&#8217;t exist it will be created automatically and cached, otherwise existing binding will be used.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Caching dynamic destinations (bindings) could result in memory leaks in the event there are many dynamic destinations. To have some level of control
+we provide a self-evicting caching mechanism for output bindings with default cache size of 10. This means that if your dynamic destination size goes above that number, there is a possibility that an existing binding will be evicted and thus would need to be recreated which could cause minor performance degradation. You can increase the cache size via <code>spring.cloud.stream.dynamic-destination-cache-size</code> property setting it to the desired value.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>curl -H "Content-Type: text/plain" -X POST -d "hello from the other side" http://localhost:8080/</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By showing two examples we want to emphasize the approach will work with any type of foreign sources.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are using the Solace PubSub+ binder, Spring Cloud Stream has reserved the <code>scst_targetDestination</code> header (retrievable via BinderHeaders.TARGET_DESTINATION), which allows for messages to be redirected from their bindings' configured destination to the target destination specified by this header. This allows for the binder to manage the resources necessary to publish to dynamic destinations, relieving the framework from having to do so, and avoids the caching issues mentioned in the previous Note. More info <a href="https://github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-starters/solace-spring-cloud-stream-starter#dynamic-producer-destinations">here</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="output-content-type-with-streambridge"><a class="anchor" href="#output-content-type-with-streambridge"></a>Output Content Type with StreamBridge</h4>
+<div class="paragraph">
+<p>You can also provide specific content type if necessary with the following method signature <code>public boolean send(String bindingName, Object data, MimeType outputContentType)</code>.
+Or if you send data as a <code>Message</code>, its content type will be honored.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-specific-binder-type-with-streambridge"><a class="anchor" href="#using-specific-binder-type-with-streambridge"></a>Using specific binder type with StreamBridge</h4>
+<div class="paragraph">
+<p>Spring Cloud Stream supports multiple binder scenarios. For example you may be receiving data from Kafka and sending it to RabbitMQ.</p>
+</div>
+<div class="paragraph">
+<p>For more information on multiple binders scenarios, please see <a href="binders.html#binders" class="xref page">Binders</a> section and specifically <a href="multiple-binders.html#multiple-binders" class="xref page">Multiple Binders on the Classpath</a></p>
+</div>
+<div class="paragraph">
+<p>In the event you are planning to use StreamBridge and have more then one binder configured in your application you must also tell StreamBridge
+which binder to use. And for that there are two more variations of <code>send</code> method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public boolean send(String bindingName, @Nullable String binderType, Object data)
+
+public boolean send(String bindingName, @Nullable String binderType, Object data, MimeType outputContentType)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see there is one additional argument that you can provide - <code>binderType</code>, telling BindingService which binder to use when creating dynamic binding.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For cases where <code>spring.cloud.stream.output-bindings</code> property is used or the binding was already created under different binder, the <code>binderType</code>
+argument will have no effect.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="using-channel-interceptors-with-streambridge"><a class="anchor" href="#using-channel-interceptors-with-streambridge"></a>Using channel interceptors with StreamBridge</h4>
+<div class="paragraph">
+<p>Since <code>StreamBridge</code> uses a <code>MessageChannel</code> to establish the output binding, you can activate channel interceptors when sending data through <code>StreamBridge</code>.
+It is up to the application to decide which channel interceptors to apply on <code>StreamBridge</code>.
+Spring Cloud Stream does not inject all the channel interceptors detected into <code>StreamBridge</code> unless they are annoatated with <code>@GlobalChannelInterceptor(patterns = "*")</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let us assume that you have the following two different <code>StreamBridge</code> bindings in the application.</p>
+</div>
+<div class="paragraph">
+<p><code>streamBridge.send("foo-out-0", message);</code></p>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="paragraph">
+<p><code>streamBridge.send("bar-out-0", message);</code></p>
+</div>
+<div class="paragraph">
+<p>Now, if you want a channel interceptor applied on both the <code>StreamBridge</code> bindings, then you can declare the following <code>GlobalChannelInterceptor</code> bean.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+@GlobalChannelInterceptor(patterns = "*")
+public ChannelInterceptor customInterceptor() {
+    return new ChannelInterceptor() {
+        @Override
+        public Message&lt;?&gt; preSend(Message&lt;?&gt; message, MessageChannel channel) {
+            ...
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, if you don&#8217;t like the global approach above and want to have a dedicated interceptor for each binding, then you can do the following.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+@GlobalChannelInterceptor(patterns = "foo-*")
+public ChannelInterceptor fooInterceptor() {
+    return new ChannelInterceptor() {
+        @Override
+        public Message&lt;?&gt; preSend(Message&lt;?&gt; message, MessageChannel channel) {
+            ...
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+@GlobalChannelInterceptor(patterns = "bar-*")
+public ChannelInterceptor barInterceptor() {
+    return new ChannelInterceptor() {
+        @Override
+        public Message&lt;?&gt; preSend(Message&lt;?&gt; message, MessageChannel channel) {
+            ...
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You have the flexibility to make the patterns more strict or customized to your business needs.</p>
+</div>
+<div class="paragraph">
+<p>With this approach, the application gets the ability to decide which interceptors to inject in <code>StreamBridge</code> rather than applying all the available interceptors.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>StreamBridge</code> provides a contract through the <code>StreamOperations</code> interface that contains all the <code>send</code> methods of <code>StreamBridge</code>. Therefore, applications may choose to autowire using <code>StreamOperations</code>. This is handy when it comes to unit testing code that uses <code>StreamBridge</code> by providing a mock or similar mechanisms for the <code>StreamOperations</code> interface.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reactive-functions-support"><a class="anchor" href="#reactive-functions-support"></a>Reactive Functions support</h3>
+<div class="paragraph">
+<p>Since <em>Spring Cloud Function</em> is build on top of <a href="https://projectreactor.io/">Project Reactor</a> there isn&#8217;t much you need to do
+to benefit from reactive programming model while implementing <code>Supplier</code>, <code>Function</code> or <code>Consumer</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SinkFromConsumer {
+
+	@Bean
+	public Function&lt;Flux&lt;String&gt;, Flux&lt;String&gt;&gt; reactiveUpperCase() {
+		return flux -&gt; flux.map(val -&gt; val.toUpperCase());
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Few important things must be understood when choosing reactive or imperative programming model.</p>
+</div>
+<div class="paragraph">
+<p><em>Fully reactive or just API?</em></p>
+</div>
+<div class="paragraph">
+<p>Using reactive API does not necessarily imply that you can benefit from all of the reactive features of such API. In other words things like back-pressure and other advanced features will only work when they are working with compatible system - such as Reactive Kafka binder. In the event you are using regular Kafka or Rabbit or any other non-reactive binder, you can only benefit from the conveniences of the reactive API itself and not its advanced features, since the actual sources or targets of the stream are not reactive.</p>
+</div>
+<div class="paragraph">
+<p><em>Error handling and retries</em></p>
+</div>
+<div class="paragraph">
+<p>Throughout this manual you will see several reference on the framework-based error handling, retries and other features as well as configuration properties associated with them. It is important to understand that they only effect the imperative functions and you should NOT have the same expectations when it comes to reactive functions. And here is why. . .
+There is a fundamental difference between reactive and imperative functions.
+Imperative function is a <em>message handler</em> that is invoked by the framework on each message it receives. So for N messages there will be N invocations of such function and because of that we can wrap such function and add additional functionality such as error handling, retries etc.
+Reactive function is <em>initialization function</em>. It is invoked only once to get a reference to a Flux/Mono provided by the user to be connected with the one provided by the framework. After that we (the framework) have absolutely no visibility nor control of the stream.
+Therefore, with reactive functions you must rely on the richness of the reactive API when it comes to error handling and retries (i.e., <code>doOnError()</code>, <code>.onError*()</code> etc).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="functional-composition"><a class="anchor" href="#functional-composition"></a>Functional Composition</h3>
+<div class="paragraph">
+<p>Using functional programming model you can also benefit from functional composition where you can dynamically compose complex handlers from a set of simple functions.
+As an example let&#8217;s add the following function bean to the application defined above</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;String, String&gt; wrapInQuotes() {
+	return s -&gt; "\"" + s + "\"";
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and modify the <code>spring.cloud.function.definition</code> property to reflect your intention to compose a new function from both ‘toUpperCase’ and ‘wrapInQuotes’.
+To do so Spring Cloud Function relies on <code>|</code> (pipe) symbol. So, to finish our example our property will now look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">--spring.cloud.function.definition=toUpperCase|wrapInQuotes</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+One of the great benefits of functional composition support provided by <em>Spring Cloud Function</em> is
+the fact that you can compose <em>reactive</em> and <em>imperative</em> functions.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The result of a composition is a single function which, as you may guess, could have a very long and rather cryptic name (e.g., <code>foo|bar|baz|xyz. . .</code>)
+presenting a great deal of inconvenience when it comes to other configuration properties. This is where <em>descriptive binding names</em>
+feature described in <a href="functional-binding-names.html#functional-binding-names" class="xref page">Functional Binding Names</a> section can help.</p>
+</div>
+<div class="paragraph">
+<p>For example, if we want to give our <code>toUpperCase|wrapInQuotes</code> a more descriptive name we can do so
+with the following property <code>spring.cloud.stream.function.bindings.toUpperCase|wrapInQuotes-in-0=quotedUpperCaseInput</code> allowing
+other configuration properties to refer to that binding name (e.g., <code>spring.cloud.stream.bindings.quotedUpperCaseInput.destination=myDestination</code>).</p>
+</div>
+<div class="sect3">
+<h4 id="functional-composition-and-cross-cutting-concerns"><a class="anchor" href="#functional-composition-and-cross-cutting-concerns"></a>Functional Composition and Cross-cutting Concerns</h4>
+<div class="paragraph">
+<p>Function composition effectively allows you to address complexity by breaking it down
+to a set of simple and individually manageable/testable components that could still be
+represented as one at runtime. But that is not the only benefit.</p>
+</div>
+<div class="paragraph">
+<p>You can also use composition to address certain cross-cutting non-functional concerns,
+such as content enrichment. For example, assume you have an incoming message that may
+be lacking certain headers, or some headers are not in the exact state your business
+function would expect. You can now implement a separate function that addresses those
+concerns and then compose it with the main business function.</p>
+</div>
+<div class="paragraph">
+<p>Let’s look at the example</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public class DemoStreamApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoStreamApplication.class,
+				"--spring.cloud.function.definition=enrich|echo",
+				"--spring.cloud.stream.function.bindings.enrich|echo-in-0=input",
+				"--spring.cloud.stream.bindings.input.destination=myDestination",
+				"--spring.cloud.stream.bindings.input.group=myGroup");
+
+	}
+
+	@Bean
+	public Function&lt;Message&lt;String&gt;, Message&lt;String&gt;&gt; enrich() {
+		return message -&gt; {
+			Assert.isTrue(!message.getHeaders().containsKey("foo"), "Should NOT contain 'foo' header");
+			return MessageBuilder.fromMessage(message).setHeader("foo", "bar").build();
+		};
+	}
+
+	@Bean
+	public Function&lt;Message&lt;String&gt;, Message&lt;String&gt;&gt; echo() {
+		return message -&gt; {
+			Assert.isTrue(message.getHeaders().containsKey("foo"), "Should contain 'foo' header");
+			System.out.println("Incoming message " + message);
+			return message;
+		};
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While trivial, this example demonstrates how one function enriches the incoming Message with the additional header(s) (non-functional concern),
+so the other function - <code>echo</code> - can benefit form it. The <code>echo</code> function stays clean and focused on business logic only.
+You can also see the usage of <code>spring.cloud.stream.function.bindings</code> property to simplify composed binding name.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="functions_with_multiple_input_and_output_arguments"><a class="anchor" href="#functions_with_multiple_input_and_output_arguments"></a>Functions with multiple input and output arguments</h3>
+<div class="paragraph">
+<p>Starting with version 3.0 spring-cloud-stream provides support for functions that
+have multiple inputs and/or multiple outputs (return values). What does this actually mean and
+what type of use cases it is targeting?</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>Big Data: Imagine the source of data you&#8217;re dealing with is highly un-organized and contains various types of data elements
+(e.g., orders, transactions etc) and you effectively need to sort it out.</em></p>
+</li>
+<li>
+<p><em>Data aggregation: Another use case may require you to merge data elements from 2+ incoming _streams</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The above describes just a few use cases where you may need to use a single function to accept and/or produce
+multiple <em>streams</em> of data. And that is the type of use cases we are targeting here.</p>
+</div>
+<div class="paragraph">
+<p>Also, note a slightly different emphasis on the concept of <em>streams</em> here. The assumption is that such functions are only valuable
+if they are given access to the actual streams of data (not the individual elements). So for that we are relying on
+abstractions provided by <a href="https://projectreactor.io/">Project Reactor</a> (i.e., <code>Flux</code> and <code>Mono</code>) which is already available on the
+classpath as part of the dependencies brought in by spring-cloud-functions.</p>
+</div>
+<div class="paragraph">
+<p>Another important aspect is representation of multiple input and outputs. While java provides
+variety of different abstractions to represent <em>multiple of something</em> those abstractions
+are <em>a) unbounded</em>,  <em>b) lack arity</em> and <em>c) lack type information</em> which are all important in this context.
+As an example, let&#8217;s look at <code>Collection</code> or an array which only allows us to
+describe <em>multiple</em> of a single type or up-cast everything to an <code>Object</code>, affecting the transparent type conversion feature of
+spring-cloud-stream and so on.</p>
+</div>
+<div class="paragraph">
+<p>So to accommodate all these requirements the initial support is relying on the signature which utilizes another abstraction
+provided by <em>Project Reactor</em> - Tuples. However, we are working on allowing a more flexible signatures.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Please refer to <a href="binding-names.html#binding-names" class="xref page">Binding and Binding names</a> section to understand the naming convention used to establish <em>binding names</em>
+used by such application.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s look at the few samples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public class SampleApplication {
+
+	@Bean
+	public Function&lt;Tuple2&lt;Flux&lt;String&gt;, Flux&lt;Integer&gt;&gt;, Flux&lt;String&gt;&gt; gather() {
+		return tuple -&gt; {
+			Flux&lt;String&gt; stringStream = tuple.getT1();
+			Flux&lt;String&gt; intStream = tuple.getT2().map(i -&gt; String.valueOf(i));
+			return Flux.merge(stringStream, intStream);
+		};
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example demonstrates function which takes two inputs (first of type <code>String</code> and second of type <code>Integer</code>)
+and produces a single output of type <code>String</code>.</p>
+</div>
+<div class="paragraph">
+<p>So, for the above example the two input bindings will be <code>gather-in-0</code> and <code>gather-in-1</code> and for consistency the
+output binding also follows the same convention and is named <code>gather-out-0</code>.</p>
+</div>
+<div class="paragraph">
+<p>Knowing that will allow you to set binding specific properties.
+For example, the following will override content-type for <code>gather-in-0</code> binding:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>--spring.cloud.stream.bindings.gather-in-0.content-type=text/plain</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public class SampleApplication {
+
+	@Bean
+	public static Function&lt;Flux&lt;Integer&gt;, Tuple2&lt;Flux&lt;String&gt;, Flux&lt;String&gt;&gt;&gt; scatter() {
+		return flux -&gt; {
+			Flux&lt;Integer&gt; connectedFlux = flux.publish().autoConnect(2);
+			UnicastProcessor even = UnicastProcessor.create();
+			UnicastProcessor odd = UnicastProcessor.create();
+			Flux&lt;Integer&gt; evenFlux = connectedFlux.filter(number -&gt; number % 2 == 0).doOnNext(number -&gt; even.onNext("EVEN: " + number));
+			Flux&lt;Integer&gt; oddFlux = connectedFlux.filter(number -&gt; number % 2 != 0).doOnNext(number -&gt; odd.onNext("ODD: " + number));
+
+			return Tuples.of(Flux.from(even).doOnSubscribe(x -&gt; evenFlux.subscribe()), Flux.from(odd).doOnSubscribe(x -&gt; oddFlux.subscribe()));
+		};
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example is somewhat of a the opposite from the previous sample and  demonstrates function which
+takes single input of type <code>Integer</code> and produces two outputs (both of type <code>String</code>).</p>
+</div>
+<div class="paragraph">
+<p>So, for the above example the input binding is <code>scatter-in-0</code> and the
+output bindings are <code>scatter-out-0</code> and <code>scatter-out-1</code>.</p>
+</div>
+<div class="paragraph">
+<p>And you test it with the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void testSingleInputMultiOutput() {
+	try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
+			TestChannelBinderConfiguration.getCompleteConfiguration(
+					SampleApplication.class))
+							.run("--spring.cloud.function.definition=scatter")) {
+
+		InputDestination inputDestination = context.getBean(InputDestination.class);
+		OutputDestination outputDestination = context.getBean(OutputDestination.class);
+
+		for (int i = 0; i &lt; 10; i++) {
+			inputDestination.send(MessageBuilder.withPayload(String.valueOf(i).getBytes()).build());
+		}
+
+		int counter = 0;
+		for (int i = 0; i &lt; 5; i++) {
+			Message&lt;byte[]&gt; even = outputDestination.receive(0, 0);
+			assertThat(even.getPayload()).isEqualTo(("EVEN: " + String.valueOf(counter++)).getBytes());
+			Message&lt;byte[]&gt; odd = outputDestination.receive(0, 1);
+			assertThat(odd.getPayload()).isEqualTo(("ODD: " + String.valueOf(counter++)).getBytes());
+		}
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="multiple-functions-in-a-single-application"><a class="anchor" href="#multiple-functions-in-a-single-application"></a>Multiple functions in a single application</h3>
+<div class="paragraph">
+<p>There may also be a need for grouping several message handlers in a single application. You would do so by
+defining several functions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public class SampleApplication {
+
+	@Bean
+	public Function&lt;String, String&gt; uppercase() {
+		return value -&gt; value.toUpperCase();
+	}
+
+	@Bean
+	public Function&lt;String, String&gt; reverse() {
+		return value -&gt; new StringBuilder(value).reverse().toString();
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example we have configuration which defines two functions <code>uppercase</code> and <code>reverse</code>.
+So first, as mentioned before, we need to notice that there is a a conflict (more then one function) and therefore
+we need to resolve it by providing <code>spring.cloud.function.definition</code> property pointing to the actual function
+we want to bind. Except here we will use <code>;</code> delimiter to point to both functions (see test case below).</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+As with functions with multiple inputs/outputs, please refer to <a href="#Binding and Binding names">[Binding and Binding names]</a> section to understand the naming
+convention used to establish <em>binding names</em> used by such application.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>And you test it with the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void testMultipleFunctions() {
+	try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
+			TestChannelBinderConfiguration.getCompleteConfiguration(
+					ReactiveFunctionConfiguration.class))
+							.run("--spring.cloud.function.definition=uppercase;reverse")) {
+
+		InputDestination inputDestination = context.getBean(InputDestination.class);
+		OutputDestination outputDestination = context.getBean(OutputDestination.class);
+
+		Message&lt;byte[]&gt; inputMessage = MessageBuilder.withPayload("Hello".getBytes()).build();
+		inputDestination.send(inputMessage, "uppercase-in-0");
+		inputDestination.send(inputMessage, "reverse-in-0");
+
+		Message&lt;byte[]&gt; outputMessage = outputDestination.receive(0, "uppercase-out-0");
+		assertThat(outputMessage.getPayload()).isEqualTo("HELLO".getBytes());
+
+		outputMessage = outputDestination.receive(0, "reverse-out-0");
+		assertThat(outputMessage.getPayload()).isEqualTo("olleH".getBytes());
+	}
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="batch-consumers"><a class="anchor" href="#batch-consumers"></a>Batch Consumers</h3>
+<div class="paragraph">
+<p>When using a <code>MessageChannelBinder</code> that supports batch listeners, and the feature is enabled for the consumer binding, you can set <code>spring.cloud.stream.bindings.&lt;binding-name&gt;.consumer.batch-mode</code> to <code>true</code> to enable the
+entire batch of messages to be passed to the function in a <code>List</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;List&lt;Person&gt;, Person&gt; findFirstPerson() {
+    return persons -&gt; persons.get(0);
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_batch_type_conversion"><a class="anchor" href="#_batch_type_conversion"></a>Batch Type Conversion</h4>
+<div class="paragraph">
+<p>Similarly to type conversion for a single message consumer, batching requires every message in the batch to be converted to the requested type. For instance, in the previous example, this type is <code>Person</code>.</p>
+</div>
+<div class="paragraph">
+<p>It is also important to understand that the headers for each message in a batch are provided separately in the <code>MessageHeaders</code> of the Message representing the entire batch. These Messages and their corresponding batched headers are created by the respective binders, and their structure may differ. Therefore, you should refer to the binder documentation to understand the structure of batched headers. For Kafka and Rabbit, you can search for <code>amqp_batchedHeaders</code> and <code>kafka_batchConvertedHeaders</code>, respectively.</p>
+</div>
+<div class="paragraph">
+<p>In short, if you have a message representing a batch with 5 payloads, the same message will contain a set of headers where each header corresponds to a payload with the same index.</p>
+</div>
+<div class="paragraph">
+<p>However, what happens if a particular payload fails to convert? In a single message scenario, we simply return null and invoke your method with the unconverted message, which either results in an exception or allows you to handle the raw message, depending on your function&#8217;s signature.</p>
+</div>
+<div class="paragraph">
+<p>In the case of batch processing, things are a bit more complex. Returning null for an unconverted payload effectively reduces the batch size. For example, if the original batch contained 5 messages, and 2 failed to convert, the converted batch will only contain 3 messages. This might be acceptable, but what about the corresponding batched headers? There will still be 5 headers, as they were created when the binder formed the initial batch. This discrepancy makes it difficult to correlate the headers with their corresponding payloads.</p>
+</div>
+<div class="paragraph">
+<p>To address this issue, we provide the MessageConverterHelper interface.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public interface MessageConverterHelper {
+
+	/**
+	 * This method will be called by the framework in cases when a message failed to convert.
+	 * It allows you to signal to the framework if such failure should be considered fatal or not.
+	 *
+	 * @param message failed message
+	 * @return true if conversion failure must be considered fatal.
+	 */
+	default boolean shouldFailIfCantConvert(Message&lt;?&gt; message) {
+		return false;
+	}
+
+	/**
+	 * This method will be called by the framework in cases when a single message within batch of messages failed to convert.
+	 * It provides a place for providing post-processing logic before message converter returns.
+	 *
+	 * @param message failed message.
+	 * @param index index of failed message within the batch
+	 */
+	default void postProcessBatchMessageOnFailure(Message&lt;?&gt; message, int index) {
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If implemented, this interface is called by the framework’s message converter logic to perform post-processing on the batched message when a particular payload cannot be converted.</p>
+</div>
+<div class="paragraph">
+<p>The default implementations for Kafka and Rabbit automatically remove the corresponding batch headers to maintain the correlation between batched payloads and their headers. However, you can provide your own implementation and register it as a bean if you need to add custom behavior for such cases.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the interface offers a method that allows for more deterministic handling of conversion failures. By default, this method returns <code>false</code>, but you can customize the implementation if you prefer to fail the entire process when a conversion error occurs.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="batch-producers"><a class="anchor" href="#batch-producers"></a>Batch Producers</h3>
+<div class="paragraph">
+<p>You can also use the concept of batching on the producer side by returning a collection of Messages which effectively provides an
+inverse effect where each message in the collection will be sent individually by the binder.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;String, List&lt;Message&lt;String&gt;&gt;&gt; batch() {
+	return p -&gt; {
+		List&lt;Message&lt;String&gt;&gt; list = new ArrayList&lt;&gt;();
+		list.add(MessageBuilder.withPayload(p + ":1").build());
+		list.add(MessageBuilder.withPayload(p + ":2").build());
+		list.add(MessageBuilder.withPayload(p + ":3").build());
+		list.add(MessageBuilder.withPayload(p + ":4").build());
+		return list;
+	};
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each message in the returned list will be sent individually resulting in four messages sent to output destination.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spring-integration-flow-as-functions"><a class="anchor" href="#spring-integration-flow-as-functions"></a>Spring Integration flow as functions</h3>
+<div class="paragraph">
+<p>When you implement a function, you may have complex requirements that fit the category
+of <a href="https://www.enterpriseintegrationpatterns.com">Enterprise Integration Patterns</a> (EIP). These are best handled by using a
+framework such as <a href="https://spring.io/projects/spring-integration">Spring Integration</a> (SI), which is a reference implementation of EIP.</p>
+</div>
+<div class="paragraph">
+<p>Thankfully SI already provides support for exposing integration flows as functions via
+<a href="https://docs.spring.io/spring-integration/docs/current/reference/html/#java-dsl-gateway">Integration flow as gateway</a>
+Consider the following sample:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public class FunctionSampleSpringIntegrationApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FunctionSampleSpringIntegrationApplication.class, args);
+	}
+
+	@Bean
+	public IntegrationFlow uppercaseFlow() {
+		return IntegrationFlow.from(MessageFunction.class, spec -&gt; spec.beanName("uppercase"))
+				.&lt;String, String&gt;transform(String::toUpperCase)
+				.log(LoggingHandler.Level.WARN)
+				.bridge()
+				.get();
+	}
+
+	public interface MessageFunction extends Function&lt;Message&lt;String&gt;, Message&lt;String&gt;&gt; {
+
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For those who are familiar with SI you can see we define a bean of type <code>IntegrationFlow</code> where we
+declare an integration flow that we want to expose as a <code>Function&lt;String, String&gt;</code> (using SI DSL) called <code>uppercase</code>.
+The <code>MessageFunction</code> interface lets us explicitly declare the type of the inputs and outputs for proper type conversion.
+See <a href="content-type.html" class="xref page">Content Type Negotiation</a> section for more on type conversion.</p>
+</div>
+<div class="paragraph">
+<p>To receive raw input you can use <code>from(Function.class, &#8230;&#8203;)</code>.</p>
+</div>
+<div class="paragraph">
+<p>The resulting function is bound to the input and output destinations exposed by the target binder.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Please refer to <a href="#Binding and Binding names">[Binding and Binding names]</a> section to understand the naming
+convention used to establish <em>binding names</em> used by such application.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more details on interoperability of Spring Integration and Spring Cloud Stream specifically around functional programming model
+you may find <a href="https://spring.io/blog/2019/10/25/spring-cloud-stream-and-spring-integration">this post</a> very interesting, as it dives a bit deeper
+into various patterns you can apply by merging the best of Spring Integration and Spring Cloud Stream/Functions.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-streams-overview-using-polled-consumers"><a class="anchor" href="#spring-cloud-streams-overview-using-polled-consumers"></a>Using Polled Consumers</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="overview-polled-consumers"><a class="anchor" href="#overview-polled-consumers"></a>Overview</h3>
+<div class="paragraph">
+<p>When using polled consumers, you poll the <code>PollableMessageSource</code> on demand.
+To define binding for polled consumer you need to provide <code>spring.cloud.stream.pollable-source</code> property.</p>
+</div>
+<div class="paragraph">
+<p>Consider the following example of a polled consumer binding:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">--spring.cloud.stream.pollable-source=myDestination</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The pollable-source name <code>myDestination</code> in the preceding example will result in <code>myDestination-in-0</code> binding name to stay
+consistent with functional programming model.</p>
+</div>
+<div class="paragraph">
+<p>Given the polled consumer in the preceding example, you might use it as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public ApplicationRunner poller(PollableMessageSource destIn, MessageChannel destOut) {
+    return args -&gt; {
+        while (someCondition()) {
+            try {
+                if (!destIn.poll(m -&gt; {
+                    String newPayload = ((String) m.getPayload()).toUpperCase();
+                    destOut.send(new GenericMessage&lt;&gt;(newPayload));
+                })) {
+                    Thread.sleep(1000);
+                }
+            }
+            catch (Exception e) {
+                // handle failure
+            }
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A less manual and more Spring-like alternative would be to configure a scheduled task bean. For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Scheduled(fixedDelay = 5_000)
+public void poll() {
+	System.out.println("Polling...");
+	this.source.poll(m -&gt; {
+		System.out.println(m.getPayload());
+
+	}, new ParameterizedTypeReference&lt;Foo&gt;() { });
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>PollableMessageSource.poll()</code> method takes a <code>MessageHandler</code> argument (often a lambda expression, as shown here).
+It returns <code>true</code> if the message was received and successfully processed.</p>
+</div>
+<div class="paragraph">
+<p>As with message-driven consumers, if the <code>MessageHandler</code> throws an exception, messages are published to error channels,
+as discussed in <code><a href="overview-error-handling.html" class="xref page">Error Handling</a></code>.</p>
+</div>
+<div class="paragraph">
+<p>Normally, the <code>poll()</code> method acknowledges the message when the <code>MessageHandler</code> exits.
+If the method exits abnormally, the message is rejected (not re-queued), but see <a href="#polled-errors">Handling Errors</a>.
+You can override that behavior by taking responsibility for the acknowledgment, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public ApplicationRunner poller(PollableMessageSource dest1In, MessageChannel dest2Out) {
+    return args -&gt; {
+        while (someCondition()) {
+            if (!dest1In.poll(m -&gt; {
+                StaticMessageHeaderAccessor.getAcknowledgmentCallback(m).noAutoAck();
+                // e.g. hand off to another thread which can perform the ack
+                // or acknowledge(Status.REQUEUE)
+
+            })) {
+                Thread.sleep(1000);
+            }
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+You must <code>ack</code> (or <code>nack</code>) the message at some point, to avoid resource leaks.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Some messaging systems (such as Apache Kafka) maintain a simple offset in a log. If a delivery fails and is re-queued with  <code>StaticMessageHeaderAccessor.getAcknowledgmentCallback(m).acknowledge(Status.REQUEUE);</code>, any later successfully ack&#8217;d messages are redelivered.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There is also an overloaded <code>poll</code> method, for which the definition is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">poll(MessageHandler handler, ParameterizedTypeReference&lt;?&gt; type)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>type</code> is a conversion hint that allows the incoming message payload to be converted, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">boolean result = pollableSource.poll(received -&gt; {
+			Map&lt;String, Foo&gt; payload = (Map&lt;String, Foo&gt;) received.getPayload();
+            ...
+
+		}, new ParameterizedTypeReference&lt;Map&lt;String, Foo&gt;&gt;() {});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="polled-errors"><a class="anchor" href="#polled-errors"></a>Handling Errors</h3>
+<div class="paragraph">
+<p>By default, an error channel is configured for the pollable source; if the callback throws an exception, an <code>ErrorMessage</code> is sent to the error channel (<code>&lt;destination&gt;.&lt;group&gt;.errors</code>); this error channel is also bridged to the global Spring Integration <code>errorChannel</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can subscribe to either error channel with a <code>@ServiceActivator</code> to handle errors; without a subscription, the error will simply be logged and the message will be acknowledged as successful.
+If the error channel service activator throws an exception, the message will be rejected (by default) and won&#8217;t be redelivered.
+If the service activator throws a <code>RequeueCurrentMessageException</code>, the message will be requeued at the broker and will be again retrieved on a subsequent poll.</p>
+</div>
+<div class="paragraph">
+<p>If the listener throws a <code>RequeueCurrentMessageException</code> directly, the message will be requeued, as discussed above, and will not be sent to the error channels.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section-summary">
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="binding_visualization_control.html">Binding visualization and control</a></span>
+  <span class="next"><a href="event-routing.html">Event Routing</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">spring-cloud-stream</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-stream"></script>
+  </body>
+</html>

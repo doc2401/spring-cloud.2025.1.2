@@ -1,0 +1,43 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:25:14.701Z",
+  "url": "https://docs.spring.io/spring-cloud-build/reference",
+  "components": {
+    "cloud-build": {
+      "title": "Spring Cloud Build",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Overview"
+            },
+            {
+              "path": "building.adoc",
+              "url": "/building.html",
+              "title": "Building"
+            },
+            {
+              "path": "contributing.adoc",
+              "url": "/contributing.html",
+              "title": "Contributing"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

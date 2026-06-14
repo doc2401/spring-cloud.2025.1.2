@@ -1,0 +1,38 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:13:31.846Z",
+  "url": "https://docs.spring.io/spring-cloud-release/reference",
+  "components": {
+    "cloud-release": {
+      "title": "Spring Cloud Release",
+      "latest": "2025.1.2",
+      "versions": {
+        "2025.1.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Train Reference Documentation"
+            },
+            {
+              "path": "legal.adoc",
+              "url": "/legal.html",
+              "title": "Legal"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

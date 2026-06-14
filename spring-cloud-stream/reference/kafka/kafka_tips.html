@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tips, Tricks and Recipes :: Spring Cloud Stream</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-stream/reference/kafka/kafka_tips.html">
+    <link rel="prev" href="kafka-streams-binder/configuration-options.html">
+    <link rel="next" href="../rabbit/rabbit_overview.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-stream">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-stream" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">spring-cloud-stream</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../preface.html">A Brief History of Spring&#8217;s Data Integration Journey</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../index.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream.html">Spring Cloud Stream Reference Documentation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Main Concepts and Abstractions</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-application-model.html">Spring Cloud Stream&#8217;s application model</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-binder-abstraction.html">The Binder Abstraction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-persistent-publish-subscribe-support.html">Persistent publish-subscribe support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/consumer-groups.html">Consumer group support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-partitioning.html">Partitioning support</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/programming-model.html">Programming Model</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/destination-binders.html">Destination Binders</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/bindings.html">Bindings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding-names.html">Binding and Binding names</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/functional-binding-names.html">Functional binding names</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/explicit-binding-creation.html">Explicit binding creation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding_visualization_control.html">Binding visualization and control</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/producing-and-consuming-messages.html">Producing and Consuming Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/event-routing.html">Event Routing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/post-processing-after-sending-message.html">Post processing (after sending message)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/binders.html">Binder abstraction</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-binder-api.html">A pluggable Binder SPI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binder-detection.html">Binder Detection</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/multiple-binders.html">Multiple Binders on the Classpath</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/multiple-systems.html">Connecting to Multiple Systems</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binder-customizer.html">Customizing binders in multi binder applications</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-error-handling.html">Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../observability.html">Observability</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/configuration-options.html">Configuration Options</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding-service-properties.html">Binding Service Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding-properties.html">Binding Properties</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/content-type.html">Content Type Negotiation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/mechanics.html">Mechanics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/provided-messageconverters.html">Provided MessageConverters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-user-defined-message-converters.html">User-defined Message Converters</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/application-communication.html">Inter-Application Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-connecting-multiple-application-instances.html">Connecting Multiple Application Instances</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-instance-index-instance-count.html">Instance Index and Instance Count</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-partitioning.html">Partitioning</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/spring_integration_test_binder.html">Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/health-indicator.html">Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/samples.html">Samples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Binders</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Apache Kafka</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kafka Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/config-options.html">Configuration Options</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/reset-offsets.html">Resetting Offsets</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/consume-batches.html">Consuming Batches</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/manual-ack.html">Manual Acknowledgement</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/security-config.html">Security Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/pause_resume.html">Pausing and Resuming the Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/transactional.html">Transactional Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/error-channels.html">Error Channels</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/metrics.html">Kafka Metrics</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/tombstone.html">Tombstone Records</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/rebalance_listener.html">KafkaBindingRebalanceListener</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/retry-dlq.html">Retry and Dead Letter Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/container-cust-kafka-binder.html">Kafka Binder Listener Container Customizers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/cons-prod-config-cust.html">Customizing Consumer and Producer configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/admin-client-config-cust.html">Customizing AdminClient Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/custom-health-ind.html">Custom Kafka Binder Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/dlq.html">Dead-Letter Topic Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/dlq-partition.html">Dead-Letter Topic Partition Selection</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-binder/partitions.html">Partitioning with the Kafka Binder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reactive Kafka Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/usage.html">Maven Coordinates</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/examples.html">Basic Example using the Reactive Kafka Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/consuming.html">Consuming Records</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/concurrency.html">Concurrency</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/multiplex.html">Multiplex</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/pattern.html">Destination is Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/sender_result.html">Sender Result Channel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/health_indicator.html">Reactor Kafka Binder Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-reactive-binder/reactive_observability.html">Observability in Reactive Kafka Binder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kafka Stream Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/programming-model.html">Programming Model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/ancillaries-to-the-programming-model.html">Ancillaries to the programming model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/record-serialization-and-deserialization.html">Record serialization and deserialization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/error-handling.html">Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/retrying-critical-business-logic.html">Retrying critical business logic</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/state-store.html">State Store</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/interactive-queries.html">Interactive Queries</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/health-indicator.html">Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/accessing-metrics.html">Accessing Kafka Streams Metrics</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/mixing-high-level-dsl-and-low-level-processor-api.html">Mixing high level DSL and low level Processor API</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/partition-support-on-the-outbound.html">Partition support on the outbound</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/streamsbuilderfactorybean-customizer.html">StreamsBuilderFactoryBean configurer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/timestamp-extractor.html">Timestamp extractor</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/multi-binders-with-based-binders-and-regular-binder.html">Multi binders with Kafka Streams based binders and regular Kafka Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/state-cleanup.html">State Cleanup</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/topology-visualization.html">Kafka Streams topology visualization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/event-type-based-routing-in-applications.html">Event type based routing in Kafka Streams applications</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/binding-visualization-and-control-in-binder.html">Binding visualization and control in Kafka Streams binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/manually-starting-processors.html">Manually starting Kafka Streams processors</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/manually-starting-processors-selectively.html">Manually starting Kafka Streams processors selectively</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/tracing-using-spring-cloud-sleuth.html">Tracing using Spring Cloud Sleuth</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="kafka-streams-binder/configuration-options.html">Configuration Options</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tips and Recipes</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="4">
+    <a class="nav-link page"  href="kafka_tips.html">Tips, Tricks and Recipes</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../rabbit/rabbit_overview.html">RabbitMQ Binder Reference Guide</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Configuration Options</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/binder-properties.html">RabbitMQ Binder Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-consumer-properties.html">RabbitMQ Consumer Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/prod-props.html">RabbitMQ Producer Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/advanced-listener-container-configuration.html">Advanced Listener Container Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/advanced-binding-configuration.html">Advanced Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/receiving-batch.html">Receiving Batched Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/publisher-confirms.html">Publisher Confirms</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-stream-consumer.html">Initial Consumer Support for the RabbitMQ Stream Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-stream-producer.html">Initial Producer Support for the RabbitMQ Stream Plugin</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/existing-destinations.html">Using Existing Queues/Exchanges</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-retry.html">Retry With the RabbitMQ Binder</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/putting-it-all-together.html">Putting it All Together</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/error-channels.html">Error Channels</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_partitions.html">Partitioning with the RabbitMQ Binder</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/health-indicator.html">Rabbit Binder Health Indicator</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Apache Pulsar</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../pulsar/pulsar_binder.html">Spring Cloud Stream Binder for Apache Pulsar</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="https://github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-starters/solace-spring-cloud-stream-starter#spring-cloud-stream-binder-for-solace-pubsub">Solace</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/main/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc">Amazon Kinesis</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../schema-registry/spring-cloud-stream-schema-registry.html">Spring Cloud Stream Schema Registry</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Tips, Tricks and Recipes"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-stream/docs/modules/ROOT/pages/kafka/kafka_tips.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-stream" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">spring-cloud-stream</a></li>
+      <li>Binders</li>
+      <li>Apache Kafka</li>
+      <li>Tips and Recipes</li>
+      <li><a href="kafka_tips.html">Tips, Tricks and Recipes</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Tips, Tricks and Recipes</h1>
+<div class="sect1">
+<h2 id="simple-dlq-with-kafka"><a class="anchor" href="#simple-dlq-with-kafka"></a>Simple DLQ with Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="problem-statement"><a class="anchor" href="#problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>As a developer, I want to write a consumer application that processes records from a Kafka topic.
+However, if some error occurs in processing, I don&#8217;t want the application to stop completely.
+Instead, I want to send the record in error to a DLT (Dead-Letter-Topic) and then continue processing new records.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="solution"><a class="anchor" href="#solution"></a>Solution</h3>
+<div class="paragraph">
+<p>The solution for this problem is to use the DLQ feature in Spring Cloud Stream.
+For the purposes of this discussion, let us assume that the following is our processor function.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Consumer&lt;byte[]&gt; processData() {
+  return s -&gt; {
+     throw new RuntimeException();
+  };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a very trivial function that throws an exception for all the records that it processes, but you can take this function and extend it to any other similar situations.</p>
+</div>
+<div class="paragraph">
+<p>In order to send the records in error to a DLT, we need to provide the following configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream:
+  bindings:
+   processData-in-0:
+     group: my-group
+     destination: input-topic
+ kafka:
+   bindings:
+     processData-in-0:
+       consumer:
+         enableDlq: true
+         dlqName: input-topic-dlq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to activate DLQ, the application must provide a group name.
+Anonymous consumers cannot use the DLQ facilities.
+We also need to enable DLQ by setting the <code>enableDLQ</code> property on the Kafka consumer binding to <code>true</code>.
+Finally, we can optionally provide the DLT name by providing the <code>dlqName</code> on Kafka consumer binding, which otherwise default to <code>error.input-topic.my-group</code> in this case.</p>
+</div>
+<div class="paragraph">
+<p>Note that in the example consumer provided above, the type of the payload is <code>byte[]</code>.
+By default, the DLQ producer in Kafka binder expects the payload of type <code>byte[]</code>.
+If that is not the case, then we need to provide the configuration for proper serializer.
+For example, let us re-write the consumer function as below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Consumer&lt;String&gt; processData() {
+  return s -&gt; {
+     throw new RuntimeException();
+  };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, we need to tell Spring Cloud Stream, how we want to serialize the data when writing to the DLT.
+Here is the modified configuration for this scenario:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream:
+  bindings:
+   processData-in-0:
+     group: my-group
+     destination: input-topic
+ kafka:
+   bindings:
+     processData-in-0:
+       consumer:
+         enableDlq: true
+         dlqName: input-topic-dlq
+         dlqProducerProperties:
+           configuration:
+             value.serializer: org.apache.kafka.common.serialization.StringSerializer</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dlq-with-advanced-retry-options"><a class="anchor" href="#dlq-with-advanced-retry-options"></a>DLQ with Advanced Retry Options</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="dlq-with-advanced-retry-options-problem-statement"><a class="anchor" href="#dlq-with-advanced-retry-options-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>This is similar to the recipe above, but as a developer I would like to configure the way retries are handled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dlq-with-advanced-retry-options-solution"><a class="anchor" href="#dlq-with-advanced-retry-options-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>If you followed the above recipe, then you get the default retry options built into the Kafka binder when the processing encounters an error.</p>
+</div>
+<div class="paragraph">
+<p>By default, the binder retires for a maximum of 3 attempts with a one second initial delay, 2.0 multiplier with each back off with a max delay of 10 seconds.
+You can change all these configurations as below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.bindings.processData-in-0.consumer.maxAttempts
+spring.cloud.stream.bindings.processData-in-0.consumer.backOffInitialInterval
+spring.cloud.stream.bindings.processData-in-0.consumer.backOffMultiplier
+spring.cloud.stream.bindings.processData-in-0.consumer.backOffMaxInterval</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want, you can also provide a list of retryable exceptions by providing a map of boolean values.
+For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.bindings.processData-in-0.consumer.retryableExceptions.java.lang.IllegalStateException=true
+spring.cloud.stream.bindings.processData-in-0.consumer.retryableExceptions.java.lang.IllegalArgumentException=false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, any exceptions not listed in the map above will be retried.
+If that is not desired, then you can disable that by providing,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.bindings.processData-in-0.consumer.defaultRetryable=false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also provide your own <code>RetryTemplate</code> and mark it as <code>@StreamRetryTemplate</code> which will be scanned and used by the binder.
+This is useful when you want more sophisticated retry strategies and policies.</p>
+</div>
+<div class="paragraph">
+<p>If you have multiple <code>@StreamRetryTemplate</code> beans, then you can specify which one your binding wants by using the property,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.bindings.processData-in-0.consumer.retry-template-name=&lt;your-retry-template-bean-name&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="handling-deserialization-errors-with-dlq"><a class="anchor" href="#handling-deserialization-errors-with-dlq"></a>Handling Deserialization errors with DLQ</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="handling-deserialization-errors-with-dlq-problem-statement"><a class="anchor" href="#handling-deserialization-errors-with-dlq-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>I have a processor that encounters a deserialization exception in Kafka consumer.
+I would expect that the Spring Cloud Stream DLQ mechanism will catch that scenario, but it does not.
+How can I handle this?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handling-deserialization-errors-with-dlq-solution"><a class="anchor" href="#handling-deserialization-errors-with-dlq-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>The normal DLQ mechanism offered by Spring Cloud Stream will not help when Kafka consumer throws an irrecoverable deserialization exception.
+This is because, this exception happens even before the consumer&#8217;s <code>poll()</code> method returns.
+Spring for Apache Kafka project offers some great ways to help the binder with this situation.
+Let us explore those.</p>
+</div>
+<div class="paragraph">
+<p>Assuming this is our function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Consumer&lt;String&gt; functionName() {
+    return s -&gt; {
+        System.out.println(s);
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is a trivial function that takes a <code>String</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>We want to bypass the message converters provided by Spring Cloud Stream and want to use native deserializers instead.
+In the case of <code>String</code> types, it does not make much sense, but for more complex types like AVRO etc. you have to rely on external deserializers and therefore want to delegate the conversion to Kafka.</p>
+</div>
+<div class="paragraph">
+<p>Now when the consumer receives the data, let us assume that there is a bad record that causes a deserialization error, maybe someone passed an <code>Integer</code> instead of a <code>String</code> for example.
+In that case, if you don&#8217;t do something in the application, the exception will be propagated through the chain and your application will exit eventually.</p>
+</div>
+<div class="paragraph">
+<p>In order to handle this, you can add a <code>ListenerContainerCustomizer</code> <code>@Bean</code> that configures a <code>DefaultErrorHandler</code>.
+This <code>DefaultErrorHandler</code> is configured with a <code>DeadLetterPublishingRecoverer</code>.
+We also need to configure an <code>ErrorHandlingDeserializer</code> for the consumer.
+That sounds like a lot of complex things, but in reality, it boils down to these 3 beans in this case.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">	@Bean
+	public ListenerContainerCustomizer&lt;AbstractMessageListenerContainer&lt;byte[], byte[]&gt;&gt; customizer(DefaultErrorHandler errorHandler) {
+		return (container, dest, group) -&gt; {
+			container.setCommonErrorHandler(errorHandler);
+		};
+	}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">	@Bean
+	public DefaultErrorHandler errorHandler(DeadLetterPublishingRecoverer deadLetterPublishingRecoverer) {
+		return new DefaultErrorHandler(deadLetterPublishingRecoverer);
+	}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">	@Bean
+	public DeadLetterPublishingRecoverer publisher(KafkaOperations bytesTemplate) {
+		return new DeadLetterPublishingRecoverer(bytesTemplate);
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let us analyze each of them.
+The first one is the <code>ListenerContainerCustomizer</code> bean that takes a <code>DefaultErrorHandler</code>.
+The container is now customized with that particular error handler.
+You can learn more about container customization <a href="https://docs.spring.io/spring-cloud-stream/docs/current/reference/html/spring-cloud-stream.html#_advanced_consumer_configuration">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>The second bean is the <code>DefaultErrorHandler</code> that is configured with a publishing to a <code>DLT</code>.
+See <a href="https://docs.spring.io/spring-kafka/docs/current/reference/html/#seek-to-current">here</a> for more details on <code>DefaultErrorHandler</code>.</p>
+</div>
+<div class="paragraph">
+<p>The third bean is the <code>DeadLetterPublishingRecoverer</code> that is ultimately responsible for sending to the <code>DLT</code>.
+By default, the <code>DLT</code> topic is named as the ORIGINAL_TOPIC_NAME.DLT.
+You can change that though.
+See the <a href="https://docs.spring.io/spring-kafka/docs/current/reference/html/#dead-letters">docs</a> for more details.</p>
+</div>
+<div class="paragraph">
+<p>We also need to configure an <a href="https://docs.spring.io/spring-kafka/docs/current/reference/html/#error-handling-deserializer">ErrorHandlingDeserializer</a> through application config.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ErrorHandlingDeserializer</code> delegates to the actual deserializer.
+In case of errors, it sets key/value of the record to be null and includes the raw bytes of the message.
+It then sets the exception in a header and passes this record to the listener, which then calls the registered error handler.</p>
+</div>
+<div class="paragraph">
+<p>Following is the configuration required:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream:
+  function:
+    definition: functionName
+  bindings:
+    functionName-in-0:
+      group: group-name
+      destination: input-topic
+      consumer:
+       use-native-decoding: true
+  kafka:
+    bindings:
+      functionName-in-0:
+        consumer:
+          enableDlq: true
+          dlqName: dlq-topic
+          dlqProducerProperties:
+            configuration:
+              value.serializer: org.apache.kafka.common.serialization.StringSerializer
+          configuration:
+            value.deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+            spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.StringDeserializer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We are providing the <code>ErrorHandlingDeserializer</code> through the <code>configuration</code> property on the binding.
+We are also indicating that the actual deserializer to delegate is the <code>StringDeserializer</code>.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that none of the dlq properties above are relevant for the discussions in this recipe.
+They are purely meant for addressing any application level errors only.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="basic-offset-management-in-kafka-binder"><a class="anchor" href="#basic-offset-management-in-kafka-binder"></a>Basic offset management in Kafka binder</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="basic-offset-management-in-kafka-binder-problem-statement"><a class="anchor" href="#basic-offset-management-in-kafka-binder-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>I want to write a Spring Cloud Stream Kafka consumer application and not sure about how it manages Kafka consumer offsets.
+Can you explain?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="basic-offset-management-in-kafka-binder-solution"><a class="anchor" href="#basic-offset-management-in-kafka-binder-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>We encourage you read the <a href="https://docs.spring.io/spring-cloud-stream-binder-kafka/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#reset-offsets">docs</a> section on this to get a thorough understanding on it.</p>
+</div>
+<div class="paragraph">
+<p>Here is it in a gist:</p>
+</div>
+<div class="paragraph">
+<p>Kafka supports two types of offsets to start with by default - <code>earliest</code> and <code>latest</code>.
+Their semantics are self-explanatory from their names.</p>
+</div>
+<div class="paragraph">
+<p>Assuming you are running the consumer for the first time.
+If you miss the group.id in your Spring Cloud Stream application, then it becomes an anonymous consumer.
+Whenever, you have an anonymous consumer, in that case, Spring Cloud Stream application by default will start from the <code>latest</code> available offset in the topic partition.
+On the other hand, if you explicitly specify a group.id, then by default, the Spring Cloud Stream application will start from the <code>earliest</code> available offset in the topic partition.</p>
+</div>
+<div class="paragraph">
+<p>In both cases above (consumers with explicit groups and anonymous groups), the starting offset can be switched around by using the property <code>spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.consumer.startOffset</code> and setting it to either <code>earliest</code> or <code>latest</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now, assume that you already ran the consumer before and now starting it again.
+In this case, the starting offset semantics in the above case do not apply as the consumer finds an already committed offset for the consumer group (In the case of an anonymous consumer, although the application does not provide a group.id, the binder will auto generate one for you).
+It simply picks up from the last committed offset onward.
+This is true, even when you have a <code>startOffset</code> value provided.</p>
+</div>
+<div class="paragraph">
+<p>However, you can override the default behavior where the consumer starts from the last committed offset by using the <code>resetOffsets</code> property.
+In order to do that, set the property <code>spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.consumer.resetOffsets</code> to <code>true</code> (which is <code>false</code> by default).
+Then make sure you provide the <code>startOffset</code> value (either <code>earliest</code> or <code>latest</code>).
+When you do that and then start the consumer application, each time you start, it starts as if this is starting for the first time and ignore any committed offsets for the partition.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="seeking-to-arbitrary-offsets-in-kafka"><a class="anchor" href="#seeking-to-arbitrary-offsets-in-kafka"></a>Seeking to arbitrary offsets in Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="seeking-to-arbitrary-offsets-in-kafka-problem-statement"><a class="anchor" href="#seeking-to-arbitrary-offsets-in-kafka-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>Using Kafka binder, I know that it can set the offset to either <code>earliest</code> or <code>latest</code>, but I have a requirement to seek the offset to something in the middle, an arbitrary offset.
+Is there a way to achieve this using Spring Cloud Stream Kafka binder?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="seeking-to-arbitrary-offsets-in-kafka-solution"><a class="anchor" href="#seeking-to-arbitrary-offsets-in-kafka-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Previously we saw how Kafka binder allows you to tackle basic offset management.
+By default, the binder does not allow you to rewind to an arbitrary offset, at least through the mechanism we saw in that recipe.
+However, there are some low-level strategies that the binder provides to achieve this use case.
+Let&#8217;s explore them.</p>
+</div>
+<div class="paragraph">
+<p>First of all, when you want to reset to an arbitrary offset other than <code>earliest</code> or <code>latest</code>, make sure to leave the <code>resetOffsets</code> configuration to its defaults, which is <code>false</code>.
+Then you have to provide a custom bean of type <code>KafkaBindingRebalanceListener</code>, which will be injected into all consumer bindings.
+It is an interface that comes with a few default methods, but here is the method that we are interested in:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">/**
+	 * Invoked when partitions are initially assigned or after a rebalance. Applications
+	 * might only want to perform seek operations on an initial assignment. While the
+	 * 'initial' argument is true for each thread (when concurrency is greater than 1),
+	 * implementations should keep track of exactly which partitions have been sought.
+	 * There is a race in that a rebalance could occur during startup and so a topic/
+	 * partition that has been sought on one thread may be re-assigned to another
+	 * thread and you may not wish to re-seek it at that time.
+	 * @param bindingName the name of the binding.
+	 * @param consumer the consumer.
+	 * @param partitions the partitions.
+	 * @param initial true if this is the initial assignment on the current thread.
+	 */
+	default void onPartitionsAssigned(String bindingName, Consumer&lt;?, ?&gt; consumer,
+			Collection&lt;TopicPartition&gt; partitions, boolean initial) {
+		// do nothing
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let us look at the details.</p>
+</div>
+<div class="paragraph">
+<p>In essence, this method will be invoked each time during the initial assignment for a topic partition or after a rebalance.
+For better illustration, let us assume that our topic is <code>foo</code> and it has 4 partitions.
+Initially, we are only starting a single consumer in the group and this consumer will consume from all partitions.
+When the consumer starts for the first time, all 4 partitions are getting initially assigned.
+However, we do not want to start the partitions to consume at the defaults (<code>earliest</code> since we define a group), rather for each partition, we want them to consume after seeking to arbitrary offsets.
+Imagine that you have a business case to consume from certain offsets as below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Partition   start offset
+
+0           1000
+1           2000
+2           2000
+3           1000</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This could be achieved by implementing the above method as below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Override
+public void onPartitionsAssigned(String bindingName, Consumer&lt;?, ?&gt; consumer, Collection&lt;TopicPartition&gt; partitions, boolean initial) {
+
+    Map&lt;TopicPartition, Long&gt; topicPartitionOffset = new HashMap&lt;&gt;();
+    topicPartitionOffset.put(new TopicPartition("foo", 0), 1000L);
+    topicPartitionOffset.put(new TopicPartition("foo", 1), 2000L);
+    topicPartitionOffset.put(new TopicPartition("foo", 2), 2000L);
+    topicPartitionOffset.put(new TopicPartition("foo", 3), 1000L);
+
+    if (initial) {
+        partitions.forEach(tp -&gt; {
+            if (topicPartitionOffset.containsKey(tp)) {
+                final Long offset = topicPartitionOffset.get(tp);
+                try {
+                    consumer.seek(tp, offset);
+                }
+                catch (Exception e) {
+                    // Handle exceptions carefully.
+                }
+            }
+        });
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is just a rudimentary implementation.
+Real world use cases are much more complex than this and you need to adjust accordingly, but this certainly gives you a basic sketch.
+When consumer <code>seek</code> fails, it may throw some runtime exceptions and you need to decide what to do in those cases.</p>
+</div>
+<div class="paragraph">
+<p>[[what-if-we-start-a-second-consumer-with-the-same-group-id?]]
+=== What if we start a second consumer with the same group id?</p>
+</div>
+<div class="paragraph">
+<p>When we add a second consumer, a rebalance will occur and some partitions will be moved around.
+Let&#8217;s say that the new consumer gets partitions <code>2</code> and <code>3</code>.
+When this new Spring Cloud Stream consumer calls this <code>onPartitionsAssigned</code> method, it will see that this is the initial assignment for partition <code>2</code> and <code>3</code> on this consumer.
+Therefore, it will do the seek operation because of the conditional check on the <code>initial</code> argument.
+In the case of the first consumer, it now only has partitions <code>0</code> and <code>1</code>
+However, for this consumer it was simply a rebalance event and not considered as an intial assignment.
+Thus, it will not re-seek to the given offsets because of the conditional check on the <code>initial</code> argument.</p>
+</div>
+<div class="paragraph">
+<p>[[how-do-i-manually-acknowledge-using-kafka-binder?]]
+== How do I manually acknowledge using Kafka binder?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manually-acknowledging-problem-statement"><a class="anchor" href="#manually-acknowledging-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>Using Kafka binder, I want to manually acknowledge messages in my consumer.
+How do I do that?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manually-acknowledging-solution"><a class="anchor" href="#manually-acknowledging-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>By default, Kafka binder delegates to the default commit settings in Spring for Apache Kafka project.
+The default <code>ackMode</code> in Spring Kafka is <code>batch</code>.
+See <a href="https://docs.spring.io/spring-kafka/docs/current/reference/html/#committing-offsets">here</a> for more details on that.</p>
+</div>
+<div class="paragraph">
+<p>There are situations in which you want to disable this default commit behavior and rely on manual commits.
+Following steps allow you to do that.</p>
+</div>
+<div class="paragraph">
+<p>Set the property <code>spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.consumer.ackMode</code> to either <code>MANUAL</code> or <code>MANUAL_IMMEDIATE</code>.
+When it is set like that, then there will be a header called <code>kafka_acknowledgment</code> (from <code>KafkaHeaders.ACKNOWLEDGMENT</code>) present in the message received by the consumer method.</p>
+</div>
+<div class="paragraph">
+<p>For example, imagine this as your consumer method.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Consumer&lt;Message&lt;String&gt;&gt; myConsumer() {
+    return msg -&gt; {
+        Acknowledgment acknowledgment = message.getHeaders().get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment.class);
+        if (acknowledgment != null) {
+         System.out.println("Acknowledgment provided");
+         acknowledgment.acknowledge();
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then you set the property <code>spring.cloud.stream.kafka.bindings.myConsumer-in-0.consumer.ackMode</code> to <code>MANUAL</code> or <code>MANUAL_IMMEDIATE</code>.</p>
+</div>
+<div class="paragraph">
+<p>[[how-do-i-override-the-default-binding-names-in-spring-cloud-stream?]]
+== How do I override the default binding names in Spring Cloud Stream?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="override-the-default-binding-names-problem-statement"><a class="anchor" href="#override-the-default-binding-names-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>Spring Cloud Stream creates default bindings based on the function definition and signature, but how do I override these to more domain friendly names?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="override-the-default-binding-names-solution"><a class="anchor" href="#override-the-default-binding-names-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Assume that following is your function signature.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Function&lt;String, String&gt; uppercase(){
+...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, Spring Cloud Stream will create the bindings as below.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>uppercase-in-0</p>
+</li>
+<li>
+<p>uppercase-out-0</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You can override these bindings to something by using the following properties.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.function.bindings.uppercase-in-0=my-transformer-in
+spring.cloud.stream.function.bindings.uppercase-out-0=my-transformer-out</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After this, all binding properties must be made on the new names, <code>my-transformer-in</code> and <code>my-transformer-out</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is another example with Kafka Streams and multiple inputs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public BiFunction&lt;KStream&lt;String, Order&gt;, KTable&lt;String, Account&gt;, KStream&lt;String, EnrichedOrder&gt;&gt; processOrder() {
+...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default, Spring Cloud Stream will create three different binding names for this function.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>processOrder-in-0</p>
+</li>
+<li>
+<p>processOrder-in-1</p>
+</li>
+<li>
+<p>processOrder-out-0</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You have to use these binding names each time you want to set some configuration on these bindings.
+You don&#8217;t like that, and you want to use more domain-friendly and readable binding names, for example, something like.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>orders</p>
+</li>
+<li>
+<p>accounts</p>
+</li>
+<li>
+<p>enrichedOrders</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You can easily do that by simply setting these three properties</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>spring.cloud.stream.function.bindings.processOrder-in-0=orders</p>
+</li>
+<li>
+<p>spring.cloud.stream.function.bindings.processOrder-in-1=accounts</p>
+</li>
+<li>
+<p>spring.cloud.stream.function.bindings.processOrder-out-0=enrichedOrders</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once you do that, it overrides the default binding names and any properties that you want to set on them must be on these new binding names.</p>
+</div>
+<div class="paragraph">
+<p>[[how-do-i-send-a-message-key-as-part-of-my-record?]]
+== How do I send a message key as part of my record?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-a-message-key-problem-statement"><a class="anchor" href="#send-a-message-key-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>I need to send a key along with the payload of the record, is there a way to do that in Spring Cloud Stream?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="send-a-message-key-solution"><a class="anchor" href="#send-a-message-key-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>It is often necessary that you want to send associative data structure like a map as the record with a key and value.
+Spring Cloud Stream allows you to do that in a straightforward manner.
+Following is a basic blueprint for doing this, but you may want to adapt it to your paricular use case.</p>
+</div>
+<div class="paragraph">
+<p>Here is sample producer method (aka <code>Supplier</code>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Supplier&lt;Message&lt;String&gt;&gt; supplier() {
+    return () -&gt; MessageBuilder.withPayload("foo").setHeader(KafkaHeaders.MESSAGE_KEY, "my-foo").build();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a trivial function that sends a message with a <code>String</code> payload, but also with a key.
+Note that we set the key as a message header using <code>KafkaHeaders.MESSAGE_KEY</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you want to change the key from the default <code>kafka_messageKey</code>, then in the configuration, we need to specify this property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.supplier-out-0.producer.messageKeyExpression=headers['my-special-key']</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note that we use the binding name <code>supplier-out-0</code> since that is our function name, please update accordingly.</p>
+</div>
+<div class="paragraph">
+<p>Then, we use this new key when we produce the message.</p>
+</div>
+<div class="paragraph">
+<p>[[how-do-i-use-native-serializer-and-deserializer-instead-of-message-conversion-done-by-spring-cloud-stream?]]
+== How do I use native serializer and deserializer instead of message conversion done by Spring Cloud Stream?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-native-serializer-and-deserializer-problem-statement"><a class="anchor" href="#use-native-serializer-and-deserializer-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>Instead of using the message converters in Spring Cloud Stream, I want to use native Serializer and Deserializer in Kafka.
+By default, Spring Cloud Stream takes care of this conversion using its internal built-in message converters.
+How can I bypass this and delegate the responsibility to Kafka?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-native-serializer-and-deserializer-solution"><a class="anchor" href="#use-native-serializer-and-deserializer-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>This is really easy to do.</p>
+</div>
+<div class="paragraph">
+<p>All you have to do is to provide the following property to enable native serialization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.producer.useNativeEncoding: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, you need to also set the serializers.
+There are a couple of ways to do this.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.producer.configuration.value.serializer: org.apache.kafka.common.serialization.StringSerializer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or using the binder configuration.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.binder.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+spring.cloud.stream.kafka.binder.configuration.value.serializer: org.apache.kafka.common.serialization.StringSerializer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When using the binder way, it is applied against all the bindings whereas setting them at the bindings are per binding.</p>
+</div>
+<div class="paragraph">
+<p>On the deserializing side, you just need to provide the deserializers as configuration.</p>
+</div>
+<div class="paragraph">
+<p>For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.consumer.configuration.key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.producer.configuration.value.deserializer: org.apache.kafka.common.serialization.StringDeserializer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also set them at the binder level.</p>
+</div>
+<div class="paragraph">
+<p>There is an optional property that you can set to force native decoding.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.&lt;binding-name&gt;.consumer.useNativeDecoding: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, in the case of Kafka binder, this is unnecessary, as by the time it reaches the binder, Kafka already deserializes them using the configured deserializers.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="explain-how-offset-resetting-work-in-kafka-streams-binder"><a class="anchor" href="#explain-how-offset-resetting-work-in-kafka-streams-binder"></a>Explain how offset resetting work in Kafka Streams binder</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="how-offset-resetting-work-problem-statement"><a class="anchor" href="#how-offset-resetting-work-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>By default, Kafka Streams binder always starts from the earliest offset for a new consumer.
+Sometimes, it is beneficial or required by the application to start from the latest offset.
+Kafka Streams binder allows you to do that.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="how-offset-resetting-work-solution"><a class="anchor" href="#how-offset-resetting-work-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Before we look at the solution, let us look at the following scenario.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public BiConsumer&lt;KStream&lt;Object, Object&gt;, KTable&lt;Object, Object&gt;&gt; myBiConsumer{
+    (s, t) -&gt; s.join(t, ...)
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We have a <code>BiConsumer</code> bean that requires two input bindings.
+In this case, the first binding is for a <code>KStream</code> and the second one is for a <code>KTable</code>.
+When running this application for the first time, by default, both bindings start from the <code>earliest</code> offset.
+What about I want to start from the <code>latest</code> offset due to some requirements?
+You can do this by enabling the following properties.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.streams.bindings.myBiConsumer-in-0.consumer.startOffset: latest
+spring.cloud.stream.kafka.streams.bindings.myBiConsumer-in-1.consumer.startOffset: latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want only one binding to start from the <code>latest</code> offset and the other to consumer from the default <code>earliest</code>, then leave the latter binding out from the configuration.</p>
+</div>
+<div class="paragraph">
+<p>Keep in mind that, once there are committed offsets, these setting are <strong>not</strong> honored and the committed offsets take precedence.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="keeping-track-of-successful-sending-of-records-producing-in-kafka"><a class="anchor" href="#keeping-track-of-successful-sending-of-records-producing-in-kafka"></a>Keeping track of successful sending of records (producing) in Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="keeping-track-of-successful-sending-problem-statement"><a class="anchor" href="#keeping-track-of-successful-sending-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>I have a Kafka producer application and I want to keep track of all my successful sendings.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="keeping-track-of-successful-sending-solution"><a class="anchor" href="#keeping-track-of-successful-sending-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Let us assume that we have this following supplier in the application.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+	public Supplier&lt;Message&lt;String&gt;&gt; supplier() {
+		return () -&gt; MessageBuilder.withPayload("foo").setHeader(KafkaHeaders.MESSAGE_KEY, "my-foo").build();
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, we need to define a new <code>MessageChannel</code> bean to capture all the successful send information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+	public MessageChannel fooRecordChannel() {
+		return new DirectChannel();
+	}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, define this property in the application configuration to provide the bean name for the <code>recordMetadataChannel</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.supplier-out-0.producer.recordMetadataChannel: fooRecordChannel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, successful sent information will be sent to the <code>fooRecordChannel</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can write an <code>IntegrationFlow</code> as below to see the information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public IntegrationFlow integrationFlow() {
+    return f -&gt; f.channel("fooRecordChannel")
+                 .handle((payload, messageHeaders) -&gt; payload);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the <code>handle</code> method, the payload is what got sent to Kafka and the message headers contain a special key called <code>kafka_recordMetadata</code>.
+Its value is a <code>RecordMetadata</code> that contains information about topic partition, current offset etc.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-custom-header-mapper-in-kafka"><a class="anchor" href="#adding-custom-header-mapper-in-kafka"></a>Adding custom header mapper in Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="adding-custom-header-mapper-problem-statement"><a class="anchor" href="#adding-custom-header-mapper-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>I have a Kafka producer application that sets some headers, but they are missing in the consumer application. Why is that?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-custom-header-mapper-solution"><a class="anchor" href="#adding-custom-header-mapper-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Under normal circumstances, this should be fine.</p>
+</div>
+<div class="paragraph">
+<p>Imagine, you have the following producer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Supplier&lt;Message&lt;String&gt;&gt; supply() {
+    return () -&gt; MessageBuilder.withPayload("foo").setHeader("foo", "bar").build();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the consumer side, you should still see the header "foo", and the following should not give you any issues.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Consumer&lt;Message&lt;String&gt;&gt; consume() {
+    return s -&gt; {
+        final String foo = (String)s.getHeaders().get("foo");
+        System.out.println(foo);
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you provide a <a href="https://docs.spring.io/spring-cloud-stream-binder-kafka/docs/3.1.3/reference/html/spring-cloud-stream-binder-kafka.html#_kafka_binder_properties">custom header mapper</a> in the application, then this won&#8217;t work.
+Let&#8217;s say you have an empty <code>KafkaHeaderMapper</code> in the application.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public KafkaHeaderMapper kafkaBinderHeaderMapper() {
+    return new KafkaHeaderMapper() {
+        @Override
+        public void fromHeaders(MessageHeaders headers, Headers target) {
+
+        }
+
+        @Override
+        public void toHeaders(Headers source, Map&lt;String, Object&gt; target) {
+
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If that is your implementation, then you will miss the <code>foo</code> header on the consumer.
+Chances are that, you may have some logic inside those <code>KafkaHeaderMapper</code> methods.
+You need the following to populate the <code>foo</code> header.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public KafkaHeaderMapper kafkaBinderHeaderMapper() {
+    return new KafkaHeaderMapper() {
+        @Override
+        public void fromHeaders(MessageHeaders headers, Headers target) {
+            final String foo = (String) headers.get("foo");
+            target.add("foo", foo.getBytes());
+        }
+
+        @Override
+        public void toHeaders(Headers source, Map&lt;String, Object&gt; target) {
+            final Header foo = source.lastHeader("foo");
+			target.put("foo", new String(foo.value()));
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That will properly populate the <code>foo</code> header from the producer to consumer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="special-note-on-the-id-header"><a class="anchor" href="#special-note-on-the-id-header"></a>Special note on the id header</h3>
+<div class="paragraph">
+<p>In Spring Cloud Stream, the <code>id</code> header is a special header, but some applications may want to have special custom id headers - something like <code>custom-id</code> or <code>ID</code> or <code>Id</code>.
+The first one (<code>custom-id</code>) will propagate without any custom header mapper from producer to consumer.
+However, if you produce with a variant of the framework reserved <code>id</code> header - such as <code>ID</code>, <code>Id</code>, <code>iD</code> etc. then you will run into issues with the internals of the framework.
+See this <a href="https://stackoverflow.com/questions/68412600/change-the-behaviour-in-spring-cloud-stream-make-header-matcher-case-sensitive">StackOverflow thread</a> fore more context on this use case.
+In that case, you must use a custom <code>KafkaHeaderMapper</code> to map the case-sensitive id header.
+For example, let&#8217;s say you have the following producer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public Supplier&lt;Message&lt;String&gt;&gt; supply() {
+    return () -&gt; MessageBuilder.withPayload("foo").setHeader("Id", "my-id").build();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The header <code>Id</code> above will be gone from the consuming side as it clashes with the framework <code>id</code> header.
+You can provide a custom <code>KafkaHeaderMapper</code> to solve this issue.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public KafkaHeaderMapper kafkaBinderHeaderMapper1() {
+    return new KafkaHeaderMapper() {
+        @Override
+        public void fromHeaders(MessageHeaders headers, Headers target) {
+            final String myId = (String) headers.get("Id");
+			target.add("Id", myId.getBytes());
+        }
+
+        @Override
+        public void toHeaders(Headers source, Map&lt;String, Object&gt; target) {
+            final Header Id = source.lastHeader("Id");
+			target.put("Id", new String(Id.value()));
+        }
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By doing this, both <code>id</code> and <code>Id</code> headers will be available from the producer to the consumer side.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="producing-to-multiple-topics-in-transaction"><a class="anchor" href="#producing-to-multiple-topics-in-transaction"></a>Producing to multiple topics in transaction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="producing-to-multiple-topics-in-transaction-problem-statement"><a class="anchor" href="#producing-to-multiple-topics-in-transaction-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>How do I produce transactional messages to multiple Kafka topics?</p>
+</div>
+<div class="paragraph">
+<p>For more context, see this <a href="https://stackoverflow.com/questions/68928091/dlq-bounded-retry-and-eos-when-producing-to-multiple-topics-using-spring-cloud">StackOverflow question</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="producing-to-multiple-topics-in-transaction-solution"><a class="anchor" href="#producing-to-multiple-topics-in-transaction-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Use transactional support in Kafka binder for transactions and then provide an <code>AfterRollbackProcessor</code>.
+In order to produce to multiple topics, use <code>StreamBridge</code> API.</p>
+</div>
+<div class="paragraph">
+<p>Below are the code snippets for this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Autowired
+StreamBridge bridge;
+
+@Bean
+Consumer&lt;String&gt; input() {
+    return str -&gt; {
+        System.out.println(str);
+        this.bridge.send("left", str.toUpperCase());
+        this.bridge.send("right", str.toLowerCase());
+        if (str.equals("Fail")) {
+            throw new RuntimeException("test");
+        }
+    };
+}
+
+@Bean
+ListenerContainerCustomizer&lt;AbstractMessageListenerContainer&lt;?, ?&gt;&gt; customizer(BinderFactory binders) {
+    return (container, dest, group) -&gt; {
+        ProducerFactory&lt;byte[], byte[]&gt; pf = ((KafkaMessageChannelBinder) binders.getBinder(null,
+                MessageChannel.class)).getTransactionalProducerFactory();
+        KafkaTemplate&lt;byte[], byte[]&gt; template = new KafkaTemplate&lt;&gt;(pf);
+        DefaultAfterRollbackProcessor rollbackProcessor = rollbackProcessor(template);
+        container.setAfterRollbackProcessor(rollbackProcessor);
+    };
+}
+
+DefaultAfterRollbackProcessor rollbackProcessor(KafkaTemplate&lt;byte[], byte[]&gt; template) {
+    return new DefaultAfterRollbackProcessor&lt;&gt;(
+            new DeadLetterPublishingRecoverer(template), new FixedBackOff(2000L, 2L), template, true);
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="required-configuration"><a class="anchor" href="#required-configuration"></a>Required Configuration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.binder.transaction.transaction-id-prefix: tx-
+spring.cloud.stream.kafka.binder.required-acks=all
+spring.cloud.stream.bindings.input-in-0.group=foo
+spring.cloud.stream.bindings.input-in-0.destination=input
+spring.cloud.stream.bindings.left.destination=left
+spring.cloud.stream.bindings.right.destination=right
+
+spring.cloud.stream.kafka.bindings.input-in-0.consumer.maxAttempts=1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>in order to test, you can use the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">@Bean
+public ApplicationRunner runner(KafkaTemplate&lt;byte[], byte[]&gt; template) {
+    return args -&gt; {
+        System.in.read();
+        template.send("input", "Fail".getBytes());
+        template.send("input", "Good".getBytes());
+    };
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Some important notes:</p>
+</div>
+<div class="paragraph">
+<p>Please ensure that you don&#8217;t have any DLQ settings on the application configuration as we manually configure DLT (By default it will be published to a topic named <code>input.DLT</code> based on the initial consumer function).
+Also, reset the <code>maxAttempts</code> on consumer binding to <code>1</code> in order to avoid retries by the binder.
+It will be max tried a total of 3 in the example above (initial try + the 2 attempts in the <code>FixedBackoff</code>).</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://stackoverflow.com/questions/68928091/dlq-bounded-retry-and-eos-when-producing-to-multiple-topics-using-spring-cloud">StackOverflow thread</a> for more details on how to test this code.
+If you are using Spring Cloud Stream to test it by adding more consumer functions, make sure to set the <code>isolation-level</code> on the consumer binding to <code>read-committed</code>.</p>
+</div>
+<div class="paragraph">
+<p>This <a href="https://stackoverflow.com/questions/68941306/spring-cloud-stream-database-transaction-does-not-roll-back">StackOverflow thread</a> is also related to this discussion.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pitfalls-to-avoid-when-running-multiple-pollable-consumers"><a class="anchor" href="#pitfalls-to-avoid-when-running-multiple-pollable-consumers"></a>Pitfalls to avoid when running multiple pollable consumers</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="pitfalls-to-avoid-when-running-multiple-pollable-consumers-problem-statement"><a class="anchor" href="#pitfalls-to-avoid-when-running-multiple-pollable-consumers-problem-statement"></a>Problem Statement</h3>
+<div class="paragraph">
+<p>How can I run multiple instances of the pollable consumers and generate unique <code>client.id</code> for each instance?</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pitfalls-to-avoid-when-running-multiple-pollable-consumers-solution"><a class="anchor" href="#pitfalls-to-avoid-when-running-multiple-pollable-consumers-solution"></a>Solution</h3>
+<div class="paragraph">
+<p>Assuming that I have the following definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.pollable-source: foo
+spring.cloud.stream.bindings.foo-in-0.group: my-group</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When running the application, the Kafka consumer generates a client.id (something like <code>consumer-my-group-1</code>).
+For each instance of the application that is running, this <code>client.id</code> will be the same, causing unexpected issues.</p>
+</div>
+<div class="paragraph">
+<p>In order to fix this, you can add the following property on each instance of the application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">spring.cloud.stream.kafka.bindings.foo-in-0.consumer.configuration.client.id=${client.id}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See this <a href="https://github.com/spring-cloud/spring-cloud-stream-binder-kafka/issues/1139">GitHub issue</a> for more details.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="kafka-streams-binder/configuration-options.html">Configuration Options</a></span>
+  <span class="next"><a href="../rabbit/rabbit_overview.html">RabbitMQ Binder Reference Guide</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">spring-cloud-stream</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-stream"></script>
+  </body>
+</html>

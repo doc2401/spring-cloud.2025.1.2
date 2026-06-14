@@ -1,0 +1,145 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:34:59.780Z",
+  "url": "https://docs.spring.io/spring-cloud-function/reference",
+  "components": {
+    "cloud-function": {
+      "title": "spring-cloud-function",
+      "latest": "5.0.3",
+      "versions": {
+        "5.0.3": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Function Reference Documentation"
+            },
+            {
+              "path": "adapters/aws-intro.adoc",
+              "url": "/adapters/aws-intro.html",
+              "title": "AWS Lambda"
+            },
+            {
+              "path": "adapters/aws.adoc",
+              "url": "/adapters/aws.html",
+              "title": "AWS Lambda",
+              "alias": {
+                "ref": "adapters/aws-intro.adoc",
+                "url": "/adapters/aws-intro.html"
+              }
+            },
+            {
+              "path": "adapters/azure-intro.adoc",
+              "url": "/adapters/azure-intro.html",
+              "title": "Microsoft Azure Functions"
+            },
+            {
+              "path": "adapters/azure.adoc",
+              "url": "/adapters/azure.html",
+              "title": "Microsoft Azure Functions",
+              "alias": {
+                "ref": "adapters/azure-intro.adoc",
+                "url": "/adapters/azure-intro.html"
+              }
+            },
+            {
+              "path": "adapters/gcp-intro.adoc",
+              "url": "/adapters/gcp-intro.html",
+              "title": "Google Cloud Functions"
+            },
+            {
+              "path": "adapters/gcp.adoc",
+              "url": "/adapters/gcp.html",
+              "title": "Google Cloud Functions",
+              "alias": {
+                "ref": "adapters/gcp-intro.adoc",
+                "url": "/adapters/gcp-intro.html"
+              }
+            },
+            {
+              "path": "functional.adoc",
+              "url": "/functional.html",
+              "title": "Functional Bean Definitions"
+            },
+            {
+              "path": "getting-started.adoc",
+              "url": "/getting-started.html",
+              "title": "Getting Started"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Introduction"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-cloud-function.adoc",
+              "url": "/spring-cloud-function.html",
+              "title": "Spring Cloud Function"
+            },
+            {
+              "path": "spring-cloud-function/appendix.adoc",
+              "url": "/spring-cloud-function/appendix.html",
+              "title": "Appendix"
+            },
+            {
+              "path": "spring-cloud-function/deploying-a-packaged.adoc",
+              "url": "/spring-cloud-function/deploying-a-packaged.html",
+              "title": "Deploying a Packaged Function"
+            },
+            {
+              "path": "spring-cloud-function/functional-bean-definitions.adoc",
+              "url": "/spring-cloud-function/functional-bean-definitions.html",
+              "title": "Functional Bean Definitions"
+            },
+            {
+              "path": "spring-cloud-function/getting-started.adoc",
+              "url": "/spring-cloud-function/getting-started.html",
+              "title": "Getting Started"
+            },
+            {
+              "path": "spring-cloud-function/introduction.adoc",
+              "url": "/spring-cloud-function/introduction.html",
+              "title": "Introduction"
+            },
+            {
+              "path": "spring-cloud-function/programming-model.adoc",
+              "url": "/spring-cloud-function/programming-model.html",
+              "title": "Programming model"
+            },
+            {
+              "path": "spring-cloud-function/serverless-platform-adapters.adoc",
+              "url": "/spring-cloud-function/serverless-platform-adapters.html",
+              "title": "Serverless Platform Adapters"
+            },
+            {
+              "path": "spring-cloud-function/standalone-streaming-applications.adoc",
+              "url": "/spring-cloud-function/standalone-streaming-applications.html",
+              "title": "Standalone Streaming Applications"
+            },
+            {
+              "path": "spring-cloud-function/standalone-web-applications.adoc",
+              "url": "/spring-cloud-function/standalone-web-applications.html",
+              "title": "Standalone Web Applications"
+            },
+            {
+              "path": "spring-integration.adoc",
+              "url": "/spring-integration.html",
+              "title": "Spring Integration Interaction"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

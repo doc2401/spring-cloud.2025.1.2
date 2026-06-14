@@ -1,0 +1,93 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:24:27.152Z",
+  "url": "https://docs.spring.io/spring-cloud-circuitbreaker/reference",
+  "components": {
+    "cloud-circuitbreaker": {
+      "title": "Spring-Cloud-CircuitBreaker",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Circuit Breaker"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-framework-retry.adoc",
+              "url": "/spring-cloud-circuitbreaker-framework-retry.html",
+              "title": "Configuring Framework Retry Circuit Breakers"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j.html",
+              "title": "Configuring Resilience4J Circuit Breakers"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/bulkhead-pattern-supporting.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/bulkhead-pattern-supporting.html",
+              "title": "Bulkhead pattern supporting"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/bulkhead-properties-configuration.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/bulkhead-properties-configuration.html",
+              "title": "Bulkhead Properties Configuration"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/circuit-breaker-properties-configuration.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/circuit-breaker-properties-configuration.html",
+              "title": "Circuit Breaker Properties Configuration"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/collecting-metrics.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/collecting-metrics.html",
+              "title": "Collecting Metrics"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/default-configuration.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/default-configuration.html",
+              "title": "Default Configuration"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/specific-bulkhead-configuration.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/specific-bulkhead-configuration.html",
+              "title": "Specific Bulkhead Configuration"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/specific-circuit-breaker-configuration.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/specific-circuit-breaker-configuration.html",
+              "title": "Specific Circuit Breaker Configuration"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-resilience4j/starters.adoc",
+              "url": "/spring-cloud-circuitbreaker-resilience4j/starters.html",
+              "title": "Starters"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker-spring-retry.adoc",
+              "url": "/spring-cloud-circuitbreaker-spring-retry.html",
+              "title": "Configuring Spring Retry Circuit Breakers"
+            },
+            {
+              "path": "spring-cloud-circuitbreaker.adoc",
+              "url": "/spring-cloud-circuitbreaker.html",
+              "title": "Spring Cloud Circuit Breaker"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

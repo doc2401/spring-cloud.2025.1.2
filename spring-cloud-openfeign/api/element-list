@@ -1,0 +1,10 @@
+org.springframework.cloud.openfeign
+org.springframework.cloud.openfeign.annotation
+org.springframework.cloud.openfeign.aot
+org.springframework.cloud.openfeign.clientconfig
+org.springframework.cloud.openfeign.clientconfig.http2client
+org.springframework.cloud.openfeign.encoding
+org.springframework.cloud.openfeign.hateoas
+org.springframework.cloud.openfeign.loadbalancer
+org.springframework.cloud.openfeign.security
+org.springframework.cloud.openfeign.support

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"org.springframework.cloud.internal","l":"Main"},{"p":"org.springframework.cloud.internal.asciidoctor","l":"ReadmeMain"}];updateSearchResults();

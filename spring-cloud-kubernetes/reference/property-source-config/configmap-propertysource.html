@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Using a ConfigMap PropertySource :: Spring Cloud Kubernetes</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-kubernetes/reference/property-source-config/configmap-propertysource.html">
+    <link rel="prev" href="../property-source-config.html">
+    <link rel="next" href="secrets-propertysource.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-kubernetes">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-kubernetes" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring Cloud Kubernetes</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../index.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../getting-started.html">Starters</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../discovery-client.html">DiscoveryClient for Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../discovery-kubernetes-native.html">Kubernetes native service discovery</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../property-source-config.html">Kubernetes PropertySource implementations</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="configmap-propertysource.html">Using a <code>ConfigMap</code> <code>PropertySource</code></a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="secrets-propertysource.html">Secrets PropertySource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="namespace-resolution.html">Namespace resolution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="order_of_configMaps_and_secrets.html">Order of ConfigMaps and Secrets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="propertysource-reload.html"><code>PropertySource</code> Reload</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="namespace-label-filtering.html">Reload namespace and label filtering</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../kubernetes-awareness.html">Kubernetes Ecosystem Awareness</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../pod-health-indicator.html">Pod Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../info-contributor.html">Info Contributor</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../leader-election.html">Leader Election</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../load-balancer.html">LoadBalancer for Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../security-service-accounts.html">Security Configurations Inside Kubernetes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../service-registry.html">Service Registry Implementation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../spring-cloud-kubernetes-configuration-watcher.html">Spring Cloud Kubernetes Configuration Watcher</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../spring-cloud-kubernetes-configserver.html">Spring Cloud Kubernetes Config Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../spring-cloud-kubernetes-discoveryserver.html">Spring Cloud Kubernetes Discovery Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../examples.html">Examples</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../other-resources.html">Other Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../appendix.html">Common application properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Using a ConfigMap PropertySource"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-kubernetes/docs/modules/ROOT/pages/property-source-config/configmap-propertysource.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-kubernetes" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Spring Cloud Kubernetes</a></li>
+      <li><a href="../property-source-config.html">Kubernetes PropertySource implementations</a></li>
+      <li><a href="configmap-propertysource.html">Using a <code>ConfigMap</code> <code>PropertySource</code></a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Using a <code>ConfigMap</code> <code>PropertySource</code></h1>
+<div class="paragraph">
+<p>Kubernetes provides a resource named <a href="https://kubernetes.io/docs/concepts/configuration/configmap/"><code>ConfigMap</code></a> to externalize the
+parameters to pass to your application in the form of key-value pairs or embedded <code>application.properties</code> or <code>application.yaml</code> files.
+The <a href="https://github.com/spring-cloud/spring-cloud-kubernetes/tree/main/spring-cloud-kubernetes-fabric8-config">Spring Cloud Kubernetes Config</a> project makes Kubernetes <code>ConfigMap</code> instances available
+during application startup and triggers hot reloading of beans or Spring context when changes are detected on
+observed <code>ConfigMap</code> instances.</p>
+</div>
+<div class="paragraph">
+<p>Everything that follows is explained mainly referring to examples using ConfigMaps, but the same stands for
+Secrets, i.e.: every feature is supported for both.</p>
+</div>
+<div class="paragraph">
+<p>The default behavior is to create a <code>Fabric8ConfigMapPropertySource</code> (or a <code>KubernetesClientConfigMapPropertySource</code>) based on a Kubernetes <code>ConfigMap</code> that has <code>metadata.name</code> of either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>value of <code>spring.cloud.kubernetes.config.name</code></p>
+</li>
+<li>
+<p>value of your Spring application (as defined by <code>spring.application.name</code> property)</p>
+</li>
+<li>
+<p>the String literal <code>"application"</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>However, more advanced configuration is possible where you can use multiple <code>ConfigMap</code> instances.
+The <code>spring.cloud.kubernetes.config.sources</code> list makes this possible.
+For example, you could define the following <code>ConfigMap</code> instances:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: cloud-k8s-app
+  cloud:
+    kubernetes:
+      config:
+        name: default-name
+        namespace: default-namespace
+        sources:
+         # Spring Cloud Kubernetes looks up a ConfigMap named c1 in namespace default-namespace
+         - name: c1
+         # Spring Cloud Kubernetes looks up a ConfigMap named default-name in whatever namespace n2
+         - namespace: n2
+         # Spring Cloud Kubernetes looks up a ConfigMap named c3 in namespace n3
+         - namespace: n3
+           name: c3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, if <code>spring.cloud.kubernetes.config.namespace</code> had not been set,
+the <code>ConfigMap</code> named <code>c1</code> would be looked up in the namespace that the application runs.
+See <a href="namespace-resolution.html" class="xref page">Namespace resolution</a> to get a better understanding of how the namespace
+of the application is resolved.</p>
+</div>
+<div class="paragraph">
+<p>Any matching <code>ConfigMap</code> that is found is processed as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Apply individual configuration properties.</p>
+</li>
+<li>
+<p>Apply as <code>yaml</code> (or <code>properties</code>) the content of any property that is named by the value of <code>spring.application.name</code>
+(if it&#8217;s not present, by <code>application.yaml/properties</code>)</p>
+</li>
+<li>
+<p>Apply as a properties file the content of the above name + each active profile.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An example should make a lot more sense. Let&#8217;s suppose that <code>spring.application.name=my-app</code> and that
+we have a single active profile called <code>k8s</code>. For a configuration as below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: my-app
+data:
+  my-app.yaml: |-
+    ...
+  my-app-k8s.yaml: |-
+    ..
+  my-app-dev.yaml: |-
+    ..
+  not-my-app.yaml: |-
+   ..
+  someProp: someValue</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what we will end-up loading:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>my-app.yaml</code> treated as a file</p>
+</li>
+<li>
+<p><code>my-app-k8s.yaml</code> treated as a file</p>
+</li>
+<li>
+<p><code>my-app-dev.yaml</code> <em>ignored</em>, since <code>dev</code> is <em>not</em> an active profile</p>
+</li>
+<li>
+<p><code>not-my-app.yaml</code> <em>ignored</em>, since it does not match <code>spring.application.name</code></p>
+</li>
+<li>
+<p><code>someProp: someValue</code> plain property</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The order of loading properties is a as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>first load all properties from <code>my-app.yaml</code></p>
+</li>
+<li>
+<p>then all from profile-based sources: <code>my-app-k8s.yaml</code></p>
+</li>
+<li>
+<p>then all plain properties <code>someProp: someValue</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This means that profile based sources take precedence over non-profile based sources (just like in a vanilla Spring app); and plain properties take precedence over both profile and non-profile based sources. Here is an example:</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: my-app
+data:
+  my-app-k8s.yaml: |-
+    key1=valueA
+    key2=valueB
+  my-app.yaml: |-
+    key1=valueC
+    key2=valueA
+  key1: valueD</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>After processing such a ConfigMap, this is what you will get in the properties: <code>key1=valueD</code>, <code>key2=valueB</code>.</p>
+</div>
+<div class="paragraph">
+<p>The single exception to the aforementioned flow is when the <code>ConfigMap</code> contains a <strong>single</strong> key that indicates
+the file is a YAML or properties file. In that case, the name of the key does NOT have to be <code>application.yaml</code> or
+<code>application.properties</code> (it can be anything) and the value of the property is treated correctly.
+This features facilitates the use case where the <code>ConfigMap</code> was created by using something like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">kubectl create configmap game-config --from-file=/path/to/app-config.yaml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Assume that we have a Spring Boot application named <code>demo</code> that uses the following properties to read its thread pool
+configuration.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>pool.size.core</code></p>
+</li>
+<li>
+<p><code>pool.size.maximum</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This can be externalized to config map in <code>yaml</code> format as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo
+data:
+  pool.size.core: 1
+  pool.size.max: 16</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Individual properties work fine for most cases. However, sometimes, embedded <code>yaml</code> is more convenient. In this case, we
+use a single property named <code>application.yaml</code> to embed our <code>yaml</code>, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo
+data:
+  application.yaml: |-
+    pool:
+      size:
+        core: 1
+        max:16</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following example also works:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo
+data:
+  custom-name.yaml: |-
+    pool:
+      size:
+        core: 1
+        max:16</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also define the search to happen based on labels, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: labeled-configmap-with-prefix
+  cloud:
+    kubernetes:
+      config:
+        enabled: true
+        useNameAsPrefix: true
+        namespace: spring-k8s
+        sources:
+          - labels:
+              letter: a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will search for every configmap in namespace <code>spring-k8s</code> that has labels <code>{letter : a}</code>. The important
+thing to notice here is that unlike reading a configmap by name, this can result in <em>multiple</em> config maps read.
+As usual, the same feature is supported for secrets.</p>
+</div>
+<div class="paragraph">
+<p>You can also configure Spring Boot applications differently depending on active profiles that are merged together
+when the <code>ConfigMap</code> is read. You can provide different property values for different profiles by using an
+<code>application.properties</code> or <code>application.yaml</code> property, specifying profile-specific values, each in their own document
+(indicated by the <code>---</code> sequence), as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo
+data:
+  application.yml: |-
+    greeting:
+      message: Say Hello to the World
+    farewell:
+      message: Say Goodbye
+    ---
+    spring:
+      profiles: development
+    greeting:
+      message: Say Hello to the Developers
+    farewell:
+      message: Say Goodbye to the Developers
+    ---
+    spring:
+      profiles: production
+    greeting:
+      message: Say Hello to the Ops</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding case, the configuration loaded into your Spring Application with the <code>development</code> profile is as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  greeting:
+    message: Say Hello to the Developers
+  farewell:
+    message: Say Goodbye to the Developers</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>However, if the <code>production</code> profile is active, the configuration becomes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">  greeting:
+    message: Say Hello to the Ops
+  farewell:
+    message: Say Goodbye</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If both profiles are active, the property that appears last within the <code>ConfigMap</code> overwrites any preceding values.</p>
+</div>
+<div class="paragraph">
+<p>Another option is to create a different config map per profile and spring boot will automatically fetch it based
+on active profiles</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo
+data:
+  application.yml: |-
+    greeting:
+      message: Say Hello to the World
+    farewell:
+      message: Say Goodbye</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo-development
+data:
+  application.yml: |-
+    spring:
+      profiles: development
+    greeting:
+      message: Say Hello to the Developers
+    farewell:
+      message: Say Goodbye to the Developers</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo-production
+data:
+  application.yml: |-
+    spring:
+      profiles: production
+    greeting:
+      message: Say Hello to the Ops
+    farewell:
+      message: Say Goodbye</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To tell Spring Boot which <code>profile</code> should be enabled see the <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.profiles">Spring Boot documentation</a>.
+One option for activating a specific profile when deploying to Kubernetes is to launch your Spring Boot application with an environment variable that you can define in the PodSpec at the container specification.
+ Deployment resource file, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-name
+  labels:
+    app: deployment-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployment-name
+  template:
+    metadata:
+      labels:
+        app: deployment-name
+    spec:
+      containers:
+        - name: container-name
+          image: your-image
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "development"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You could run into a situation where there are multiple configs maps that have the same property names. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: config-map-one
+data:
+  application.yml: |-
+    greeting:
+      message: Say Hello from one</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: config-map-two
+data:
+  application.yml: |-
+    greeting:
+      message: Say Hello from two</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Depending on the order in which you place these in <code>bootstrap.yaml|properties</code>, you might end up with an un-expected result (the last config map wins). For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: cloud-k8s-app
+  cloud:
+    kubernetes:
+      config:
+        namespace: default-namespace
+        sources:
+         - name: config-map-two
+         - name: config-map-one</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will result in property <code>greetings.message</code> being <code>Say Hello from one</code>.</p>
+</div>
+<div class="paragraph">
+<p>There is a way to change this default configuration by specifying <code>useNameAsPrefix</code>. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: with-prefix
+  cloud:
+    kubernetes:
+      config:
+        useNameAsPrefix: true
+        namespace: default-namespace
+        sources:
+          - name: config-map-one
+            useNameAsPrefix: false
+          - name: config-map-two</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Such a configuration will result in two properties being generated:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>greetings.message</code> equal to <code>Say Hello from one</code>.</p>
+</li>
+<li>
+<p><code>config-map-two.greetings.message</code> equal to <code>Say Hello from two</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Notice that <code>spring.cloud.kubernetes.config.useNameAsPrefix</code> has a <em>lower</em> priority than <code>spring.cloud.kubernetes.config.sources.useNameAsPrefix</code>.
+This allows you to set a "default" strategy for all sources, at the same time allowing to override only a few.</p>
+</div>
+<div class="paragraph">
+<p>If using the config map name is not an option, you can specify a different strategy, called : <code>explicitPrefix</code>. Since this is an <em>explicit</em> prefix that
+you select, it can only be supplied to the <code>sources</code> level. At the same time it has a higher priority than <code>useNameAsPrefix</code>. Let&#8217;s suppose we have a third config map with these entries:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: config-map-three
+data:
+  application.yml: |-
+    greeting:
+      message: Say Hello from three</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A configuration like the one below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: with-prefix
+  cloud:
+    kubernetes:
+      config:
+        useNameAsPrefix: true
+        namespace: default-namespace
+        sources:
+          - name: config-map-one
+            useNameAsPrefix: false
+          - name: config-map-two
+            explicitPrefix: two
+          - name: config-map-three</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will result in three properties being generated:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>greetings.message</code> equal to <code>Say Hello from one</code>.</p>
+</li>
+<li>
+<p><code>two.greetings.message</code> equal to <code>Say Hello from two</code>.</p>
+</li>
+<li>
+<p><code>config-map-three.greetings.message</code> equal to <code>Say Hello from three</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The same way you configure a prefix for configmaps, you can do it for secrets also; both for secrets that are based on name
+and the ones based on labels. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: prefix-based-secrets
+  cloud:
+    kubernetes:
+      secrets:
+        enabled: true
+        useNameAsPrefix: true
+        namespace: spring-k8s
+        sources:
+          - labels:
+              letter: a
+            useNameAsPrefix: false
+          - labels:
+              letter: b
+            explicitPrefix: two
+          - labels:
+              letter: c
+          - labels:
+              letter: d
+            useNameAsPrefix: true
+          - name: my-secret</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The same processing rules apply when generating property source as for config maps. The only difference is that
+potentially, looking up secrets by labels can mean that we find more than one source. In such a case, prefix (if specified via <code>useNameAsPrefix</code>)
+will be the name of the secret found for those particular labels.</p>
+</div>
+<div class="paragraph">
+<p>One more thing to bear in mind is that we support <code>prefix</code> per <em>secret</em>. The easiest way to explain this is via an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: prefix-based-secrets
+  cloud:
+    kubernetes:
+      secrets:
+        enabled: true
+        useNameAsPrefix: true
+        namespace: spring-k8s
+        sources:
+          - labels:
+              color: blue
+            useNameAsPrefix: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Suppose that a query matching such a label will return two secrets as a result: <code>secretA</code> and <code>secretB</code>.
+Both of these secrets have the same property name: <code>color=sea-blue</code> and <code>color=ocean-blue</code>. Because <code>useNamesAsPrefix=true</code>, there will be two property sources loaded:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>secretA.color=sea-blue</code></p>
+</li>
+<li>
+<p><code>secretB.color=ocean-blue</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By default, besides reading the config map that is specified in the <code>sources</code> configuration, Spring will also try to read
+all properties from "profile aware" sources. The easiest way to explain this is via an example. Let&#8217;s suppose your application
+enables a profile called "dev" and you have a configuration like the one below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: spring-k8s
+  cloud:
+    kubernetes:
+      config:
+        namespace: default-namespace
+        sources:
+          - name: config-map-one</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Besides reading the <code>config-map-one</code>, Spring will also try to read <code>config-map-one-dev</code>; in this particular order. Each active profile
+generates such a profile aware configmap.</p>
+</div>
+<div class="paragraph">
+<p>You can disable this "profile based sources" and then <code>config-map-one-dev</code> will
+not be attempted:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  application:
+    name: spring-k8s
+  cloud:
+    kubernetes:
+      config:
+        includeProfileSpecificSources: false
+        namespace: default-namespace
+        sources:
+          - name: config-map-one
+            includeProfileSpecificSources: false</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Since version <code>5.0.0</code>, <code>includeProfileSpecificSources</code> is only supported for named sources (<code>spring.cloud.kubernetes.sources.name=XXX</code>); support for labeled sources has been removed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Notice that just like before, there are two levels where you can specify this property: for all config maps or
+for individual ones; the latter having a higher priority.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You should check the security configuration section. To access config maps from inside a pod you need to have the correct
+Kubernetes service accounts, roles and role bindings.
+</td>
+</tr>
+</table>
+</div>
+<div id="config-map-fail-fast" class="paragraph">
+<p>In some cases, your application may be unable to load some of your <code>ConfigMaps</code> using the Kubernetes API.
+If you want your application to fail the start-up process in such cases, you can set
+<code>spring.cloud.kubernetes.config.fail-fast=true</code> to make the application start-up fail with an Exception.</p>
+</div>
+<div id="config-map-retry" class="paragraph">
+<p>You can also make your application retry loading <code>ConfigMap</code> property sources on a failure. First, you need to
+set <code>spring.cloud.kubernetes.config.fail-fast=true</code>. Then you need to add <code>spring-retry</code>
+and <code>spring-boot-starter-aspectj</code> to your classpath. You can configure retry properties such as
+the maximum number of attempts, backoff options like initial interval, multiplier, max interval by setting the
+<code>spring.cloud.kubernetes.config.retry.*</code> properties.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you already have <code>spring-retry</code> and <code>spring-boot-starter-aspectj</code> on the classpath for some reason
+and want to enable fail-fast, but do not want retry to be enabled; you can disable retry for <code>ConfigMap</code> <code>PropertySources</code>
+by setting <code>spring.cloud.kubernetes.config.retry.enabled=false</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As of 5.0.0-M3, Spring Cloud Kubernetes introduces two modes for retrieving configuration:
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>BATCH (<code>spring.cloud.kubernetes.config.read-type=BATCH</code>) which is the Default mode: The framework retrieves all ConfigMaps and Secrets within a namespace before filtering. This requires broader RBAC permissions (Namespace-wide <code>List</code>).</p>
+</li>
+<li>
+<p>SINGLE (<code>spring.cloud.kubernetes.config.read-type=SINGLE</code>): Resources are fetched individually by name. This reduces API overhead and allows for high-security, fine-grained RBAC.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This enables you to restrict the service account to only see its own configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">- apiGroups: [""]
+resources: ["configmaps"]
+verbs: ["get", "watch"] # 'list' is often no longer required at the namespace level
+resourceNames: ["&lt;my_app_name&gt;"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>RBAC rules using <code>resourceNames</code> are only compatible with <code>SINGLE</code> mode.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Properties:</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable ConfigMaps <code>PropertySource</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>${spring.application.name}</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the name of <code>ConfigMap</code> to look up</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.namespace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Client namespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets the Kubernetes namespace where to lookup</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.fail-fast</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable or disable failing the application start-up when an error occurred while loading a <code>ConfigMap</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.retry.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable or disable config retry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.retry.initial-interval</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Long</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1000</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Initial retry interval in milliseconds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.retry.max-attempts</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Integer</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>6</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of attempts.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.retry.max-interval</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Long</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>2000</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum interval for backoff.</p></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spring.cloud.kubernetes.config.retry.multiplier</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Double</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>1.1</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multiplier for next interval.</p></td>
+</tr>
+</tfoot>
+</table>
+<nav class="pagination">
+  <span class="prev"><a href="../property-source-config.html">Kubernetes PropertySource implementations</a></span>
+  <span class="next"><a href="secrets-propertysource.html">Secrets PropertySource</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">Spring Cloud Kubernetes</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-kubernetes"></script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:27:40.703Z",
+  "url": "https://docs.spring.io/spring-cloud-bus/reference",
+  "components": {
+    "cloud-bus": {
+      "title": "spring-cloud-bus",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Introduction"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Introduction"
+            },
+            {
+              "path": "quickstart.adoc",
+              "url": "/quickstart.html",
+              "title": "Quickstart"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-cloud-bus.adoc",
+              "url": "/spring-cloud-bus.html",
+              "title": "Spring Cloud Bus"
+            },
+            {
+              "path": "spring-cloud-bus/addressing.adoc",
+              "url": "/spring-cloud-bus/addressing.html",
+              "title": "Addressing Instances"
+            },
+            {
+              "path": "spring-cloud-bus/bus-endpoints.adoc",
+              "url": "/spring-cloud-bus/bus-endpoints.html",
+              "title": "Bus Endpoints"
+            },
+            {
+              "path": "spring-cloud-bus/configuration.adoc",
+              "url": "/spring-cloud-bus/configuration.html",
+              "title": "Configuration"
+            },
+            {
+              "path": "spring-cloud-bus/custom-events.adoc",
+              "url": "/spring-cloud-bus/custom-events.html",
+              "title": "Custom Events"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

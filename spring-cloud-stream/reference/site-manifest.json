@@ -1,0 +1,663 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:16:52.117Z",
+  "url": "https://docs.spring.io/spring-cloud-stream/reference",
+  "components": {
+    "cloud-stream": {
+      "title": "spring-cloud-stream",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Introduction"
+            },
+            {
+              "path": "binders.adoc",
+              "url": "/binders.html"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html"
+            },
+            {
+              "path": "kafka/kafka_overview.adoc",
+              "url": "/kafka/kafka_overview.html"
+            },
+            {
+              "path": "kafka/kafka_tips.adoc",
+              "url": "/kafka/kafka_tips.html",
+              "title": "Tips, Tricks and Recipes"
+            },
+            {
+              "path": "kafka/kafka-binder/admin-client-config-cust.adoc",
+              "url": "/kafka/kafka-binder/admin-client-config-cust.html",
+              "title": "Customizing AdminClient Configuration"
+            },
+            {
+              "path": "kafka/kafka-binder/config-options.adoc",
+              "url": "/kafka/kafka-binder/config-options.html",
+              "title": "Configuration Options"
+            },
+            {
+              "path": "kafka/kafka-binder/cons-prod-config-cust.adoc",
+              "url": "/kafka/kafka-binder/cons-prod-config-cust.html",
+              "title": "Customizing Consumer and Producer configuration"
+            },
+            {
+              "path": "kafka/kafka-binder/consume-batches.adoc",
+              "url": "/kafka/kafka-binder/consume-batches.html",
+              "title": "Consuming Batches"
+            },
+            {
+              "path": "kafka/kafka-binder/container-cust-kafka-binder.adoc",
+              "url": "/kafka/kafka-binder/container-cust-kafka-binder.html",
+              "title": "Kafka Binder Listener Container Customizers"
+            },
+            {
+              "path": "kafka/kafka-binder/custom-health-ind.adoc",
+              "url": "/kafka/kafka-binder/custom-health-ind.html",
+              "title": "Custom Kafka Binder Health Indicator"
+            },
+            {
+              "path": "kafka/kafka-binder/dlq-partition.adoc",
+              "url": "/kafka/kafka-binder/dlq-partition.html",
+              "title": "Dead-Letter Topic Partition Selection"
+            },
+            {
+              "path": "kafka/kafka-binder/dlq.adoc",
+              "url": "/kafka/kafka-binder/dlq.html",
+              "title": "Dead-Letter Topic Processing"
+            },
+            {
+              "path": "kafka/kafka-binder/error-channels.adoc",
+              "url": "/kafka/kafka-binder/error-channels.html",
+              "title": "Error Channels"
+            },
+            {
+              "path": "kafka/kafka-binder/manual-ack.adoc",
+              "url": "/kafka/kafka-binder/manual-ack.html",
+              "title": "Manual Acknowledgement"
+            },
+            {
+              "path": "kafka/kafka-binder/metrics.adoc",
+              "url": "/kafka/kafka-binder/metrics.html",
+              "title": "Kafka Metrics"
+            },
+            {
+              "path": "kafka/kafka-binder/overview.adoc",
+              "url": "/kafka/kafka-binder/overview.html",
+              "title": "Overview"
+            },
+            {
+              "path": "kafka/kafka-binder/partitions.adoc",
+              "url": "/kafka/kafka-binder/partitions.html",
+              "title": "Partitioning with the Kafka Binder"
+            },
+            {
+              "path": "kafka/kafka-binder/pause_resume.adoc",
+              "url": "/kafka/kafka-binder/pause_resume.html",
+              "title": "Pausing and Resuming the Consumer"
+            },
+            {
+              "path": "kafka/kafka-binder/rebalance_listener.adoc",
+              "url": "/kafka/kafka-binder/rebalance_listener.html",
+              "title": "KafkaBindingRebalanceListener"
+            },
+            {
+              "path": "kafka/kafka-binder/reset-offsets.adoc",
+              "url": "/kafka/kafka-binder/reset-offsets.html",
+              "title": "Resetting Offsets"
+            },
+            {
+              "path": "kafka/kafka-binder/retry-dlq.adoc",
+              "url": "/kafka/kafka-binder/retry-dlq.html",
+              "title": "Retry and Dead Letter Processing"
+            },
+            {
+              "path": "kafka/kafka-binder/security-config.adoc",
+              "url": "/kafka/kafka-binder/security-config.html",
+              "title": "Security Configuration"
+            },
+            {
+              "path": "kafka/kafka-binder/tombstone.adoc",
+              "url": "/kafka/kafka-binder/tombstone.html",
+              "title": "Tombstone Records"
+            },
+            {
+              "path": "kafka/kafka-binder/transactional.adoc",
+              "url": "/kafka/kafka-binder/transactional.html",
+              "title": "Transactional Binder"
+            },
+            {
+              "path": "kafka/kafka-binder/usage.adoc",
+              "url": "/kafka/kafka-binder/usage.html",
+              "title": "Usage"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/concurrency.adoc",
+              "url": "/kafka/kafka-reactive-binder/concurrency.html",
+              "title": "Concurrency"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/consuming.adoc",
+              "url": "/kafka/kafka-reactive-binder/consuming.html",
+              "title": "Consuming Records"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/examples.adoc",
+              "url": "/kafka/kafka-reactive-binder/examples.html",
+              "title": "Basic Example using the Reactive Kafka Binder"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/health_indicator.adoc",
+              "url": "/kafka/kafka-reactive-binder/health_indicator.html",
+              "title": "Reactor Kafka Binder Health Indicator"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/multiplex.adoc",
+              "url": "/kafka/kafka-reactive-binder/multiplex.html",
+              "title": "Multiplex"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/overview.adoc",
+              "url": "/kafka/kafka-reactive-binder/overview.html",
+              "title": "Overview"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/pattern.adoc",
+              "url": "/kafka/kafka-reactive-binder/pattern.html",
+              "title": "Destination is Pattern"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/reactive_observability.adoc",
+              "url": "/kafka/kafka-reactive-binder/reactive_observability.html",
+              "title": "Observability in Reactive Kafka Binder"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/sender_result.adoc",
+              "url": "/kafka/kafka-reactive-binder/sender_result.html",
+              "title": "Sender Result Channel"
+            },
+            {
+              "path": "kafka/kafka-reactive-binder/usage.adoc",
+              "url": "/kafka/kafka-reactive-binder/usage.html",
+              "title": "Maven Coordinates"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/accessing-metrics.adoc",
+              "url": "/kafka/kafka-streams-binder/accessing-metrics.html",
+              "title": "Accessing Kafka Streams Metrics"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/ancillaries-to-the-programming-model.adoc",
+              "url": "/kafka/kafka-streams-binder/ancillaries-to-the-programming-model.html",
+              "title": "Ancillaries to the programming model"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/binding-visualization-and-control-in-binder.adoc",
+              "url": "/kafka/kafka-streams-binder/binding-visualization-and-control-in-binder.html",
+              "title": "Binding visualization and control in Kafka Streams binder"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/configuration-options.adoc",
+              "url": "/kafka/kafka-streams-binder/configuration-options.html",
+              "title": "Configuration Options"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/error-handling.adoc",
+              "url": "/kafka/kafka-streams-binder/error-handling.html",
+              "title": "Error Handling"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/event-type-based-routing-in-applications.adoc",
+              "url": "/kafka/kafka-streams-binder/event-type-based-routing-in-applications.html",
+              "title": "Event type based routing in Kafka Streams applications"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/health-indicator.adoc",
+              "url": "/kafka/kafka-streams-binder/health-indicator.html",
+              "title": "Health Indicator"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/interactive-queries.adoc",
+              "url": "/kafka/kafka-streams-binder/interactive-queries.html",
+              "title": "Interactive Queries"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/manually-starting-processors-selectively.adoc",
+              "url": "/kafka/kafka-streams-binder/manually-starting-processors-selectively.html",
+              "title": "Manually starting Kafka Streams processors selectively"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/manually-starting-processors.adoc",
+              "url": "/kafka/kafka-streams-binder/manually-starting-processors.html",
+              "title": "Manually starting Kafka Streams processors"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/mixing-high-level-dsl-and-low-level-processor-api.adoc",
+              "url": "/kafka/kafka-streams-binder/mixing-high-level-dsl-and-low-level-processor-api.html",
+              "title": "Mixing high level DSL and low level Processor API"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/multi-binders-with-based-binders-and-regular-binder.adoc",
+              "url": "/kafka/kafka-streams-binder/multi-binders-with-based-binders-and-regular-binder.html",
+              "title": "Multi binders with Kafka Streams based binders and regular Kafka Binder"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/overview.adoc",
+              "url": "/kafka/kafka-streams-binder/overview.html",
+              "title": "Overview"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/partition-support-on-the-outbound.adoc",
+              "url": "/kafka/kafka-streams-binder/partition-support-on-the-outbound.html",
+              "title": "Partition support on the outbound"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/programming-model.adoc",
+              "url": "/kafka/kafka-streams-binder/programming-model.html",
+              "title": "Programming Model"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/record-serialization-and-deserialization.adoc",
+              "url": "/kafka/kafka-streams-binder/record-serialization-and-deserialization.html",
+              "title": "Record serialization and deserialization"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/retrying-critical-business-logic.adoc",
+              "url": "/kafka/kafka-streams-binder/retrying-critical-business-logic.html",
+              "title": "Retrying critical business logic"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/state-cleanup.adoc",
+              "url": "/kafka/kafka-streams-binder/state-cleanup.html",
+              "title": "State Cleanup"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/state-store.adoc",
+              "url": "/kafka/kafka-streams-binder/state-store.html",
+              "title": "State Store"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/streamsbuilderfactorybean-customizer.adoc",
+              "url": "/kafka/kafka-streams-binder/streamsbuilderfactorybean-customizer.html",
+              "title": "StreamsBuilderFactoryBean configurer"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/timestamp-extractor.adoc",
+              "url": "/kafka/kafka-streams-binder/timestamp-extractor.html",
+              "title": "Timestamp extractor"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/topology-visualization.adoc",
+              "url": "/kafka/kafka-streams-binder/topology-visualization.html",
+              "title": "Kafka Streams topology visualization"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/tracing-using-spring-cloud-sleuth.adoc",
+              "url": "/kafka/kafka-streams-binder/tracing-using-spring-cloud-sleuth.html",
+              "title": "Tracing using Spring Cloud Sleuth"
+            },
+            {
+              "path": "kafka/kafka-streams-binder/usage.adoc",
+              "url": "/kafka/kafka-streams-binder/usage.html",
+              "title": "Usage"
+            },
+            {
+              "path": "kafka/kafka-streams.adoc",
+              "url": "/kafka/kafka-streams.html",
+              "title": "Spring Cloud Stream Kafka Streams Binder Reference Guide"
+            },
+            {
+              "path": "kafka/spring-cloud-stream-binder-kafka.adoc",
+              "url": "/kafka/spring-cloud-stream-binder-kafka.html",
+              "title": "Spring Cloud Stream Kafka Binder Reference Guide"
+            },
+            {
+              "path": "observability.adoc",
+              "url": "/observability.html",
+              "title": "Observability"
+            },
+            {
+              "path": "preface.adoc",
+              "url": "/preface.html",
+              "title": "A Brief History of Spring&#8217;s Data Integration Journey"
+            },
+            {
+              "path": "pulsar/pulsar_binder.adoc",
+              "url": "/pulsar/pulsar_binder.html",
+              "title": "Spring Cloud Stream Binder for Apache Pulsar"
+            },
+            {
+              "path": "pulsar/spring-cloud-stream-binder-pulsar.adoc",
+              "url": "/pulsar/spring-cloud-stream-binder-pulsar.html",
+              "title": "Spring Cloud Stream Pulsar Binder Reference Guide"
+            },
+            {
+              "path": "rabbit/rabbit_dlq.adoc",
+              "url": "/rabbit/rabbit_dlq.html",
+              "title": "Dead-Letter Queue Processing"
+            },
+            {
+              "path": "rabbit/rabbit_overview.adoc",
+              "url": "/rabbit/rabbit_overview.html",
+              "title": "RabbitMQ Binder Reference Guide"
+            },
+            {
+              "path": "rabbit/rabbit_overview/advanced-binding-configuration.adoc",
+              "url": "/rabbit/rabbit_overview/advanced-binding-configuration.html",
+              "title": "Advanced Configuration"
+            },
+            {
+              "path": "rabbit/rabbit_overview/advanced-listener-container-configuration.adoc",
+              "url": "/rabbit/rabbit_overview/advanced-listener-container-configuration.html",
+              "title": "Advanced Listener Container Configuration"
+            },
+            {
+              "path": "rabbit/rabbit_overview/binder-properties.adoc",
+              "url": "/rabbit/rabbit_overview/binder-properties.html",
+              "title": "RabbitMQ Binder Properties"
+            },
+            {
+              "path": "rabbit/rabbit_overview/error-channels.adoc",
+              "url": "/rabbit/rabbit_overview/error-channels.html",
+              "title": "Error Channels"
+            },
+            {
+              "path": "rabbit/rabbit_overview/existing-destinations.adoc",
+              "url": "/rabbit/rabbit_overview/existing-destinations.html",
+              "title": "Using Existing Queues/Exchanges"
+            },
+            {
+              "path": "rabbit/rabbit_overview/health-indicator.adoc",
+              "url": "/rabbit/rabbit_overview/health-indicator.html",
+              "title": "Rabbit Binder Health Indicator"
+            },
+            {
+              "path": "rabbit/rabbit_overview/prod-props.adoc",
+              "url": "/rabbit/rabbit_overview/prod-props.html",
+              "title": "RabbitMQ Producer Properties"
+            },
+            {
+              "path": "rabbit/rabbit_overview/publisher-confirms.adoc",
+              "url": "/rabbit/rabbit_overview/publisher-confirms.html",
+              "title": "Publisher Confirms"
+            },
+            {
+              "path": "rabbit/rabbit_overview/putting-it-all-together.adoc",
+              "url": "/rabbit/rabbit_overview/putting-it-all-together.html",
+              "title": "Putting it All Together"
+            },
+            {
+              "path": "rabbit/rabbit_overview/rabbitmq-consumer-properties.adoc",
+              "url": "/rabbit/rabbit_overview/rabbitmq-consumer-properties.html",
+              "title": "RabbitMQ Consumer Properties"
+            },
+            {
+              "path": "rabbit/rabbit_overview/rabbitmq-retry.adoc",
+              "url": "/rabbit/rabbit_overview/rabbitmq-retry.html",
+              "title": "Retry With the RabbitMQ Binder"
+            },
+            {
+              "path": "rabbit/rabbit_overview/rabbitmq-stream-consumer.adoc",
+              "url": "/rabbit/rabbit_overview/rabbitmq-stream-consumer.html",
+              "title": "Initial Consumer Support for the RabbitMQ Stream Plugin"
+            },
+            {
+              "path": "rabbit/rabbit_overview/rabbitmq-stream-producer.adoc",
+              "url": "/rabbit/rabbit_overview/rabbitmq-stream-producer.html",
+              "title": "Initial Producer Support for the RabbitMQ Stream Plugin"
+            },
+            {
+              "path": "rabbit/rabbit_overview/receiving-batch.adoc",
+              "url": "/rabbit/rabbit_overview/receiving-batch.html",
+              "title": "Receiving Batched Messages"
+            },
+            {
+              "path": "rabbit/rabbit_partitions.adoc",
+              "url": "/rabbit/rabbit_partitions.html",
+              "title": "Partitioning with the RabbitMQ Binder"
+            },
+            {
+              "path": "rabbit/spring-cloud-stream-binder-rabbit.adoc",
+              "url": "/rabbit/spring-cloud-stream-binder-rabbit.html",
+              "title": "Spring Cloud Stream RabbitMQ Binder Reference Guide"
+            },
+            {
+              "path": "README.adoc",
+              "url": "/README.html"
+            },
+            {
+              "path": "sagan-index.adoc",
+              "url": "/sagan-index.html"
+            },
+            {
+              "path": "schema-registry/spring-cloud-stream-schema-registry.adoc",
+              "url": "/schema-registry/spring-cloud-stream-schema-registry.html",
+              "title": "Spring Cloud Stream Schema Registry"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-cloud-stream.adoc",
+              "url": "/spring-cloud-stream.html",
+              "title": "Spring Cloud Stream Reference Documentation"
+            },
+            {
+              "path": "spring-cloud-stream/application-communication.adoc",
+              "url": "/spring-cloud-stream/application-communication.html",
+              "title": "Inter-Application Communication"
+            },
+            {
+              "path": "spring-cloud-stream/binder-configuration-properties.adoc",
+              "url": "/spring-cloud-stream/binder-configuration-properties.html",
+              "title": "Binder Configuration Properties"
+            },
+            {
+              "path": "spring-cloud-stream/binder-customizer.adoc",
+              "url": "/spring-cloud-stream/binder-customizer.html",
+              "title": "Customizing binders in multi binder applications"
+            },
+            {
+              "path": "spring-cloud-stream/binder-detection.adoc",
+              "url": "/spring-cloud-stream/binder-detection.html",
+              "title": "Binder Detection"
+            },
+            {
+              "path": "spring-cloud-stream/binders.adoc",
+              "url": "/spring-cloud-stream/binders.html",
+              "title": "Binder abstraction"
+            },
+            {
+              "path": "spring-cloud-stream/binding_visualization_control.adoc",
+              "url": "/spring-cloud-stream/binding_visualization_control.html",
+              "title": "Binding visualization and control"
+            },
+            {
+              "path": "spring-cloud-stream/binding-names.adoc",
+              "url": "/spring-cloud-stream/binding-names.html",
+              "title": "Binding and Binding names"
+            },
+            {
+              "path": "spring-cloud-stream/binding-properties.adoc",
+              "url": "/spring-cloud-stream/binding-properties.html",
+              "title": "Binding Properties"
+            },
+            {
+              "path": "spring-cloud-stream/binding-service-properties.adoc",
+              "url": "/spring-cloud-stream/binding-service-properties.html",
+              "title": "Binding Service Properties"
+            },
+            {
+              "path": "spring-cloud-stream/bindings.adoc",
+              "url": "/spring-cloud-stream/bindings.html",
+              "title": "Bindings"
+            },
+            {
+              "path": "spring-cloud-stream/configuration-options.adoc",
+              "url": "/spring-cloud-stream/configuration-options.html",
+              "title": "Configuration Options"
+            },
+            {
+              "path": "spring-cloud-stream/consumer-groups.adoc",
+              "url": "/spring-cloud-stream/consumer-groups.html",
+              "title": "Consumer Groups"
+            },
+            {
+              "path": "spring-cloud-stream/consumer-types.adoc",
+              "url": "/spring-cloud-stream/consumer-types.html",
+              "title": "Consumer Types"
+            },
+            {
+              "path": "spring-cloud-stream/content-type.adoc",
+              "url": "/spring-cloud-stream/content-type.html",
+              "title": "Content Type Negotiation"
+            },
+            {
+              "path": "spring-cloud-stream/deploying-applications-on-cloudfoundry.adoc",
+              "url": "/spring-cloud-stream/deploying-applications-on-cloudfoundry.html",
+              "title": "Deploying Stream Applications on CloudFoundry"
+            },
+            {
+              "path": "spring-cloud-stream/destination-binders.adoc",
+              "url": "/spring-cloud-stream/destination-binders.html",
+              "title": "Destination Binders"
+            },
+            {
+              "path": "spring-cloud-stream/event-routing.adoc",
+              "url": "/spring-cloud-stream/event-routing.html",
+              "title": "Event Routing"
+            },
+            {
+              "path": "spring-cloud-stream/explicit-binding-creation.adoc",
+              "url": "/spring-cloud-stream/explicit-binding-creation.html",
+              "title": "Explicit binding creation"
+            },
+            {
+              "path": "spring-cloud-stream/functional-binding-names.adoc",
+              "url": "/spring-cloud-stream/functional-binding-names.html",
+              "title": "Functional binding names"
+            },
+            {
+              "path": "spring-cloud-stream/health-indicator.adoc",
+              "url": "/spring-cloud-stream/health-indicator.html",
+              "title": "Health Indicator"
+            },
+            {
+              "path": "spring-cloud-stream/mechanics.adoc",
+              "url": "/spring-cloud-stream/mechanics.html",
+              "title": "Mechanics"
+            },
+            {
+              "path": "spring-cloud-stream/multiple-binders.adoc",
+              "url": "/spring-cloud-stream/multiple-binders.html",
+              "title": "Multiple Binders on the Classpath"
+            },
+            {
+              "path": "spring-cloud-stream/multiple-systems.adoc",
+              "url": "/spring-cloud-stream/multiple-systems.html",
+              "title": "Connecting to Multiple Systems"
+            },
+            {
+              "path": "spring-cloud-stream/overview-application-model.adoc",
+              "url": "/spring-cloud-stream/overview-application-model.html",
+              "title": "Application Model"
+            },
+            {
+              "path": "spring-cloud-stream/overview-binder-abstraction.adoc",
+              "url": "/spring-cloud-stream/overview-binder-abstraction.html",
+              "title": "The Binder Abstraction"
+            },
+            {
+              "path": "spring-cloud-stream/overview-binder-api.adoc",
+              "url": "/spring-cloud-stream/overview-binder-api.html",
+              "title": "Binder SPI"
+            },
+            {
+              "path": "spring-cloud-stream/overview-connecting-multiple-application-instances.adoc",
+              "url": "/spring-cloud-stream/overview-connecting-multiple-application-instances.html",
+              "title": "Connecting Multiple Application Instances"
+            },
+            {
+              "path": "spring-cloud-stream/overview-custom-binder-impl.adoc",
+              "url": "/spring-cloud-stream/overview-custom-binder-impl.html",
+              "title": "Implementing Custom Binders"
+            },
+            {
+              "path": "spring-cloud-stream/overview-error-handling.adoc",
+              "url": "/spring-cloud-stream/overview-error-handling.html",
+              "title": "Error Handling"
+            },
+            {
+              "path": "spring-cloud-stream/overview-instance-index-instance-count.adoc",
+              "url": "/spring-cloud-stream/overview-instance-index-instance-count.html",
+              "title": "Instance Index and Instance Count"
+            },
+            {
+              "path": "spring-cloud-stream/overview-partitioning.adoc",
+              "url": "/spring-cloud-stream/overview-partitioning.html",
+              "title": "Partitioning"
+            },
+            {
+              "path": "spring-cloud-stream/overview-persistent-publish-subscribe-support.adoc",
+              "url": "/spring-cloud-stream/overview-persistent-publish-subscribe-support.html",
+              "title": "Persistent Publish-Subscribe Support"
+            },
+            {
+              "path": "spring-cloud-stream/overview-user-defined-message-converters.adoc",
+              "url": "/spring-cloud-stream/overview-user-defined-message-converters.html",
+              "title": "User-defined Message Converters"
+            },
+            {
+              "path": "spring-cloud-stream/post-processing-after-sending-message.adoc",
+              "url": "/spring-cloud-stream/post-processing-after-sending-message.html",
+              "title": "Post processing (after sending message)"
+            },
+            {
+              "path": "spring-cloud-stream/producing-and-consuming-messages.adoc",
+              "url": "/spring-cloud-stream/producing-and-consuming-messages.html",
+              "title": "Producing and Consuming Messages"
+            },
+            {
+              "path": "spring-cloud-stream/programming-model.adoc",
+              "url": "/spring-cloud-stream/programming-model.html",
+              "title": "Programming Model"
+            },
+            {
+              "path": "spring-cloud-stream/provided-messageconverters.adoc",
+              "url": "/spring-cloud-stream/provided-messageconverters.html",
+              "title": "Provided MessageConverters"
+            },
+            {
+              "path": "spring-cloud-stream/samples.adoc",
+              "url": "/spring-cloud-stream/samples.html",
+              "title": "Samples"
+            },
+            {
+              "path": "spring-cloud-stream/spring_integration_test_binder.adoc",
+              "url": "/spring-cloud-stream/spring_integration_test_binder.html",
+              "title": "Testing"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

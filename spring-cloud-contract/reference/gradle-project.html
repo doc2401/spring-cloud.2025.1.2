@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gradle Project :: Spring Cloud Contract</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-contract/reference/gradle-project.html">
+    <link rel="prev" href="docker-project.html">
+    <link rel="next" href="maven-project.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="./_/css/site.css">
+    <link rel="stylesheet" href="./_/css/vendor/search.css">
+    <link rel="stylesheet" href="./_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="./_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.3">
+    <meta name="component" content="cloud-contract">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="./_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="./_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-contract" data-version="5.0.3">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">spring-cloud-contract</span>
+  <span class="version">5.0.3</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="index.html">Spring Cloud Contract Reference Documentation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="legal.html">Legal</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="getting-started.html">Getting Started</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="getting-started/introducing-spring-cloud-contract.html">Introducing Spring Cloud Contract</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="getting-started/three-second-tour.html">A Three-second Tour</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="getting-started/first-application.html">Developing Your First Spring Cloud Contract-based Application</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="getting-started/cdc.html">Step-by-step Guide to Consumer Driven Contracts (CDC) with Contracts on the Producer Side</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="getting-started/whats-next.html">Next Steps</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="using.html">Using Spring Cloud Contract</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/provider-contract-testing-with-stubs.html">Provider Contract Testing with Stubs in Nexus or Artifactory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/provider-contract-testing-with-stubs-in-git.html">Provider Contract Testing with Stubs in Git</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/cdc-producer-side.html">Consumer Driven Contracts with Contracts on the Producer Side</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/cdc-external-repo.html">Consumer Driven Contracts with Contracts in an External Repository</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/cdc-git.html">Consumer-driven Contracts with Contracts on the Producer Side, Pushed to Git</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/provider-contract-testing-non-spring.html">Provider Contract Testing with Stubs in Artifactory for a non-Spring Application</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/provider-contract-testing-non-jvm.html">Provider Contract Testing with Stubs in Artifactory in a Non-JVM World</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="using/provider-contract-testing-rest-docs.html">Provider Contract Testing with REST Docs and Stubs in Nexus or Artifactory</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="project-features.html">Spring Cloud Contract Features</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="project-features-contract.html">Contract DSL</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-contract/common-top-elements.html">Common Top-Level Elements</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-contract/dsl-dynamic-properties.html">Dynamic properties</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="project-features-integrations.html">Spring Cloud Contract Integrations</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/jax-rs.html">JAX-RS</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/feature-webflux.html">WebFlux with WebTestClient</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/feature-webflux-explicit.html">WebFlux with Explicit Mode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/custom-mode.html">Custom Mode</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/context-paths.html">Working with Context Paths</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/rest-docs.html">Working with REST Docs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/graphql.html">GraphQL</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-flows/grpc.html">GRPC</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="project-features-messaging.html">Messaging</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="project-features-stubrunner.html">Spring Cloud Contract Stub Runner</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-snapshot-versions.html">Snapshot Versions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-publishing-stubs-as-jars.html">Publishing Stubs as JARs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-core.html">Stub Runner Core</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-junit.html">Stub Runner JUnit Rule and Stub Runner JUnit5 Extension</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-cloud.html">Stub Runner Spring Cloud</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-boot.html">Using the Stub Runner Boot Application</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-stubs-per-consumer.html">Consumer-Driven Contracts: Stubs Per Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-stubs-protocol.html">Fetching Stubs or Contract Definitions From A Location</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-generate-stubs-at-runtime.html">Generating Stubs at Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-fail-on-no-stubs.html">Fail On No Stubs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="project-features-stubrunner/stub-runner-common.html">Common Properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Build Tools</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="docker-project.html">Docker Project</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="gradle-project.html">Gradle Project</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="maven-project.html">Maven Project</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="howto.html">&#8220;How-to&#8221; Guides</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/why-spring-cloud-contract.html">Why use Spring Cloud Contract?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-not-write-contracts-in-groovy.html">How Can I Write Contracts in a Language Other than Groovy?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-provide-dynamic-values.html">How Can I Provide Dynamic Values to a Contract?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-do-stubs-versioning.html">How to Do Stubs versioning?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-common-repo-with-contracts.html">How Can I use a Common Repository with Contracts Instead of Storing Them with the Producer?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-use-git-as-storage.html">How Can I Use Git as the Storage for Contracts and Stubs?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-debug.html">How Can I Debug the Request/Response Being Sent by the Generated Tests Client?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-debug-wiremock.html">How Can I Debug the Mapping, Request, or Response Being Sent by WireMock?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-see-registered-stubs.html">How Can I See What Got Registered in the HTTP Server Stub?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-reference-text-from-file.html">How Can I Reference Text from File?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-generate-from-scc.html">How Can I Generate YAML, or X files from Spring Cloud Contract Contracts?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-work-with-transitivie.html">How Can I Work with Transitive Dependencies?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/contract-dsl-rest-docs.html">How Can I Generate Spring REST Docs Snippets from the Contracts?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-use-stubs-from-a-location.html">How Can I Use Stubs from a Location</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-generate-stubs-at-runtime.html">How Can I Generate Stubs at Runtime</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-use-the-failonnostubs-feature.html">How Can I Make The Build Pass if There Are No Contracts or Stubs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="howto/how-to-mark-contract-in-progress.html">How Can I Mark that a Contract Is in Progress</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="advanced.html">Spring Cloud Contract customization</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="customization/dsl-customization.html">DSL Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="customization/wiremock-customization.html">WireMock Customization</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="customization/pluggable-architecture.html">Using the Pluggable Architecture</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="appendix.html">Common application properties</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="building.html">How to Build Spring Cloud Contract</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="configprops.html">Configuration Properties</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="yml-schema.html">YML Schema</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Gradle Project"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-contract/docs/modules/ROOT/pages/gradle-project.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-contract" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="index.html">spring-cloud-contract</a></li>
+      <li>Build Tools</li>
+      <li><a href="gradle-project.html">Gradle Project</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Gradle Project</h1>
+<div class="sect1">
+<h2 id="gradle-prerequisites"><a class="anchor" href="#gradle-prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use Spring Cloud Contract Verifier with WireMock, you must use either a
+Gradle or a Maven plugin.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you want to use Spock in your projects, you must separately add the
+<code>spock-core</code> and <code>spock-spring</code> modules. See <a href="https://spockframework.github.io/">Spock&#8217;s
+documentation</a> for more information.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-add-gradle-plugin"><a class="anchor" href="#gradle-add-gradle-plugin"></a>Add Gradle Plugin with Dependencies</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To add a Gradle plugin with dependencies, you can use code similar to the following:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Plugin DSL GA versions</dt>
+<dd>
+<div class="listingblock primary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+plugins {
+  id "groovy"
+  // this will work only for GA versions of Spring Cloud Contract
+  id "org.springframework.cloud.contract" version "$\{GAVerifierVersion}"
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:$\{GAVerifierVersion}"
+	}
+}
+
+dependencies {
+	testImplementation "org.apache.groovy:groovy-all:$\{groovyVersion}"
+	// example with adding Spock core and Spock Spring
+	testImplementation "org.spockframework:spock-core:$\{spockVersion}"
+	testImplementation "org.spockframework:spock-spring:$\{spockVersion}"
+	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+}</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Plugin DSL non GA versions</dt>
+<dd>
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// settings.gradle
+pluginManagement {
+	plugins {
+		id "org.springframework.cloud.contract" version "$\{verifierVersion}"
+	}
+    repositories {
+        // to pick from local .m2
+        mavenLocal()
+        // for snapshots
+        maven { url "https://repo.spring.io/snapshot" }
+        // for milestones
+        maven { url "https://repo.spring.io/milestone" }
+        // for GA versions
+        gradlePluginPortal()
+    }
+}
+
+// build.gradle
+plugins {
+  id "groovy"
+  id "org.springframework.cloud.contract"
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:$\{verifierVersion}"
+	}
+}
+
+dependencies {
+	testImplementation "org.apache.groovy:groovy-all:$\{groovyVersion}"
+	// example with adding Spock core and Spock Spring
+	testImplementation "org.spockframework:spock-core:$\{spockVersion}"
+	testImplementation "org.spockframework:spock-spring:$\{spockVersion}"
+	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+}</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">Legacy Plugin Application</dt>
+<dd>
+<div class="listingblock secondary">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">// build.gradle
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:$\{springboot_version}"
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:$\{verifier_version}"
+        // here you can also pass additional dependencies such as Kotlin spec e.g.:
+        // classpath "org.springframework.cloud:spring-cloud-contract-spec-kotlin:$\{verifier_version}"
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.cloud.contract'
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:$\{verifier_version}"
+	}
+}
+
+dependencies {
+	testImplementation "org.apache.groovy:groovy-all:$\{groovyVersion}"
+	// example with adding Spock core and Spock Spring
+	testImplementation "org.spockframework:spock-core:$\{spockVersion}"
+	testImplementation "org.spockframework:spock-spring:$\{spockVersion}"
+	testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
+}</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-and-rest-assured"><a class="anchor" href="#gradle-and-rest-assured"></a>Gradle and Rest Assured 2.0</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, Rest Assured 3.x is added to the classpath. However, to use Rest Assured 2.x,
+you can add it instead, as the following listing shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:$\{springboot_version}"
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:$\{verifier_version}"
+	}
+}
+
+dependencies {
+    // all dependencies
+    // you can exclude rest-assured from spring-cloud-contract-verifier
+    testCompile "com.jayway.restassured:rest-assured:2.5.0"
+    testCompile "com.jayway.restassured:spring-mock-mvc:2.5.0"
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That way, the plugin automatically sees that Rest Assured 2.x is present on the classpath
+and modifies the imports accordingly.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-snapshot-versions"><a class="anchor" href="#gradle-snapshot-versions"></a>Snapshot Versions for Gradle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can add the additional snapshot repository to your <code>settings.gradle</code> to use snapshot versions,
+which are automatically uploaded after every successful build.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-add-stubs"><a class="anchor" href="#gradle-add-stubs"></a>Add stubs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, Spring Cloud Contract Verifier looks for stubs in the
+<code>src/contractTest/resources/contracts</code> directory. For transitional purposes the plugin
+will also look for contracts in <code>src/test/resources/contracts</code>, however, this directory
+is deprecated as of Spring Cloud Contract 3.0.0.</p>
+</div>
+<div class="paragraph">
+<p>It should also be noted, that with this new Gradle source set, you should also migrate
+any base classes used within your contract tests to <code>src/contractTest/{language}</code> where
+<code>{language}</code> should be replaced with Java or Groovy as needed for your purposes.</p>
+</div>
+<div class="paragraph">
+<p>The directory that contains stub definitions is treated as a class name, and each stub
+definition is treated as a single test. Spring Cloud Contract Verifier assumes that it
+contains at least one level of directories that are to be used as the test class name.
+If more than one level of nested directories is present, all except the last one is used
+as the package name. Consider the following structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">src/contractTest/resources/contracts/myservice/shouldCreateUser.groovy
+src/contractTest/resources/contracts/myservice/shouldReturnUser.groovy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Given the preceding structure, Spring Cloud Contract Verifier creates a test class named
+<code>defaultBasePackage.MyService</code> with two methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>shouldCreateUser()</code></p>
+</li>
+<li>
+<p><code>shouldReturnUser()</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-run-plugin"><a class="anchor" href="#gradle-run-plugin"></a>Running the Plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The plugin registers itself to be invoked before a <code>check</code> task. If you want it to be
+part of your build process, you need do nothing more. If you want only to generate
+tests, invoke the <code>generateContractTests</code> task.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-default-setup"><a class="anchor" href="#gradle-default-setup"></a>Default Setup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default Gradle Plugin setup creates the following Gradle part of the build (in
+pseudocode):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">contracts {
+    testFramework ='JUNIT'
+    testMode = 'MockMvc'
+    generatedTestJavaSourcesDir = project.file("$\{project.buildDir}/generated-test-sources/contractTest/java")
+    generatedTestGroovySourcesDir = project.file("$\{project.buildDir}/generated-test-sources/contractTest/groovy")
+    generatedTestResourcesDir = project.file("$\{project.buildDir}/generated-test-resources/contracts")
+    contractsDslDir = project.file("$\{project.projectDir}/src/contractTest/resources/contracts")
+    basePackageForTests = 'org.springframework.cloud.verifier.tests'
+    stubsOutputDir = project.file("$\{project.buildDir}/stubs")
+    sourceSet = null
+}
+
+def verifierStubsJar = tasks.register(type: Jar, name: 'verifierStubsJar', dependsOn: 'generateClientStubs') {
+    baseName = project.name
+    classifier = contracts.stubsSuffix
+    from contractVerifier.stubsOutputDir
+}
+
+def copyContracts = tasks.register(type: Copy, name: 'copyContracts') {
+    from contracts.contractsDslDir
+    into contracts.stubsOutputDir
+}
+
+verifierStubsJar.dependsOn copyContracts</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-configure-plugin"><a class="anchor" href="#gradle-configure-plugin"></a>Configuring the Plugin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To change the default configuration, you can add a <code>contracts</code> snippet to your Gradle
+configuration, as the following listing shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">contracts {
+	testMode = 'MockMvc'
+	baseClassForTests = 'org.mycompany.tests'
+	generatedTestJavaSourcesDir = project.file('src/generatedContract')
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To download contracts from a remote source, you can use the following snippets as needed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">contracts {
+    // If your contracts exist in a JAR archive published to a Maven repository
+    contractDependency {
+        stringNotation = ''
+        // OR
+        groupId = ''
+        artifactId = ''
+        version = ''
+        classifier = ''
+    }
+
+    // If your contracts exist in a Git SCM repository
+    contractRepository {
+        repositoryUrl = ''
+        // username = ''
+        // password = ''
+    }
+
+    // controls the nested location to find the contracts in either the JAR or Git SCM source
+    contractsPath = ''
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since we are using Gradle&#8217;s Jar packaging task, there are several options and capabilities that you may wish to utilize to further extend what is created by the <code>verifierStubsJar</code>. In order to do this, you would use the native mechanisms provided directly by Gradle for customizing an existing task like so:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+for the sake of the example, we desire to add a <code>git.properties</code> file to the <code>verifierStubsJar</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">verifierStubsJar {
+    from("$\{buildDir}/resources/main/") {
+        include("git.properties")
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It should also be noted that as of 3.0.0, the default publication has been disabled. As a result this means, that you are able to create any named jar and publish it as you would normally have done via Gradle configuration options. This means that you can build a jar file customized just the way you would like and publish that for absolute full control over the jar&#8217;s layout and contents.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-configuration-options"><a class="anchor" href="#gradle-configuration-options"></a>Configuration Options</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><code>testMode</code>: Defines the mode for acceptance tests. By default, the mode is MockMvc,
+which is based on Spring&#8217;s MockMvc. It can also be changed to WebTestClient, JaxRsClient, or
+Explicit (for real HTTP calls).</p>
+</li>
+<li>
+<p><code>imports</code>: Creates an array with imports that should be included in the generated tests
+(for example, <code>['org.myorg.Matchers']</code>). By default, it creates an empty array.</p>
+</li>
+<li>
+<p><code>staticImports</code>: Creates an array with static imports that should be included in
+generated tests(for example, <code>['org.myorg.Matchers.*']</code>). By default, it creates an empty
+array.</p>
+</li>
+<li>
+<p><code>basePackageForTests</code>: Specifies the base package for all generated tests. If not set,
+the value is picked from the package of <code>baseClassForTests</code> and from <code>packageWithBaseClasses</code>.
+If neither of these values are set, the value is set to
+<code>org.springframework.cloud.contract.verifier.tests</code>.</p>
+</li>
+<li>
+<p><code>baseClassForTests</code>: Creates a base class for all generated tests. By default, if you
+use Spock classes, the class is <code>spock.lang.Specification</code>.</p>
+</li>
+<li>
+<p><code>packageWithBaseClasses</code>: Defines a package where all the base classes reside. This
+setting takes precedence over <code>baseClassForTests</code>.</p>
+</li>
+<li>
+<p><code>baseClassMappings</code>: Explicitly maps a contract package to a FQN of a base class. This
+setting takes precedence over <code>packageWithBaseClasses</code> and <code>baseClassForTests</code>.</p>
+</li>
+<li>
+<p><code>ignoredFiles</code>: Uses an <code>Antmatcher</code> to allow defining stub files for which processing
+should be skipped. By default, it is an empty array.</p>
+</li>
+<li>
+<p><code>contractsDslDir</code>: Specifies the directory that contains contracts written by using the
+GroovyDSL. By default, its value is <code>$projectDir/src/contractTest/resources/contracts</code>.</p>
+</li>
+<li>
+<p><code>generatedTestSourcesDir</code>: Specifies the test source directory where tests generated
+from the Groovy DSL should be placed. (Deprecrated)</p>
+</li>
+<li>
+<p><code>generatedTestJavaSourcesDir</code>: Specifies the test source directory where Java/JUnit tests generated from the Groovy DSL should be placed. By default, it&#8217;s value is <code>$buildDir/generated-tes-sources/contractTest/java</code>.</p>
+</li>
+<li>
+<p><code>generatedTestGroovySourcesDir</code>: Specifies the test source directory where Groovy/Spock tests generated from the Groovy DSL should be placed. By default, it&#8217;s value is <code>$buildDir/generated-test-sources/contractTest/groovy</code>.</p>
+</li>
+<li>
+<p><code>generatedTestResourcesDir</code>: Specifies the test resource directory where resources used by the tests generated
+from the Groovy DSL should be placed. By default, its value is
+<code>$buildDir/generated-test-resources/contractTest</code>.</p>
+</li>
+<li>
+<p><code>stubsOutputDir</code>: Specifies the directory where the generated WireMock stubs from
+the Groovy DSL should be placed.</p>
+</li>
+<li>
+<p><code>testFramework</code>: Specifies the target test framework to be used. Currently, Spock, JUnit 4 (<code>TestFramework.JUNIT</code>) and
+JUnit 5 are supported, with JUnit 4 being the default framework.</p>
+</li>
+<li>
+<p><code>contractsProperties</code>: A map that contains properties to be passed to Spring Cloud Contract
+components. Those properties might be used by (for example) built-in or custom Stub Downloaders.</p>
+</li>
+<li>
+<p><code>sourceSet</code>: Source set where the contracts are stored. If not provided will assume <code>contractTest</code> (for example, <code>project.sourceSets.contractTest.java</code> for JUnit or <code>project.sourceSets.contractTest.groovy</code> for Spock).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can use the following properties when you want to specify the location of the JAR
+that contains the contracts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>contractDependency</code>: Specifies the Dependency that provides
+<code>groupid:artifactid:version:classifier</code> coordinates. You can use the <code>contractDependency</code>
+closure to set it up.</p>
+</li>
+<li>
+<p><code>contractsPath</code>: Specifies the path to the jar. If contract dependencies are
+downloaded, the path defaults to <code>groupid/artifactid</code>, where <code>groupid</code> is slash
+separated. Otherwise, it scans contracts under the provided directory.</p>
+</li>
+<li>
+<p><code>contractsMode</code>: Specifies the mode for downloading contracts (whether the
+JAR is available offline, remotely, and so on).</p>
+</li>
+<li>
+<p><code>deleteStubsAfterTest</code>: If set to <code>false</code>, does not remove any downloaded
+contracts from temporary directories.</p>
+</li>
+<li>
+<p><code>failOnNoContracts</code>: When enabled, will throw an exception when no contracts were found. Defaults to <code>true</code>.</p>
+</li>
+<li>
+<p><code>failOnInProgress</code>: If set to <code>true</code>, then, if any contracts that are in progress are found, they break the build. On the producer side, you need to be explicit about the fact that you have contracts in progress and take into consideration that you might be causing false positive test results on the consumer side. Defaults to <code>true</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>There is also the <code>contractRepository { &#8230;&#8203; }</code> closure that contains the following properties</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>repositoryUrl</code>: The URL to the repository with contract definitions</p>
+</li>
+<li>
+<p><code>username</code> : The repository username</p>
+</li>
+<li>
+<p><code>password</code> : The repository password</p>
+</li>
+<li>
+<p><code>proxyPort</code> : The port of the proxy</p>
+</li>
+<li>
+<p><code>proxyHost</code> : The host of the proxy</p>
+</li>
+<li>
+<p><code>cacheDownloadedContracts</code> : If set to <code>true</code>, caches the folder where non-snapshot contract artifacts got downloaded. Defaults to <code>true</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also turn on the following experimental features in the plugin:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>convertToYaml</code>: Converts all DSLs to the declarative YAML format. This can be extremely
+useful when you use external libraries in your Groovy DSLs. By turning this feature on
+(by setting it to <code>true</code>), you need not add the library dependency on the consumer side.</p>
+</li>
+<li>
+<p><code>assertJsonSize</code>: You can check the size of JSON arrays in the generated tests. This
+feature is disabled by default.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-single-base-class"><a class="anchor" href="#gradle-single-base-class"></a>Single Base Class for All Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When using Spring Cloud Contract Verifier in MockMvc (the default), you need to create a base
+specification for all generated acceptance tests. In this class, you need to point to an
+endpoint, which should be verified. The following example shows how to do so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">abstract class BaseMockMvcSpec extends Specification {
+
+	def setup() {
+		RestAssuredMockMvc.standaloneSetup(new PairIdController())
+	}
+
+	void isProperCorrelationId(Integer correlationId) {
+		assert correlationId == 123456
+	}
+
+	void isEmpty(String value) {
+		assert value == null
+	}
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you use <code>Explicit</code> mode, you can use a base class to initialize the whole tested application,
+as you might see in regular integration tests. If you use the <code>JAXRSCLIENT</code> mode, this
+base class should also contain a <code>protected WebTarget webTarget</code> field. Right now, the
+only option to test the JAX-RS API is to start a web server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-different-base-classes"><a class="anchor" href="#gradle-different-base-classes"></a>Different Base Classes for Contracts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If your base classes differ between contracts, you can tell the Spring Cloud Contract
+plugin which class should get extended by the autogenerated tests. You have two options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Follow a convention by providing the <code>packageWithBaseClasses</code></p>
+</li>
+<li>
+<p>Provide explicit mapping by using <code>baseClassMappings</code></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="by-convention"><a class="anchor" href="#by-convention"></a>By Convention</h3>
+<div class="paragraph">
+<p>The convention is such that, if you have a contract in (for example)
+<code>src/contractTest/resources/contract/foo/bar/baz/</code> and set the value of the
+<code>packageWithBaseClasses</code> property to <code>com.example.base</code>, then Spring Cloud Contract
+Verifier assumes that there is a <code>BarBazBase</code> class under the <code>com.example.base</code> package.
+In other words, the system takes the last two parts of the package, if they exist, and
+forms a class with a <code>Base</code> suffix. This rule takes precedence over <code>baseClassForTests</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="by-mapping"><a class="anchor" href="#by-mapping"></a>By Mapping</h3>
+<div class="paragraph">
+<p>You can manually map a regular expression of the contract&#8217;s package to the fully qualified
+name of the base class for the matched contract. You have to provide a list called
+<code>baseClassMappings</code> that consists of <code>baseClassMapping</code> objects that take a
+<code>contractPackageRegex</code> to <code>baseClassFQN</code> mapping.</p>
+</div>
+<div class="paragraph">
+<p>Assume that you have contracts in the following directories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>src/contractTest/resources/contract/com/</code></p>
+</li>
+<li>
+<p><code>src/contractTest/resources/contract/foo/</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By providing <code>baseClassForTests</code>, we have a fallback in case mapping did not succeed.
+(You could also provide the <code>packageWithBaseClasses</code> as a fallback.) That way, the tests
+generated from <code>src/contractTest/resources/contract/com/</code> contracts extend the
+<code>com.example.ComBase</code>, whereas the rest of the tests extend <code>com.example.FooBase</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-invoking-generated-tests"><a class="anchor" href="#gradle-invoking-generated-tests"></a>Invoking Generated Tests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To ensure that the provider side is compliant with your defined contracts, you need to run
+the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew contractTest</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-publishing-stubs-to-artifact-repo"><a class="anchor" href="#gradle-publishing-stubs-to-artifact-repo"></a>Publishing Stubs to Artifact Repository</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you use an binary artifact repository to keep the stubs,
+you will need to configure the publishing section for Gradle to
+include the <code>verifierStubsJar</code>. To do that, you can use the
+example configuration below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            // other configuration
+
+            artifact verifierStubsJar
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since 3.0.0, the internal stubs publication has been deprecated
+and disabled by default. It is recommended to include the
+<code>verifierStubsJar</code> with one of your own publications.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-pushing-stubs-to-scm"><a class="anchor" href="#gradle-pushing-stubs-to-scm"></a>Pushing Stubs to SCM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you use the SCM repository to keep the contracts and
+stubs, you might want to automate the step of pushing stubs to
+the repository. To do that, you can call the <code>pushStubsToScm</code>
+task by running the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ ./gradlew pushStubsToScm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Under <a href="advanced.html#scm-stub-downloader" class="xref page">Using the SCM Stub Downloader</a>, you can find all possible
+configuration options that you can pass either through
+the <code>contractsProperties</code> field (for example, <code>contracts { contractsProperties = [foo:"bar"] }</code>),
+through the <code>contractsProperties</code> method (for example, <code>contracts { contractsProperties([foo:"bar"]) }</code>),
+or through a system property or an environment variable.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gradle-consumer"><a class="anchor" href="#gradle-consumer"></a>Spring Cloud Contract Verifier on the Consumer Side</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a consuming service, you need to configure the Spring Cloud Contract Verifier plugin
+in exactly the same way as in the case of a provider. If you do not want to use Stub Runner,
+you need to copy the contracts stored in <code>src/contractTest/resources/contracts</code> and generate
+WireMock JSON stubs by using the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">./gradlew generateClientStubs</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>stubsOutputDir</code> option has to be set for stub generation to work.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When present, you can use JSON stubs in automated tests to consume a service. The
+following example shows how to do so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@ContextConfiguration(loader == SpringApplicationContextLoader, classes == Application)
+class LoanApplicationServiceSpec extends Specification {
+
+ @ClassRule
+ @Shared
+ WireMockClassRule wireMockRule == new WireMockClassRule()
+
+ @Autowired
+ LoanApplicationService sut
+
+ def 'should successfully apply for loan'() {
+   given:
+ 	LoanApplication application =
+			new LoanApplication(client: new Client(clientPesel: '12345678901'), amount: 123.123)
+   when:
+	LoanApplicationResult loanApplication == sut.loanApplication(application)
+   then:
+	loanApplication.loanApplicationStatus == LoanApplicationStatus.LOAN_APPLIED
+	loanApplication.rejectionReason == null
+ }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example, <code>LoanApplication</code> makes a call to the <code>FraudDetection</code> service.
+This request is handled by a WireMock server configured with stubs that were generated by
+Spring Cloud Contract Verifier.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="docker-project.html">Docker Project</a></span>
+  <span class="next"><a href="maven-project.html">Maven Project</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="index.html">spring-cloud-contract</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="index.html">
+                            5.0.3<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="./_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="./_/js/vendor/import.js"></script>
+<script src="./_/js/site.js"></script>
+<script async src="./_/js/vendor/highlight.js"></script>
+<script async src="./_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="./_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="./_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="./_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="./_/css/vendor/search.css" data-page-version="5.0.3" data-page-component="cloud-contract"></script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:41:06.636Z",
+  "url": "https://docs.spring.io/spring-cloud-openfeign/reference",
+  "components": {
+    "cloud-openfeign": {
+      "title": "Spring Cloud OpenFeign",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud OpenFeign"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "intro.adoc",
+              "url": "/intro.html",
+              "title": "Spring Cloud OpenFeign"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-cloud-openfeign.adoc",
+              "url": "/spring-cloud-openfeign.html",
+              "title": "Spring Cloud OpenFeign Features"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

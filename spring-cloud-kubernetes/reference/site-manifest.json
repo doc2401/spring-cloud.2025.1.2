@@ -1,0 +1,158 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:38:25.090Z",
+  "url": "https://docs.spring.io/spring-cloud-kubernetes/reference",
+  "components": {
+    "cloud-kubernetes": {
+      "title": "Spring Cloud Kubernetes",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Kubernetes"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "discovery-client.adoc",
+              "url": "/discovery-client.html",
+              "title": "DiscoveryClient for Kubernetes"
+            },
+            {
+              "path": "discovery-kubernetes-native.adoc",
+              "url": "/discovery-kubernetes-native.html",
+              "title": "Kubernetes native service discovery"
+            },
+            {
+              "path": "examples.adoc",
+              "url": "/examples.html",
+              "title": "Examples"
+            },
+            {
+              "path": "getting-started.adoc",
+              "url": "/getting-started.html",
+              "title": "Starters"
+            },
+            {
+              "path": "info-contributor.adoc",
+              "url": "/info-contributor.html",
+              "title": "Info Contributor"
+            },
+            {
+              "path": "kubernetes-awareness.adoc",
+              "url": "/kubernetes-awareness.html",
+              "title": "Kubernetes Ecosystem Awareness"
+            },
+            {
+              "path": "leader-election.adoc",
+              "url": "/leader-election.html",
+              "title": "Leader Election"
+            },
+            {
+              "path": "load-balancer.adoc",
+              "url": "/load-balancer.html",
+              "title": "LoadBalancer for Kubernetes"
+            },
+            {
+              "path": "other-resources.adoc",
+              "url": "/other-resources.html",
+              "title": "Other Resources"
+            },
+            {
+              "path": "pod-health-indicator.adoc",
+              "url": "/pod-health-indicator.html",
+              "title": "Pod Health Indicator"
+            },
+            {
+              "path": "property-source-config.adoc",
+              "url": "/property-source-config.html",
+              "title": "Kubernetes PropertySource implementations"
+            },
+            {
+              "path": "property-source-config/configmap-propertysource.adoc",
+              "url": "/property-source-config/configmap-propertysource.html",
+              "title": "Using a <code>ConfigMap</code> <code>PropertySource</code>"
+            },
+            {
+              "path": "property-source-config/namespace-label-filtering.adoc",
+              "url": "/property-source-config/namespace-label-filtering.html",
+              "title": "Reload namespace and label filtering"
+            },
+            {
+              "path": "property-source-config/namespace-resolution.adoc",
+              "url": "/property-source-config/namespace-resolution.html",
+              "title": "Namespace resolution"
+            },
+            {
+              "path": "property-source-config/order_of_configMaps_and_secrets.adoc",
+              "url": "/property-source-config/order_of_configMaps_and_secrets.html",
+              "title": "Order of ConfigMaps and Secrets"
+            },
+            {
+              "path": "property-source-config/propertysource-reload.adoc",
+              "url": "/property-source-config/propertysource-reload.html",
+              "title": "<code>PropertySource</code> Reload"
+            },
+            {
+              "path": "property-source-config/secrets-propertysource.adoc",
+              "url": "/property-source-config/secrets-propertysource.html",
+              "title": "Secrets PropertySource"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "security-service-accounts.adoc",
+              "url": "/security-service-accounts.html",
+              "title": "Security Configurations Inside Kubernetes"
+            },
+            {
+              "path": "service-registry.adoc",
+              "url": "/service-registry.html",
+              "title": "Service Registry Implementation"
+            },
+            {
+              "path": "spring-cloud-kubernetes-configserver.adoc",
+              "url": "/spring-cloud-kubernetes-configserver.html",
+              "title": "Spring Cloud Kubernetes Config Server"
+            },
+            {
+              "path": "spring-cloud-kubernetes-configuration-watcher.adoc",
+              "url": "/spring-cloud-kubernetes-configuration-watcher.html",
+              "title": "Spring Cloud Kubernetes Configuration Watcher"
+            },
+            {
+              "path": "spring-cloud-kubernetes-discoveryserver.adoc",
+              "url": "/spring-cloud-kubernetes-discoveryserver.html",
+              "title": "Spring Cloud Kubernetes Discovery Server"
+            },
+            {
+              "path": "spring-cloud-kubernetes.adoc",
+              "url": "/spring-cloud-kubernetes.html",
+              "title": "Spring Cloud Kubernetes"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

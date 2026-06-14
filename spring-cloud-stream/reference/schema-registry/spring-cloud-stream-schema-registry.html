@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Spring Cloud Stream Schema Registry :: Spring Cloud Stream</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-stream/reference/schema-registry/spring-cloud-stream-schema-registry.html">
+    <link rel="prev" href="../pulsar/pulsar_binder.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-stream">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-stream" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">spring-cloud-stream</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../preface.html">A Brief History of Spring&#8217;s Data Integration Journey</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link page"  href="../index.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream.html">Spring Cloud Stream Reference Documentation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Main Concepts and Abstractions</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-application-model.html">Spring Cloud Stream&#8217;s application model</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-binder-abstraction.html">The Binder Abstraction</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-persistent-publish-subscribe-support.html">Persistent publish-subscribe support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/consumer-groups.html">Consumer group support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-partitioning.html">Partitioning support</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/programming-model.html">Programming Model</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/destination-binders.html">Destination Binders</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/bindings.html">Bindings</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding-names.html">Binding and Binding names</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/functional-binding-names.html">Functional binding names</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/explicit-binding-creation.html">Explicit binding creation</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding_visualization_control.html">Binding visualization and control</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/producing-and-consuming-messages.html">Producing and Consuming Messages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/event-routing.html">Event Routing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/post-processing-after-sending-message.html">Post processing (after sending message)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/binders.html">Binder abstraction</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-binder-api.html">A pluggable Binder SPI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binder-detection.html">Binder Detection</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/multiple-binders.html">Multiple Binders on the Classpath</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/multiple-systems.html">Connecting to Multiple Systems</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binder-customizer.html">Customizing binders in multi binder applications</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-error-handling.html">Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../observability.html">Observability</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/configuration-options.html">Configuration Options</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding-service-properties.html">Binding Service Properties</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/binding-properties.html">Binding Properties</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/content-type.html">Content Type Negotiation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/mechanics.html">Mechanics</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/provided-messageconverters.html">Provided MessageConverters</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-user-defined-message-converters.html">User-defined Message Converters</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../spring-cloud-stream/application-communication.html">Inter-Application Communication</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-connecting-multiple-application-instances.html">Connecting Multiple Application Instances</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-instance-index-instance-count.html">Instance Index and Instance Count</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/overview-partitioning.html">Partitioning</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/spring_integration_test_binder.html">Testing</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/health-indicator.html">Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link page"  href="../spring-cloud-stream/samples.html">Samples</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Binders</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Apache Kafka</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kafka Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/config-options.html">Configuration Options</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/reset-offsets.html">Resetting Offsets</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/consume-batches.html">Consuming Batches</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/manual-ack.html">Manual Acknowledgement</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/security-config.html">Security Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/pause_resume.html">Pausing and Resuming the Consumer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/transactional.html">Transactional Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/error-channels.html">Error Channels</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/metrics.html">Kafka Metrics</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/tombstone.html">Tombstone Records</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/rebalance_listener.html">KafkaBindingRebalanceListener</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/retry-dlq.html">Retry and Dead Letter Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/container-cust-kafka-binder.html">Kafka Binder Listener Container Customizers</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/cons-prod-config-cust.html">Customizing Consumer and Producer configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/admin-client-config-cust.html">Customizing AdminClient Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/custom-health-ind.html">Custom Kafka Binder Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/dlq.html">Dead-Letter Topic Processing</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/dlq-partition.html">Dead-Letter Topic Partition Selection</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-binder/partitions.html">Partitioning with the Kafka Binder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Reactive Kafka Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/usage.html">Maven Coordinates</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/examples.html">Basic Example using the Reactive Kafka Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/consuming.html">Consuming Records</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/concurrency.html">Concurrency</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/multiplex.html">Multiplex</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/pattern.html">Destination is Pattern</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/sender_result.html">Sender Result Channel</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/health_indicator.html">Reactor Kafka Binder Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-reactive-binder/reactive_observability.html">Observability in Reactive Kafka Binder</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Kafka Stream Binder</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/programming-model.html">Programming Model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/ancillaries-to-the-programming-model.html">Ancillaries to the programming model</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/record-serialization-and-deserialization.html">Record serialization and deserialization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/error-handling.html">Error Handling</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/retrying-critical-business-logic.html">Retrying critical business logic</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/state-store.html">State Store</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/interactive-queries.html">Interactive Queries</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/health-indicator.html">Health Indicator</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/accessing-metrics.html">Accessing Kafka Streams Metrics</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/mixing-high-level-dsl-and-low-level-processor-api.html">Mixing high level DSL and low level Processor API</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/partition-support-on-the-outbound.html">Partition support on the outbound</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/streamsbuilderfactorybean-customizer.html">StreamsBuilderFactoryBean configurer</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/timestamp-extractor.html">Timestamp extractor</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/multi-binders-with-based-binders-and-regular-binder.html">Multi binders with Kafka Streams based binders and regular Kafka Binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/state-cleanup.html">State Cleanup</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/topology-visualization.html">Kafka Streams topology visualization</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/event-type-based-routing-in-applications.html">Event type based routing in Kafka Streams applications</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/binding-visualization-and-control-in-binder.html">Binding visualization and control in Kafka Streams binder</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/manually-starting-processors.html">Manually starting Kafka Streams processors</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/manually-starting-processors-selectively.html">Manually starting Kafka Streams processors selectively</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/tracing-using-spring-cloud-sleuth.html">Tracing using Spring Cloud Sleuth</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka-streams-binder/configuration-options.html">Configuration Options</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Tips and Recipes</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../kafka/kafka_tips.html">Tips, Tricks and Recipes</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../rabbit/rabbit_overview.html">RabbitMQ Binder Reference Guide</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Configuration Options</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/binder-properties.html">RabbitMQ Binder Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-consumer-properties.html">RabbitMQ Consumer Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/prod-props.html">RabbitMQ Producer Properties</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/advanced-listener-container-configuration.html">Advanced Listener Container Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/advanced-binding-configuration.html">Advanced Configuration</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/receiving-batch.html">Receiving Batched Messages</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/publisher-confirms.html">Publisher Confirms</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-stream-consumer.html">Initial Consumer Support for the RabbitMQ Stream Plugin</a>
+  </li>
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-stream-producer.html">Initial Producer Support for the RabbitMQ Stream Plugin</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/existing-destinations.html">Using Existing Queues/Exchanges</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/rabbitmq-retry.html">Retry With the RabbitMQ Binder</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/putting-it-all-together.html">Putting it All Together</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/error-channels.html">Error Channels</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_partitions.html">Partitioning with the RabbitMQ Binder</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../rabbit/rabbit_overview/health-indicator.html">Rabbit Binder Health Indicator</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Apache Pulsar</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link page"  href="../pulsar/pulsar_binder.html">Spring Cloud Stream Binder for Apache Pulsar</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="https://github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-starters/solace-spring-cloud-stream-starter#spring-cloud-stream-binder-for-solace-pubsub">Solace</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/main/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc">Amazon Kinesis</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link page"  href="spring-cloud-stream-schema-registry.html">Spring Cloud Stream Schema Registry</a>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Spring Cloud Stream Schema Registry"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-stream/docs/modules/ROOT/pages/schema-registry/spring-cloud-stream-schema-registry.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-stream" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">spring-cloud-stream</a></li>
+      <li><a href="spring-cloud-stream-schema-registry.html">Spring Cloud Stream Schema Registry</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Spring Cloud Stream Schema Registry</h1>
+<div class="sect1">
+<h2 id="introduction"><a class="anchor" href="#introduction"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When organizations have a messaging based pub/sub architecture and multiple producer and consumer microservices communicate with each other, it is often necessary for all those microservices to agree on a contract that is based on a schema.
+When such a schema needs to evolve to accommodate new business requirements, the existing components are still required to continue to work.
+Spring Cloud Stream provides support for a standalone schema registry server using which aforementioned schema can be registered and used by the applications.
+Spring Cloud Stream schema registry support also provides support for avro based schema registry clients, which essentially provide message converters that communicates with the schema registry for reconciling schema during message conversion.
+The schema evolution support provided by Spring Cloud Stream works both with the aforementioned standalone schema registry as well as the schema registry provided by Confluent that specifically works with Apache Kafka.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-schema-registry-overview"><a class="anchor" href="#spring-cloud-stream-schema-registry-overview"></a>Spring Cloud Stream Schema Registry overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud Stream Schema Registry provides support for schema evolution so that the data can be evolved over time and still work with older or newer producers and consumers and vice versa.
+Most serialization models, especially the ones that aim for portability across different platforms and languages, rely on a schema that describes how the data is serialized in the binary payload.
+In order to serialize the data and then to interpret it, both the sending and receiving sides must have access to a schema that describes the binary format.
+In certain cases, the schema can be inferred from the payload type on serialization or from the target type on deserialization.
+However, many applications benefit from having access to an explicit schema that describes the binary data format.
+A schema registry lets you store schema information in a textual format (typically JSON) and makes that information accessible to various applications that need it to receive and send data in binary format.
+A schema is referenceable as a tuple consisting of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A subject that is the logical name of the schema</p>
+</li>
+<li>
+<p>The schema version</p>
+</li>
+<li>
+<p>The schema format, which describes the binary format of the data</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Stream Schema Registry provides the following components</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Standalone Schema Registry Server</p>
+<div class="literalblock">
+<div class="content">
+<pre>By default, it is using an H2 database, but server can be used with PostgreSQL or MySQL by providing appropriate datasource configuration.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Schema registry clients capable of message marshalling by communicating with a Schema Registry.</p>
+<div class="literalblock">
+<div class="content">
+<pre>Currently, the client can communicate to the standalone schema registry or the Confluent Schema Registry.</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schema-registry-client"><a class="anchor" href="#schema-registry-client"></a>Schema Registry Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The client-side abstraction for interacting with schema registry servers is the <code>SchemaRegistryClient</code> interface, which has the following structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public interface SchemaRegistryClient {
+
+    SchemaRegistrationResponse register(String subject, String format, String schema);
+
+    String fetch(SchemaReference schemaReference);
+
+    String fetch(Integer id);
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Stream provides out-of-the-box implementations for interacting with its own schema server and for interacting with the Confluent Schema Registry.</p>
+</div>
+<div class="paragraph">
+<p>A client for the Spring Cloud Stream schema registry can be configured by using the <code>@EnableSchemaRegistryClient</code>, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@EnableSchemaRegistryClient
+public class ConsumerApplication {
+
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The default converter is optimized to cache not only the schemas from the remote server but also the <code>parse()</code> and <code>toString()</code> methods, which are quite expensive.
+Because of this, it uses a <code>DefaultSchemaRegistryClient</code> that does not cache responses.
+If you intend to change the default behavior, you can use the client directly on your code and override it to the desired outcome.
+To do so, you have to add the property <code>spring.cloud.stream.schemaRegistryClient.cached=true</code> to your application properties.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schema-registry-client-properties"><a class="anchor" href="#schema-registry-client-properties"></a>Schema Registry Client Properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Schema Registry Client supports the following properties:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><code>spring.cloud.stream.schemaRegistryClient.endpoint</code></dt>
+<dd>
+<p>The location of the schema-server.
+When setting this, use a full URL, including protocol (<code>http</code> or <code>https</code>) , port, and context path.</p>
+</dd>
+<dt class="hdlist1">Default</dt>
+<dd>
+<p><code><a href="http://localhost:8990/" class="bare">localhost:8990/</a></code></p>
+</dd>
+<dt class="hdlist1"><code>spring.cloud.stream.schemaRegistryClient.cached</code></dt>
+<dd>
+<p>Whether the client should cache schema server responses.
+Normally set to <code>false</code>, as the caching happens in the message converter.
+Clients using the schema registry client should set this to <code>true</code>.</p>
+</dd>
+<dt class="hdlist1">Default</dt>
+<dd>
+<p><code>false</code></p>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="avro-schema-registry-client-message-converters"><a class="anchor" href="#avro-schema-registry-client-message-converters"></a>Avro Schema Registry Client Message Converters</h3>
+<div class="paragraph">
+<p>For applications that have a SchemaRegistryClient bean registered with the application context, Spring Cloud Stream auto-configures an Apache Avro message converter for schema management.
+This eases schema evolution, as applications that receive messages can get easy access to a writer schema that can be reconciled with their own reader schema.</p>
+</div>
+<div class="paragraph">
+<p>For outbound messages, if the content type of the binding is set to <code>application/*+avro</code>, the <code>MessageConverter</code> is activated, as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">spring.cloud.stream.stream.bindings.&lt;output-binding-name&gt;.contentType=application/*+avro</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>During the outbound conversion, the message converter tries to infer the schema of each outbound messages (based on its type) and register it to a subject (based on the payload type) by using the <code>SchemaRegistryClient</code>.
+If an identical schema is already found, then a reference to it is retrieved.
+If not, the schema is registered, and a new version number is provided.
+The message is sent with a <code>contentType</code> header by using the following scheme: <code>application/[prefix].[subject].v[version]+avro</code>, where <code>prefix</code> is configurable and <code>subject</code> is deduced from the payload type.</p>
+</div>
+<div class="paragraph">
+<p>For example, a message of the type <code>User</code> might be sent as a binary payload with a content type of <code>application/vnd.user.v2+avro</code>, where <code>user</code> is the subject and <code>2</code> is the version number.</p>
+</div>
+<div class="paragraph">
+<p>When receiving messages, the converter infers the schema reference from the header of the incoming message and tries to retrieve it. The schema is used as the writer schema in the deserialization process.</p>
+</div>
+<div class="sect3">
+<h4 id="avro-schema-registry-message-converter-properties"><a class="anchor" href="#avro-schema-registry-message-converter-properties"></a>Avro Schema Registry Message Converter Properties</h4>
+<div class="paragraph">
+<p>If you have enabled Avro based schema registry client by setting <code>spring.cloud.stream.stream.bindings.&lt;output-binding-name&gt;.contentType=application/*+avro</code>, you can customize the behavior of the registration by setting the following properties.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">spring.cloud.stream.schema.avro.dynamicSchemaGenerationEnabled</dt>
+<dd>
+<p>Enable if you want the converter to use reflection to infer a Schema from a POJO.</p>
+<div class="paragraph">
+<p>Default: <code>false</code></p>
+</div>
+</dd>
+<dt class="hdlist1">spring.cloud.stream.schema.avro.readerSchema</dt>
+<dd>
+<p>Avro compares schema versions by looking at a writer schema (origin payload) and a reader schema (your application payload). See the <a href="https://avro.apache.org/docs/1.11.1/spec.html">Avro documentation</a> for more information.
+If set, this overrides any lookups at the schema server and uses the local schema as the reader schema.
+Default: <code>null</code></p>
+</dd>
+<dt class="hdlist1">spring.cloud.stream.schema.avro.schemaLocations</dt>
+<dd>
+<p>Registers any <code>.avsc</code> files listed in this property with the Schema Server.</p>
+<div class="paragraph">
+<p>Default: <code>empty</code></p>
+</div>
+</dd>
+<dt class="hdlist1">spring.cloud.stream.schema.avro.prefix</dt>
+<dd>
+<p>The prefix to be used on the Content-Type header.</p>
+<div class="paragraph">
+<p>Default: <code>vnd</code></p>
+</div>
+</dd>
+<dt class="hdlist1">spring.cloud.stream.schema.avro.subjectNamingStrategy</dt>
+<dd>
+<p>Determines the subject name used to register the Avro schema in the schema registry. Two implementations are available, <code>org.springframework.cloud.stream.schema.avro.DefaultSubjectNamingStrategy</code>, where the subject is the schema name, and <code>org.springframework.cloud.stream.schema.avro.QualifiedSubjectNamingStrategy</code>, which returns a fully qualified subject using the Avro schema namespace and name. Custom strategies can be created by implementing <code>org.springframework.cloud.stream.schema.avro.SubjectNamingStrategy</code>.</p>
+<div class="paragraph">
+<p>Default: <code>org.springframework.cloud.stream.schema.avro.DefaultSubjectNamingStrategy</code></p>
+</div>
+</dd>
+<dt class="hdlist1">spring.cloud.stream.schema.avro.ignoreSchemaRegistryServer</dt>
+<dd>
+<p>Ignore any schema registry communication. Useful for testing purposes so that when running a unit test, it does not unnecessarily try to connect to a Schema Registry server.</p>
+<div class="paragraph">
+<p>Default: <code>false</code></p>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="apache-avro-message-converters"><a class="anchor" href="#apache-avro-message-converters"></a>Apache Avro Message Converters</h3>
+<div class="paragraph">
+<p>Spring Cloud Stream provides support for schema-based message converters through its <code>spring-cloud-stream-schema-registry-client</code> module.
+Currently, the only serialization format supported out of the box for schema-based message converters is Apache Avro, with more formats to be added in future versions.</p>
+</div>
+<div class="paragraph">
+<p>The <code>spring-cloud-stream-schema-registry-client</code> module contains two types of message converters that can be used for Apache Avro serialization:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Converters that use the class information of the serialized or deserialized objects or a schema with a location known at startup.</p>
+</li>
+<li>
+<p>Converters that use a schema registry. They locate the schemas at runtime and dynamically register new schemas as domain objects evolve.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="converters-with-schema-support"><a class="anchor" href="#converters-with-schema-support"></a>Converters with Schema Support</h3>
+<div class="paragraph">
+<p>The <code>AvroSchemaMessageConverter</code> supports serializing and deserializing messages either by using a predefined schema or by using the schema information available in the class (either reflectively or contained in the <code>SpecificRecord</code>).
+If you provide a custom converter, then the default AvroSchemaMessageConverter bean is not created.
+The following example shows a custom converter:</p>
+</div>
+<div class="paragraph">
+<p>To use custom converters, you can simply add it to the application context, optionally specifying one or more <code>MimeTypes</code> with which to associate it.
+The default <code>MimeType</code> is <code>application/avro</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the target type of the conversion is a <code>GenericRecord</code>, a schema must be set.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows how to configure a converter in a sink application by registering the Apache Avro <code>MessageConverter</code> without a predefined schema.
+In this example, note that the mime type value is <code>avro/bytes</code>, not the default <code>application/avro</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SinkApplication {
+
+  //...
+
+  @Bean
+  public MessageConverter userMessageConverter() {
+      return new AvroSchemaMessageConverter(MimeType.valueOf("avro/bytes"));
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Conversely, the following application registers a converter with a predefined schema (found on the classpath):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SinkApplication {
+
+  //...
+
+  @Bean
+  public MessageConverter userMessageConverter() {
+      AvroSchemaMessageConverter converter = new AvroSchemaMessageConverter(MimeType.valueOf("avro/bytes"));
+      converter.setSchemaLocation(new ClassPathResource("schemas/User.avro"));
+      return converter;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="schema-registry-server"><a class="anchor" href="#schema-registry-server"></a>Schema Registry Server</h3>
+<div class="paragraph">
+<p>Spring Cloud Stream provides a schema registry server implementation.
+To use it, you can download latest <code>spring-cloud-stream-schema-registry-server</code> release and run it as standalone application:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">wget https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-stream-schema-registry-server/4.0.3/spring-cloud-stream-schema-registry-server-4.0.3.jar
+java -jar ./spring-cloud-stream-schema-registry-server-4.0.3.jar</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can embed the schema registry in your existing Spring Boot web application.
+To do this, add the <code>spring-cloud-stream-schema-registry-core</code> artifact to your project and use the <code>@EnableSchemaRegistryServer</code> annotation, which adds the schema registry server REST controller to your application.
+The following example shows a Spring Boot application that enables the schema registry:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@EnableSchemaRegistryServer
+public class SchemaRegistryServerApplication {
+public static void main(String[] args) {
+SpringApplication.run(SchemaRegistryServerApplication.class, args);
+}
+}</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>spring.cloud.stream.schema.server.path</code> property can be used to control the root path of the schema server (especially when it is embedded in other applications).
+The <code>spring.cloud.stream.schema.server.allowSchemaDeletion</code> boolean property enables the deletion of a schema. By default, this is disabled.</p>
+</div>
+<div class="paragraph">
+<p>The schema registry server uses a relational database to store the schemas.
+By default, it uses an embedded database.
+You can customize the schema storage by using the <a href="http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-sql">Spring Boot SQL database and JDBC configuration options</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schema-registry-server-api"><a class="anchor" href="#schema-registry-server-api"></a>Schema Registry Server API</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Schema Registry Server API consists of the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>POST /</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-registering-new-schema">Registering a New Schema</a></code></p>
+</li>
+<li>
+<p><code>GET /{subject}/{format}/{version}</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-retrieve-schema-subject-format-version">Retrieving an Existing Schema by Subject, Format, and Version</a></code></p>
+</li>
+<li>
+<p><code>GET /{subject}/{format}</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-retrieve-schema-subject-format">Retrieving an Existing Schema by Subject and Format</a></code></p>
+</li>
+<li>
+<p><code>GET /schemas/{id}</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-retrieve-schema-id">Retrieving an Existing Schema by ID</a></code></p>
+</li>
+<li>
+<p><code>DELETE /{subject}/{format}/{version}</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-deleting-schema-subject-format-version">Deleting a Schema by Subject, Format, and Version</a></code></p>
+</li>
+<li>
+<p><code>DELETE /schemas/{id}</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-deleting-schema-id">Deleting a Schema by ID</a></code></p>
+</li>
+<li>
+<p><code>DELETE /{subject}</code>&#8201;&#8212;&#8201;see <code><a href="#spring-cloud-stream-overview-deleting-schema-subject">Deleting a Schema by Subject</a></code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-registering-new-schema"><a class="anchor" href="#spring-cloud-stream-overview-registering-new-schema"></a>Registering a New Schema</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To register a new schema, send a <code>POST</code> request to the <code>/</code> endpoint.</p>
+</div>
+<div class="paragraph">
+<p>The <code>/</code> accepts a JSON payload  with the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>subject</code>: The schema subject</p>
+</li>
+<li>
+<p><code>format</code>: The schema format</p>
+</li>
+<li>
+<p><code>definition</code>: The schema definition</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Its response is a schema object in JSON, with the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code>: The schema ID</p>
+</li>
+<li>
+<p><code>subject</code>: The schema subject</p>
+</li>
+<li>
+<p><code>format</code>: The schema format</p>
+</li>
+<li>
+<p><code>version</code>: The schema version</p>
+</li>
+<li>
+<p><code>definition</code>: The schema definition</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-retrieve-schema-subject-format-version"><a class="anchor" href="#spring-cloud-stream-overview-retrieve-schema-subject-format-version"></a>Retrieving an Existing Schema by Subject, Format, and Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To retrieve an existing schema by subject, format, and version, send <code>GET</code> request to the <code>{subject}/{format}/{version}</code> endpoint.</p>
+</div>
+<div class="paragraph">
+<p>Its response is a schema object in JSON, with the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code>: The schema ID</p>
+</li>
+<li>
+<p><code>subject</code>: The schema subject</p>
+</li>
+<li>
+<p><code>format</code>: The schema format</p>
+</li>
+<li>
+<p><code>version</code>: The schema version</p>
+</li>
+<li>
+<p><code>definition</code>: The schema definition</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-retrieve-schema-subject-format"><a class="anchor" href="#spring-cloud-stream-overview-retrieve-schema-subject-format"></a>Retrieving an Existing Schema by Subject and Format</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To retrieve an existing schema by subject and format, send a <code>GET</code> request to the <code>/subject/format</code> endpoint.</p>
+</div>
+<div class="paragraph">
+<p>Its response is a list of schemas with each schema object in JSON, with the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code>: The schema ID</p>
+</li>
+<li>
+<p><code>subject</code>: The schema subject</p>
+</li>
+<li>
+<p><code>format</code>: The schema format</p>
+</li>
+<li>
+<p><code>version</code>: The schema version</p>
+</li>
+<li>
+<p><code>definition</code>: The schema definition</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-retrieve-schema-id"><a class="anchor" href="#spring-cloud-stream-overview-retrieve-schema-id"></a>Retrieving an Existing Schema by ID</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To retrieve a schema by its ID, send a <code>GET</code> request to the <code>/schemas/{id}</code> endpoint.</p>
+</div>
+<div class="paragraph">
+<p>Its response is a schema object in JSON, with the following fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id</code>: The schema ID</p>
+</li>
+<li>
+<p><code>subject</code>: The schema subject</p>
+</li>
+<li>
+<p><code>format</code>: The schema format</p>
+</li>
+<li>
+<p><code>version</code>: The schema version</p>
+</li>
+<li>
+<p><code>definition</code>: The schema definition</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-deleting-schema-subject-format-version"><a class="anchor" href="#spring-cloud-stream-overview-deleting-schema-subject-format-version"></a>Deleting a Schema by Subject, Format, and Version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To delete a schema identified by its subject, format, and version, send a <code>DELETE</code> request to the <code>{subject}/{format}/{version}</code> endpoint.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-deleting-schema-id"><a class="anchor" href="#spring-cloud-stream-overview-deleting-schema-id"></a>Deleting a Schema by ID</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To delete a schema by its ID, send a <code>DELETE</code> request to the <code>/schemas/{id}</code> endpoint.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-deleting-schema-subject"><a class="anchor" href="#spring-cloud-stream-overview-deleting-schema-subject"></a>Deleting a Schema by Subject</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>DELETE /{subject}</code></p>
+</div>
+<div class="paragraph">
+<p>Delete existing schemas by their subject.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This note applies to users of Spring Cloud Stream 1.1.0.RELEASE only.
+Spring Cloud Stream 1.1.0.RELEASE used the table name, <code>schema</code>, for storing <code>Schema</code> objects. <code>Schema</code> is a keyword in a number of database implementations.
+To avoid any conflicts in the future, starting with 1.1.1.RELEASE, we have opted for the name <code>SCHEMA_REPOSITORY</code> for the storage table.
+Any Spring Cloud Stream 1.1.0.RELEASE users who upgrade should migrate their existing schemas to the new table before upgrading.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using-confluent-s-schema-registry"><a class="anchor" href="#using-confluent-s-schema-registry"></a>Using Confluent&#8217;s Schema Registry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default configuration creates a <code>DefaultSchemaRegistryClient</code> bean.
+If you want to use the Confluent schema registry, you need to create a bean of type <code>ConfluentSchemaRegistryClient</code>, which supersedes the one configured by default by the framework. The following example shows how to create such a bean:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public SchemaRegistryClient schemaRegistryClient(@Value("${spring.cloud.stream.schemaRegistryClient.endpoint}") String endpoint){
+  ConfluentSchemaRegistryClient client = new ConfluentSchemaRegistryClient();
+  client.setEndpoint(endpoint);
+  return client;
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The ConfluentSchemaRegistryClient is tested against Confluent platform version 4.0.0.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="schema-registration-and-resolution"><a class="anchor" href="#schema-registration-and-resolution"></a>Schema Registration and Resolution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To better understand how Spring Cloud Stream registers and resolves new schemas and its use of Avro schema comparison features, we provide two separate subsections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><a href="#spring-cloud-stream-overview-schema-registration-process">Schema Registration Process (Serialization)</a></code></p>
+</li>
+<li>
+<p><code><a href="#spring-cloud-stream-overview-schema-resolution-process">Schema Resolution Process (Deserialization)</a></code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-schema-registration-process"><a class="anchor" href="#spring-cloud-stream-overview-schema-registration-process"></a>Schema Registration Process (Serialization)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first part of the registration process is extracting a schema from the payload that is being sent over a channel.
+Avro types such as <code>SpecificRecord</code> or <code>GenericRecord</code> already contain a schema, which can be retrieved immediately from the instance.
+In the case of POJOs, a schema is inferred if the <code>spring.cloud.stream.schema.avro.dynamicSchemaGenerationEnabled</code> property is set to <code>true</code> (the default).</p>
+</div>
+<div class="paragraph">
+<p>Ones a schema is obtained, the converter loads its metadata (version) from the remote server.
+First, it queries a local cache. If no result is found, it submits the data to the server, which replies with versioning information.
+The converter always caches the results to avoid the overhead of querying the Schema Server for every new message that needs to be serialized.</p>
+</div>
+<div class="paragraph">
+<p>With the schema version information, the converter sets the <code>contentType</code> header of the message to carry the version information&#8201;&#8212;&#8201;for example: <code>application/vnd.user.v1+avro</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-stream-overview-schema-resolution-process"><a class="anchor" href="#spring-cloud-stream-overview-schema-resolution-process"></a>Schema Resolution Process (Deserialization)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When reading messages that contain version information (that is, a <code>contentType</code> header with a scheme like the one described under <code><a href="#spring-cloud-stream-overview-schema-registration-process">Schema Registration Process (Serialization)</a></code>, the converter queries the Schema server to fetch the writer schema of the message.
+Once it has found the correct schema of the incoming message, it retrieves the reader schema and, by using Avro&#8217;s schema resolution support, reads it into the reader definition (setting defaults and any missing properties).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You should understand the difference between a writer schema (the application that wrote the message) and a reader schema (the receiving application).
+We suggest taking a moment to read <a href="https://avro.apache.org/docs/1.7.6/spec.html">the Avro terminology</a> and understand the process.
+Spring Cloud Stream always fetches the writer schema to determine how to read a message.
+If you want to get Avro&#8217;s schema evolution support working, you need to make sure that a <code>readerSchema</code> was properly set for your application.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../pulsar/pulsar_binder.html">Spring Cloud Stream Binder for Apache Pulsar</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">spring-cloud-stream</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-stream"></script>
+  </body>
+</html>

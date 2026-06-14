@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Spring Cloud Commons: Common Abstractions :: Spring Cloud Commons</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/common-abstractions.html">
+    <link rel="prev" href="application-context-services.html">
+    <link rel="next" href="loadbalancer.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.2">
+    <meta name="component" content="cloud-commons">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-commons" data-version="5.0.2">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Spring Cloud Commons</span>
+  <span class="version">5.0.2</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../index.html">Cloud Native Applications</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../intro.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="application-context-services.html">Spring Cloud Context: Application Context Services</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="common-abstractions.html">Spring Cloud Commons: Common Abstractions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="loadbalancer.html">Spring Cloud LoadBalancer</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="cachedrandompropertysource.html">CachedRandomPropertySource</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="security.html">Security</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="../spring-cloud-circuitbreaker.html">Spring Cloud Circuit Breaker</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../appendix.html">Common application properties</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../configprops.html">Configuration Properties</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Spring Cloud Commons: Common Abstractions"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-commons/docs/modules/ROOT/pages/spring-cloud-commons/common-abstractions.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-commons" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">Spring Cloud Commons</a></li>
+      <li><a href="../index.html">Cloud Native Applications</a></li>
+      <li><a href="common-abstractions.html">Spring Cloud Commons: Common Abstractions</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Spring Cloud Commons: Common Abstractions</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Patterns such as service discovery, load balancing, and circuit breakers lend themselves to a common abstraction layer that can be consumed by all Spring Cloud clients, independent of the implementation (for example, discovery with Eureka or Consul).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="discovery-client"><a class="anchor" href="#discovery-client"></a>The <code>@EnableDiscoveryClient</code> Annotation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud Commons provides the <code>@EnableDiscoveryClient</code> annotation.
+This looks for implementations of the <code>DiscoveryClient</code> and <code>ReactiveDiscoveryClient</code> interfaces with <code>META-INF/spring.factories</code>.
+Implementations of the discovery client add a configuration class to <code>spring.factories</code> under the <code>org.springframework.cloud.client.discovery.EnableDiscoveryClient</code> key.
+Examples of <code>DiscoveryClient</code> implementations include <a href="https://cloud.spring.io/spring-cloud-netflix/">Spring Cloud Netflix Eureka</a>, <a href="https://cloud.spring.io/spring-cloud-consul/">Spring Cloud Consul Discovery</a>, and <a href="https://cloud.spring.io/spring-cloud-zookeeper/">Spring Cloud Zookeeper Discovery</a>.</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud will provide both the blocking and reactive service discovery clients by default.
+You can disable the blocking and/or reactive clients easily by setting <code>spring.cloud.discovery.blocking.enabled=false</code> or <code>spring.cloud.discovery.reactive.enabled=false</code>.
+To completely disable service discovery you just need to set <code>spring.cloud.discovery.enabled=false</code>.</p>
+</div>
+<div class="paragraph">
+<p>By default, implementations of <code>DiscoveryClient</code> auto-register the local Spring Boot server with the remote discovery server.
+This behavior can be disabled by setting <code>autoRegister=false</code> in <code>@EnableDiscoveryClient</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>@EnableDiscoveryClient</code> is no longer required.
+You can put a <code>DiscoveryClient</code> implementation on the classpath to cause the Spring Boot application to register with the service discovery server.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="health-indicators"><a class="anchor" href="#health-indicators"></a>Health Indicators</h3>
+<div class="paragraph">
+<p>Commons auto-configures the following Spring Boot health indicators.</p>
+</div>
+<div class="sect3">
+<h4 id="discoveryclienthealthindicator"><a class="anchor" href="#discoveryclienthealthindicator"></a>DiscoveryClientHealthIndicator</h4>
+<div class="paragraph">
+<p>This health indicator is based on the currently registered <code>DiscoveryClient</code> implementation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To disable entirely, set <code>spring.cloud.discovery.client.health-indicator.enabled=false</code>.</p>
+</li>
+<li>
+<p>To disable the description field, set <code>spring.cloud.discovery.client.health-indicator.include-description=false</code>.
+Otherwise, it can bubble up as the <code>description</code> of the rolled up <code>HealthIndicator</code>.</p>
+</li>
+<li>
+<p>To disable service retrieval, set <code>spring.cloud.discovery.client.health-indicator.use-services-query=false</code>.
+By default, the indicator invokes the client&#8217;s <code>getServices</code> method. In deployments with many registered services it may too
+costly to retrieve all services during every check. This will skip the service retrieval and instead use the client&#8217;s <code>probe</code> method.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="discoverycompositehealthcontributor"><a class="anchor" href="#discoverycompositehealthcontributor"></a>DiscoveryCompositeHealthContributor</h4>
+<div class="paragraph">
+<p>This composite health indicator is based on all registered <code>DiscoveryHealthIndicator</code> beans. To disable,
+set <code>spring.cloud.discovery.client.composite-indicator.enabled=false</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ordering-discoveryclient-instances"><a class="anchor" href="#ordering-discoveryclient-instances"></a>Ordering <code>DiscoveryClient</code> instances</h3>
+<div class="paragraph">
+<p><code>DiscoveryClient</code> interface extends <code>Ordered</code>. This is useful when using multiple discovery
+ clients, as it allows you to define the order of the returned discovery clients, similar to
+how you can order the beans loaded by a Spring application. By default, the order of any <code>DiscoveryClient</code> is set to
+<code>0</code>. If you want to set a different order for your custom <code>DiscoveryClient</code> implementations, you just need to override
+the <code>getOrder()</code> method so that it returns the value that is suitable for your setup. Apart from this, you can use
+properties to set the order of the <code>DiscoveryClient</code>
+implementations provided by Spring Cloud, among others  <code>ConsulDiscoveryClient</code>, <code>EurekaDiscoveryClient</code> and
+<code>ZookeeperDiscoveryClient</code>. In order to do it, you just need to set the
+<code>spring.cloud.{clientIdentifier}.discovery.order</code> (or <code>eureka.client.order</code> for Eureka) property to the desired value.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="simplediscoveryclient"><a class="anchor" href="#simplediscoveryclient"></a>SimpleDiscoveryClient</h3>
+<div class="paragraph">
+<p>If there is no Service-Registry-backed <code>DiscoveryClient</code> in the classpath, <code>SimpleDiscoveryClient</code>
+instance, that uses properties to get information on service and instances, will be used.</p>
+</div>
+<div class="paragraph">
+<p>The information about the available instances should be passed to via properties in the following format:
+<code>spring.cloud.discovery.client.simple.instances.service1[0].uri=http://s11:8080</code>, where
+<code>spring.cloud.discovery.client.simple.instances</code> is the common prefix, then <code>service1</code> stands
+for the ID of the service in question, while <code>[0]</code> indicates the index number of the instance
+(as visible in the example, indexes start with <code>0</code>), and then the value of <code>uri</code> is
+the actual URI under which the instance is available.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="serviceregistry"><a class="anchor" href="#serviceregistry"></a>ServiceRegistry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Commons now provides a <code>ServiceRegistry</code> interface that provides methods such as <code>register(Registration)</code> and <code>deregister(Registration)</code>, which let you provide custom registered services.
+<code>Registration</code> is a marker interface.</p>
+</div>
+<div class="paragraph">
+<p>The following example shows the <code>ServiceRegistry</code> in use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+@EnableDiscoveryClient(autoRegister=false)
+public class MyConfiguration {
+    private ServiceRegistry registry;
+
+    public MyConfiguration(ServiceRegistry registry) {
+        this.registry = registry;
+    }
+
+    // called through some external process, such as an event or a custom actuator endpoint
+    public void register() {
+        Registration registration = constructRegistration();
+        this.registry.register(registration);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each <code>ServiceRegistry</code> implementation has its own <code>Registry</code> implementation.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ZookeeperRegistration</code> used with <code>ZookeeperServiceRegistry</code></p>
+</li>
+<li>
+<p><code>EurekaRegistration</code> used with <code>EurekaServiceRegistry</code></p>
+</li>
+<li>
+<p><code>ConsulRegistration</code> used with <code>ConsulServiceRegistry</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you are using the <code>ServiceRegistry</code> interface, you are going to need to pass the
+correct <code>Registry</code> implementation for the <code>ServiceRegistry</code> implementation you
+are using.</p>
+</div>
+<div class="sect2">
+<h3 id="serviceregistry-auto-registration"><a class="anchor" href="#serviceregistry-auto-registration"></a>ServiceRegistry Auto-Registration</h3>
+<div class="paragraph">
+<p>By default, the <code>ServiceRegistry</code> implementation auto-registers the running service.
+To disable that behavior, you can set:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>@EnableDiscoveryClient(autoRegister=false)</code> to permanently disable auto-registration.</p>
+</li>
+<li>
+<p><code>spring.cloud.service-registry.auto-registration.enabled=false</code> to disable the behavior through configuration.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="serviceregistry-auto-registration-events"><a class="anchor" href="#serviceregistry-auto-registration-events"></a>ServiceRegistry Auto-Registration Events</h4>
+<div class="paragraph">
+<p>There are two events that will be fired when a service auto-registers.  The first event, called
+<code>InstancePreRegisteredEvent</code>, is fired before the service is registered.  The second
+event, called <code>InstanceRegisteredEvent</code>, is fired after the service is registered.  You can register an
+<code>ApplicationListener</code>(s) to listen to and react to these events.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These events will not be fired if the <code>spring.cloud.service-registry.auto-registration.enabled</code> property is set to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="service-registry-actuator-endpoint"><a class="anchor" href="#service-registry-actuator-endpoint"></a>Service Registry Actuator Endpoint</h3>
+<div class="paragraph">
+<p>Spring Cloud Commons provides a <code>/serviceregistry</code> actuator endpoint.
+This endpoint relies on a <code>Registration</code> bean in the Spring Application Context.
+Calling <code>/serviceregistry</code> with GET returns the status of the <code>Registration</code>.
+Using POST to the same endpoint with a JSON body changes the status of the current <code>Registration</code> to the new value.
+The JSON body has to include the <code>status</code> field with the preferred value.
+Please see the documentation of the <code>ServiceRegistry</code> implementation you use for the allowed values when updating the status and the values returned for the status.
+For instance, Eureka&#8217;s supported statuses are <code>UP</code>, <code>DOWN</code>, <code>OUT_OF_SERVICE</code>, and <code>UNKNOWN</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rest-template-loadbalancer-client"><a class="anchor" href="#rest-template-loadbalancer-client"></a>Spring RestTemplate as a LoadBalancer Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure a <code>RestTemplate</code> to use a Load-balancer client.
+To create a load-balanced <code>RestTemplate</code>, create a <code>RestTemplate</code> <code>@Bean</code> and use the <code>@LoadBalanced</code> qualifier, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+
+public class MyClass {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public String doOtherStuff() {
+        String result = restTemplate.getForObject("http://stores/stores", String.class);
+        return result;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+A <code>RestTemplate</code> bean is no longer created through auto-configuration.
+Individual applications must create it.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The URI needs to use a virtual host name (that is, a service name, not a host name).
+The <code>BlockingLoadBalancerClient</code> is used to create a full physical address.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+To use a load-balanced <code>RestTemplate</code>, you need to have a Spring Cloud LoadBalancer implementation in your classpath.
+Add <a href="loadbalancer.html#spring-cloud-loadbalancer-starter" class="xref page">Spring Cloud LoadBalancer starter</a> to your project in order to use it.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="multiple-resttemplate-objects"><a class="anchor" href="#multiple-resttemplate-objects"></a>Multiple RestTemplate Objects</h3>
+<div class="paragraph">
+<p>If you want a <code>RestTemplate</code> that is not load-balanced, create a <code>RestTemplate</code> bean and inject it.
+To access the load-balanced <code>RestTemplate</code>, use the <code>@LoadBalanced</code> qualifier when you create your <code>@Bean</code>, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    RestTemplate loadBalanced() {
+        return new RestTemplate();
+    }
+
+    @Primary
+    @Bean
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+
+public class MyClass {
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    @LoadBalanced
+    private RestTemplate loadBalanced;
+
+    public String doOtherStuff() {
+        return loadBalanced.getForObject("http://stores/stores", String.class);
+    }
+
+    public String doStuff() {
+        return restTemplate.getForObject("http://example.com", String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Notice the use of the <code>@Primary</code> annotation on the plain <code>RestTemplate</code> declaration in the preceding example to disambiguate the unqualified <code>@Autowired</code> injection.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you see errors such as <code>java.lang.IllegalArgumentException: Can not set org.springframework.web.client.RestTemplate field com.my.app.Foo.restTemplate to com.sun.proxy.$Proxy89</code>, try injecting <code>RestOperations</code> or setting <code>spring.aop.proxyTargetClass=true</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rest-template-builder-loadbalancer-client"><a class="anchor" href="#rest-template-builder-loadbalancer-client"></a>Using <code>@LoadBalanced RestTemplateBuilder</code> to create a LoadBalancer Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can also configure a <code>RestTemplate</code> to use a Load-Balancer client by annotating a
+<code>RestTemplateBuilder</code> bean with <code>@LoadBalanced</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"><span class="fold-block is-hidden-folded">import org.springframework.boot.web.client.RestTemplateBuilder;@Configuration
+</span><span class="fold-block">public class MyConfiguration {
+
+    @Bean
+	@LoadBalanced
+	RestTemplateBuilder loadBalancedRestTemplateBuilder() {
+		return new RestTemplateBuilder();
+	}
+}
+
+public class MyClass {
+
+    private final RestTemplate restTemplate;
+
+	MyClass(@LoadBalanced RestTemplateBuilder restTemplateBuilder) {
+		this.restTemplate = restTemplateBuilder.build();
+	}
+
+    public String getStores() {
+        return restTemplate.getForObject("http://stores/stores", String.class);
+    }
+}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URI needs to use a virtual host name (that is, a service name, not a host name).
+The <code>BlockingLoadBalancerClient</code> is used to create a full physical address.</p>
+</div>
+<div class="paragraph">
+<p>In order to leverage additional capabilities that Spring Boot provides for <code>RestTemplateBuilder</code> (for example, observability support) you may want to use the autoconfigured
+<code>RestTemplateBuilderConfigurer</code> while creating the <code>@LoadBalanced RestTemplateBuilder</code> beans:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+	@LoadBalanced
+	RestTemplateBuilder loadBalancedRestTemplateBuilder(RestTemplateBuilderConfigurer configurer) {
+		return configurer.configure(new RestTemplateBuilder());
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+To use it, add <a href="loadbalancer.html#spring-cloud-loadbalancer-starter" class="xref page">Spring Cloud LoadBalancer starter</a> to your project.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="multiple-resttemplate-builder-beans"><a class="anchor" href="#multiple-resttemplate-builder-beans"></a>Multiple <code>RestTemplateBuilder</code> beans</h3>
+<div class="paragraph">
+<p>If you want a <code>RestTemplateBuilder</code> that is not load-balanced, create a <code>RestTemplateBuilder</code> bean and inject it.
+To access the load-balanced <code>RestTemplateBuilder</code>, use the <code>@LoadBalanced</code> qualifier when you create your <code>@Bean</code>, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    RestTemplateBuilder loadBalancedRestTemplateBuilder() {
+		return new RestTemplateBuilder();
+	}
+
+    @Primary
+    @Bean
+    RestTemplateBuilder restTemplateBuilder() {
+		return new RestTemplateBuilder();
+	}
+}
+
+public class MyClass {
+
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
+
+    @Autowired
+    @LoadBalanced
+    private RestTemplateBuilder loadBalanced;
+
+    public String doOtherStuff() {
+        return loadBalanced.getForObject("http://stores/stores", String.class);
+    }
+
+    public String doStuff() {
+		return restTemplateBuilder.build().getForObject("http://example.com", String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Notice the use of the <code>@Primary</code> annotation on the plain <code>RestTemplateBuilder</code> declaration in the preceding example to disambiguate the unqualified <code>@Autowired</code> injection.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rest-client-loadbalancer-client"><a class="anchor" href="#rest-client-loadbalancer-client"></a>Spring RestClient as a LoadBalancer Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure a <code>RestClient</code> to use a Load-balancer client.
+To create a load-balanced <code>RestClient</code>, create a <code>RestClient.Builder</code> <code>@Bean</code> and use the <code>@LoadBalanced</code> qualifier, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+}
+
+public class MyClass {
+
+    @Autowired
+    private RestClient.Builder restClientBuilder;
+
+    public String doOtherStuff() {
+        return restClientBuilder.build().get().uri(URI.create("http://stores/stores")).retrieve().body(String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URI needs to use a virtual host name (that is, a service name, not a host name).
+The <code>BlockingLoadBalancerClient</code> is used to create a full physical address.</p>
+</div>
+<div class="paragraph">
+<p>In order to leverage additional capabilities that Spring Boot provides for <code>RestClient.Builder</code> (for example, observability support) you may want to use the autoconfigured
+<code>RestClientBuilderConfigurer</code> while creating the <code>@LoadBalanced RestClient.Builder</code> beans:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    RestClient.Builder restClientBuilder(RestClientBuilderConfigurer configurer) {
+		return configurer.configure(RestClient.builder());
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+To use it, add <a href="loadbalancer.html#spring-cloud-loadbalancer-starter" class="xref page">Spring Cloud LoadBalancer starter</a> to your project.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="multiple-restclient-objects"><a class="anchor" href="#multiple-restclient-objects"></a>Multiple <code>RestClient.Builder</code> Objects</h3>
+<div class="paragraph">
+<p>If you want a <code>RestClient.Builder</code> that is not load-balanced, create a <code>RestClient.Builder</code> bean and inject it.
+To access the load-balanced <code>RestClient.Builder</code>, use the <code>@LoadBalanced</code> qualifier when you create your <code>@Bean</code>, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    RestClient.Builder loadBalanced() {
+        return RestClient.builder();
+    }
+
+    @Primary
+    @Bean
+    RestClient.Builder restClientBuilder() {
+        return RestClient.builder();
+    }
+}
+
+public class MyClass {
+    @Autowired
+    private RestClient.Builder restClientBuilder;
+
+    @Autowired
+    @LoadBalanced
+    private RestClient.Builder loadBalanced;
+
+    public String doOtherStuff() {
+        return loadBalanced.build().get().uri("http://stores/stores")
+        				.retrieve().body(String.class);
+    }
+
+    public String doStuff() {
+        return restClientBuilder.build().get().uri("http://example.com")
+        				.retrieve().body(String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Notice the use of the <code>@Primary</code> annotation on the plain <code>RestClient.Builder</code> declaration in the preceding example to disambiguate the unqualified <code>@Autowired</code> injection.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="webclinet-loadbalancer-client"><a class="anchor" href="#webclinet-loadbalancer-client"></a>Spring WebClient as a LoadBalancer Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can configure <code>WebClient</code> to automatically use a load-balancer client.
+To create a load-balanced <code>WebClient</code>, create a <code>WebClient.Builder</code> <code>@Bean</code> and use the <code>@LoadBalanced</code> qualifier, as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+	@Bean
+	@LoadBalanced
+	public WebClient.Builder loadBalancedWebClientBuilder() {
+		return WebClient.builder();
+	}
+}
+
+public class MyClass {
+    @Autowired
+    private WebClient.Builder webClientBuilder;
+
+    public Mono&lt;String&gt; doOtherStuff() {
+        return webClientBuilder.build().get().uri("http://stores/stores")
+        				.retrieve().bodyToMono(String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URI needs to use a virtual host name (that is, a service name, not a host name).
+The Spring Cloud LoadBalancer is used to create a full physical address.</p>
+</div>
+<div class="paragraph">
+<p>In order to leverage additional capabilities that Spring Boot provides for <code>WebClient.Builder</code> (for example, observability support) you may want to use the autoconfigured
+<code>WebClientCustomizer</code> beans while creating the <code>@LoadBalanced WebClient.Builder</code> beans:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+	@Bean
+	@LoadBalanced
+	public WebClient.Builder loadBalancedWebClientBuilder(ObjectProvider&lt;WebClientCustomizer&gt; customizerProvider) {
+		WebClient.Builder builder = WebClient.builder();
+		customizerProvider.orderedStream().forEach((customizer) -&gt; customizer.customize(builder));
+		return builder;
+	}
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If you want to use a <code>@LoadBalanced WebClient.Builder</code>, you need to have a Spring Cloud LoadBalancer
+implementation in the classpath. We recommend that you add the
+<a href="loadbalancer.html#spring-cloud-loadbalancer-starter" class="xref page">Spring Cloud LoadBalancer starter</a> to your project.
+Then, <code>ReactiveLoadBalancer</code> is used underneath.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="multiple-webclient-objects"><a class="anchor" href="#multiple-webclient-objects"></a>Multiple <code>WebClient.Builder</code> Objects</h3>
+<div class="paragraph">
+<p>If you want a <code>WebClient.Buider</code> that is not load-balanced, create a <code>WebClient</code> bean and inject it.
+To access the load-balanced <code>WebClient.Builder</code>, use the <code>@LoadBalanced</code> qualifier when you create your <code>@Bean</code>, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+
+    @LoadBalanced
+    @Bean
+    WebClient.Builder loadBalanced() {
+        return WebClient.builder();
+    }
+
+    @Primary
+    @Bean
+    WebClient.Builder webClientBuilder() {
+        return WebClient.builder();
+    }
+}
+
+public class MyClass {
+    @Autowired
+    private WebClient.Builder webClientBuilder;
+
+    @Autowired
+    @LoadBalanced
+    private WebClient.Builder loadBalanced;
+
+    public Mono&lt;String&gt; doOtherStuff() {
+        return loadBalanced.build().get().uri("http://stores/stores")
+        				.retrieve().bodyToMono(String.class);
+    }
+
+    public Mono&lt;String&gt; doStuff() {
+        return webClientBuilder.build().get().uri("http://example.com")
+        				.retrieve().bodyToMono(String.class);
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="retrying-failed-requests"><a class="anchor" href="#retrying-failed-requests"></a>Retrying Failed Requests</h3>
+<div class="paragraph">
+<p>A load-balanced <code>RestTemplate</code> can be configured to retry failed requests.
+By default, this logic is disabled.
+For the non-reactive version (with <code>RestTemplate</code>), you can enable it by adding <a href="https://github.com/spring-projects/spring-retry">Spring Retry</a> to your application&#8217;s classpath. For the reactive version (with <code>WebTestClient</code>), you need to set <code>spring.cloud.loadbalancer.retry.enabled=true</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you would like to disable the retry logic with Spring Retry or Reactive Retry on the classpath, you can set <code>spring.cloud.loadbalancer.retry.enabled=false</code>.</p>
+</div>
+<div class="paragraph">
+<p>For the non-reactive implementation, if you would like to implement a <code>BackOffPolicy</code> in your retries, you need to create a bean of type <code>LoadBalancedRetryFactory</code> and override the <code>createBackOffPolicy()</code> method.</p>
+</div>
+<div class="paragraph">
+<p>For the reactive implementation, you just need to enable it by setting <code>spring.cloud.loadbalancer.retry.backoff.enabled</code> to <code>false</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can set:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>spring.cloud.loadbalancer.retry.maxRetriesOnSameServiceInstance</code> - indicates how many times a request should be retried on the same <code>ServiceInstance</code> (counted separately for every selected instance)</p>
+</li>
+<li>
+<p><code>spring.cloud.loadbalancer.retry.maxRetriesOnNextServiceInstance</code> - indicates how many times a request should be retried a newly selected <code>ServiceInstance</code></p>
+</li>
+<li>
+<p><code>spring.cloud.loadbalancer.retry.retryableStatusCodes</code> - the status codes on which to always retry a failed request.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For the reactive implementation, you can additionally set:
+ - <code>spring.cloud.loadbalancer.retry.backoff.minBackoff</code> - Sets the minimum backoff duration (by default, 5 milliseconds)
+ - <code>spring.cloud.loadbalancer.retry.backoff.maxBackoff</code> - Sets the maximum backoff duration (by default, max long value of milliseconds)
+ - <code>spring.cloud.loadbalancer.retry.backoff.jitter</code> - Sets the jitter used for calculating the actual backoff duration for each call (by default, 0.5).</p>
+</div>
+<div class="paragraph">
+<p>For the reactive implementation, you can also implement your own <code>LoadBalancerRetryPolicy</code> to have more detailed control over the load-balanced call retries.</p>
+</div>
+<div class="paragraph">
+<p>For both implementations, you can also set the exceptions that trigger the replies by adding a list of values under the <code>spring.cloud.loadbalancer.[serviceId].retry.retryable-exceptions</code> property. If you do, we make sure to add <code>RetryableStatusCodeExceptions</code> to the list of exceptions provided by you, so that we also retry on retryable status codes. If you do not specify any exceptions via properties, the exceptions we use by default are <code>IOException</code>, <code>TimeoutException</code> and <code>RetryableStatusCodeException</code>. You can also enable retrying on all exceptions by setting <code>spring.cloud.loadbalancer.[serviceId].retry.retry-on-all-exceptions</code> to <code>true</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If you use the blocking implementation with Spring Retries, if you want to keep the behaviour from previous releases, set <code>spring.cloud.loadbalancer.[serviceId].retry.retry-on-all-exceptions</code> to <code>true</code> as that used to be the default mode for the blocking implementation.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Individual Loadbalancer clients may be configured individually with the same properties as above except the prefix is <code>spring.cloud.loadbalancer.clients.&lt;clientId&gt;.*</code> where <code>clientId</code> is the name of the loadbalancer.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For load-balanced retries, by default, we wrap the <code>ServiceInstanceListSupplier</code> bean with <code>RetryAwareServiceInstanceListSupplier</code> to select a different instance from the one previously chosen, if available. You can disable this behavior by setting the value of <code>spring.cloud.loadbalancer.retry.avoidPreviousInstance</code> to <code>false</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+    @Bean
+    LoadBalancedRetryFactory retryFactory() {
+        return new LoadBalancedRetryFactory() {
+            @Override
+            public BackOffPolicy createBackOffPolicy(String service) {
+        		return new ExponentialBackOffPolicy();
+        	}
+        };
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to add one or more <code>RetryListener</code> implementations to your retry functionality, you need to
+create a bean of type <code>LoadBalancedRetryListenerFactory</code> and return the <code>RetryListener</code> array
+you would like to use for a given service, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Configuration
+public class MyConfiguration {
+    @Bean
+    LoadBalancedRetryListenerFactory retryListenerFactory() {
+        return new LoadBalancedRetryListenerFactory() {
+            @Override
+            public RetryListener[] createRetryListeners(String service) {
+                return new RetryListener[]{new RetryListener() {
+                    @Override
+                    public &lt;T, E extends Throwable&gt; boolean open(RetryContext context, RetryCallback&lt;T, E&gt; callback) {
+                        //TODO Do you business...
+                        return true;
+                    }
+
+                    @Override
+                     public &lt;T, E extends Throwable&gt; void close(RetryContext context, RetryCallback&lt;T, E&gt; callback, Throwable throwable) {
+                        //TODO Do you business...
+                    }
+
+                    @Override
+                    public &lt;T, E extends Throwable&gt; void onError(RetryContext context, RetryCallback&lt;T, E&gt; callback, Throwable throwable) {
+                        //TODO Do you business...
+                    }
+                }};
+            }
+        };
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loadbalanced-webclient"><a class="anchor" href="#loadbalanced-webclient"></a>Spring WebFlux <code>WebClient</code> as a Load Balancer Client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Spring WebFlux can work with both reactive and non-reactive <code>WebClient</code> configurations, as the topics describe:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#webflux-with-reactive-loadbalancer">Spring WebFlux <code>WebClient</code> with <code>ReactorLoadBalancerExchangeFilterFunction</code></a></p>
+</li>
+<li>
+<p><a href="#load-balancer-exchange-filter-function">Spring WebFlux <code>WebClient</code> with a Non-reactive Load Balancer Client</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="webflux-with-reactive-loadbalancer"><a class="anchor" href="#webflux-with-reactive-loadbalancer"></a>Spring WebFlux <code>WebClient</code> with <code>ReactorLoadBalancerExchangeFilterFunction</code></h3>
+<div class="paragraph">
+<p>You can configure <code>WebClient</code> to use the <code>ReactiveLoadBalancer</code>.
+If you add <a href="loadbalancer.html#spring-cloud-loadbalancer-starter" class="xref page">Spring Cloud LoadBalancer starter</a> to your project
+and if <code>spring-webflux</code> is on the classpath, <code>ReactorLoadBalancerExchangeFilterFunction</code> is auto-configured.
+The following example shows how to configure a <code>WebClient</code> to use reactive load-balancer:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class MyClass {
+    @Autowired
+    private ReactorLoadBalancerExchangeFilterFunction lbFunction;
+
+    public Mono&lt;String&gt; doOtherStuff() {
+        return WebClient.builder().baseUrl("http://stores")
+            .filter(lbFunction)
+            .build()
+            .get()
+            .uri("/stores")
+            .retrieve()
+            .bodyToMono(String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URI needs to use a virtual host name (that is, a service name, not a host name).
+The <code>ReactorLoadBalancer</code> is used to create a full physical address.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="load-balancer-exchange-filter-function"><a class="anchor" href="#load-balancer-exchange-filter-function"></a>Spring WebFlux <code>WebClient</code> with a Non-reactive Load Balancer Client</h3>
+<div class="paragraph">
+<p>If <code>spring-webflux</code> is on the classpath, <code>LoadBalancerExchangeFilterFunction</code>
+is auto-configured. Note, however, that this
+uses a non-reactive client under the hood.
+The following example shows how to configure a <code>WebClient</code> to use load-balancer:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class MyClass {
+    @Autowired
+    private LoadBalancerExchangeFilterFunction lbFunction;
+
+    public Mono&lt;String&gt; doOtherStuff() {
+        return WebClient.builder().baseUrl("http://stores")
+            .filter(lbFunction)
+            .build()
+            .get()
+            .uri("/stores")
+            .retrieve()
+            .bodyToMono(String.class);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The URI needs to use a virtual host name (that is, a service name, not a host name).
+The <code>LoadBalancerClient</code> is used to create a full physical address.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This approach is now deprecated.
+We suggest that you use <a href="#webflux-with-reactive-loadbalancer">WebFlux with reactive Load-Balancer</a>
+instead.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ignore-network-interfaces"><a class="anchor" href="#ignore-network-interfaces"></a>Ignore Network Interfaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sometimes, it is useful to ignore certain named network interfaces so that they can be excluded from Service Discovery registration (for example, when running in a Docker container).
+A list of regular expressions can be set to cause the desired network interfaces to be ignored.
+The following configuration ignores the <code>docker0</code> interface and all interfaces that start with <code>veth</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.yml</div>
+<div class="content">
+<pre>spring:
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker0
+        - veth.*</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also force the use of only specified network addresses by using a list of regular expressions, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="title">bootstrap.yml</div>
+<div class="content">
+<pre>spring:
+  cloud:
+    inetutils:
+      preferredNetworks:
+        - 192.168
+        - 10.0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also force the use of only site-local addresses, as the following example shows:</p>
+</div>
+<div class="listingblock">
+<div class="title">application.yml</div>
+<div class="content">
+<pre>spring:
+  cloud:
+    inetutils:
+      useOnlySiteLocalInterfaces: true</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>See <a href="https://docs.oracle.com/javase/8/docs/api/java/net/Inet4Address.html#isSiteLocalAddress--">Inet4Address.html.isSiteLocalAddress()</a> for more details about what constitutes a site-local address.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="enabled-features"><a class="anchor" href="#enabled-features"></a>Enabled Features</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud Commons provides a <code>/features</code> actuator endpoint.
+This endpoint returns features available on the classpath and whether they are enabled.
+The information returned includes the feature type, name, version, and vendor.</p>
+</div>
+<div class="sect2">
+<h3 id="feature-types"><a class="anchor" href="#feature-types"></a>Feature types</h3>
+<div class="paragraph">
+<p>There are two types of 'features': abstract and named.</p>
+</div>
+<div class="paragraph">
+<p>Abstract features are features where an interface or abstract class is defined and that an implementation the creates, such as <code>DiscoveryClient</code>, <code>LoadBalancerClient</code>, or <code>LockService</code>.
+The abstract class or interface is used to find a bean of that type in the context.
+The version displayed is <code>bean.getClass().getPackage().getImplementationVersion()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Named features are features that do not have a particular class they implement. These features include &#8220;Circuit Breaker&#8221;, &#8220;API Gateway&#8221;, &#8220;Spring Cloud Bus&#8221;, and others. These features require a name and a bean type.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="declaring-features"><a class="anchor" href="#declaring-features"></a>Declaring features</h3>
+<div class="paragraph">
+<p>Any module can declare any number of <code>HasFeature</code> beans, as the following examples show:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public HasFeatures commonsFeatures() {
+  return HasFeatures.abstractFeatures(DiscoveryClient.class, LoadBalancerClient.class);
+}
+
+@Bean
+public HasFeatures consulFeatures() {
+  return HasFeatures.namedFeatures(
+    new NamedFeature("Spring Cloud Bus", ConsulBusAutoConfiguration.class),
+    new NamedFeature("Circuit Breaker", HystrixCommandAspect.class));
+}
+
+@Bean
+HasFeatures localFeatures() {
+  return HasFeatures.builder()
+      .abstractFeature(Something.class)
+      .namedFeature(new NamedFeature("Some Other Feature", Someother.class))
+      .abstractFeature(Somethingelse.class)
+      .build();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each of these beans should go in an appropriately guarded <code>@Configuration</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spring-cloud-compatibility-verification"><a class="anchor" href="#spring-cloud-compatibility-verification"></a>Spring Cloud Compatibility Verification</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Due to the fact that some users have problem with setting up Spring Cloud application, we&#8217;ve decided
+to add a compatibility verification mechanism. It will break if your current setup is not compatible
+with Spring Cloud requirements, together with a report, showing what exactly went wrong.</p>
+</div>
+<div class="paragraph">
+<p>At the moment we verify which version of Spring Boot is added to your classpath.</p>
+</div>
+<div class="paragraph">
+<p>Example of a report</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Your project setup is incompatible with our requirements due to following reasons:
+
+- Spring Boot [2.1.0.RELEASE] is not compatible with this Spring Cloud release train
+
+
+Action:
+
+Consider applying the following actions:
+
+- Change Spring Boot version to one of the following versions [1.2.x, 1.3.x] .
+You can find the latest Spring Boot versions here [https://spring.io/projects/spring-boot#learn].
+If you want to learn more about the Spring Cloud Release train compatibility, you can visit this page [https://spring.io/projects/spring-cloud#overview] and check the [Release Trains] section.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to disable this feature, set <code>spring.cloud.compatibility-verifier.enabled</code> to <code>false</code>.
+If you want to override the compatible Spring Boot versions, just set the
+<code>spring.cloud.compatibility-verifier.compatible-boot-versions</code> property with a comma separated list
+of compatible Spring Boot versions.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="application-context-services.html">Spring Cloud Context: Application Context Services</a></span>
+  <span class="next"><a href="loadbalancer.html">Spring Cloud LoadBalancer</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">Spring Cloud Commons</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.2<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.2" data-page-component="cloud-commons"></script>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"org.springframework.cloud.internal","c":"GenerateReleaseTrainDocs","l":"GenerateReleaseTrainDocs()","u":"%3Cinit%3E()","k":"3"},{"p":"org.springframework.cloud.internal","c":"GenerateReleaseTrainDocs","l":"main(String...)","u":"main(java.lang.String...)","k":"6"}];updateSearchResults();

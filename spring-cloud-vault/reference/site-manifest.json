@@ -1,0 +1,68 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:32:43.612Z",
+  "url": "https://docs.spring.io/spring-cloud-vault/reference",
+  "components": {
+    "cloud-vault": {
+      "title": "Spring Cloud Vault",
+      "latest": "5.0.2",
+      "versions": {
+        "5.0.2": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Vault"
+            },
+            {
+              "path": "advanced-topics.adoc",
+              "url": "/advanced-topics.html",
+              "title": "Service Registry Configuration"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "authentication.adoc",
+              "url": "/authentication.html",
+              "title": "Authentication methods"
+            },
+            {
+              "path": "config-data.adoc",
+              "url": "/config-data.html",
+              "title": "ConfigData API"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "quickstart.adoc",
+              "url": "/quickstart.html",
+              "title": "Quick Start"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "secret-backends.adoc",
+              "url": "/secret-backends.html",
+              "title": "Secret Backends"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

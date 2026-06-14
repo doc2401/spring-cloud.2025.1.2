@@ -1,0 +1,4 @@
+org.springframework.cloud.bus
+org.springframework.cloud.bus.endpoint
+org.springframework.cloud.bus.event
+org.springframework.cloud.bus.jackson

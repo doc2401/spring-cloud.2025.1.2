@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Programming model :: Spring Cloud Function</title>
+    <link rel="canonical" href="https://docs.spring.io/spring-cloud-function/reference/spring-cloud-function/programming-model.html">
+    <link rel="prev" href="../index.html">
+    <link rel="next" href="standalone-web-applications.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/asciidoctor-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.15"> 
+    <meta name="version" content="5.0.3">
+    <meta name="component" content="cloud-function">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+        <img
+          id="springlogo"
+          class="block"
+          src="../_/img/spring-logo.svg"
+          alt="Spring"
+        />
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Why Spring</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/why-spring"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/microservices"
+            >Microservices</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/reactive"
+            >Reactive</a>
+            <a class="navbar-item" href="https://spring.io/event-driven">Event
+              Driven</a>
+            <a class="navbar-item" href="https://spring.io/cloud">Cloud</a>
+            <a class="navbar-item" href="https://spring.io/web-applications">Web
+              Applications</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/serverless"
+            >Serverless</a>
+            <a class="navbar-item" href="https://spring.io/batch">Batch</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Learn</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://spring.io/learn">Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/quickstart"
+            >Quickstart</a>
+            <a class="navbar-item" href="https://spring.io/guides">Guides</a>
+            <a class="navbar-item" href="https://spring.io/blog">Blog</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Projects</a>
+          <div class="navbar-dropdown" style="min-width: 280px">
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects"
+            >Overview</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-boot"
+            >Spring Boot</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-framework"
+            >Spring Framework</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud"
+            >Spring Cloud</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-cloud-dataflow"
+            >Spring Cloud Data Flow</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-data"
+            >Spring Data</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-integration"
+            >Spring Integration</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-batch"
+            >Spring Batch</a>
+            <a
+              class="navbar-item"
+              href="https://spring.io/projects/spring-security"
+            >Spring Security</a>
+            <a
+              class="navbar-item navbar-item-special"
+              href="https://spring.io/projects"
+            >View all projects</a>
+            <li class="navbar-item navbar-item-special-3">DEVELOPMENT TOOLS</li>
+            <a class="navbar-item" href="https://spring.io/tools">Spring Tools 4</a>
+            <a
+              class="navbar-item navbar-item-special-2"
+              href="https://start.spring.io"
+            >Spring Initializr
+              <svg
+                class="external-link-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+              ><polyline
+                  points="15 10.94 15 15 1 15 1 1 5.06 1"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><polyline
+                  points="8.93 1 15 1 15 7.07"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></polyline><line
+                  x1="15"
+                  y1="1"
+                  x2="8"
+                  y2="8"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-miterlimit="10"
+                  stroke-width="2"
+                ></line></svg></a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Academy</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.academy/courses"
+            >Courses</a>
+            <a
+              class="navbar-item"
+              href="https://spring.academy/learning-path"
+            >Get Certified</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Solutions</a>
+          <div class="navbar-dropdown lg">
+            <a class="navbar-item" href="https://spring.io/solutions">Overview</a>
+            <a class="navbar-item" href="https://spring.io/support">Spring Runtime</a>
+            <a class="navbar-item" href="https://spring.io/consulting">Spring Consulting</a>
+            <a class="navbar-item" href="https://spring.academy/teams">Spring Academy For Teams</a>
+            <a class="navbar-item" href="https://spring.io/security">Security Advisories</a>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable is-community">
+          <a class="navbar-link" href="#">Community</a>
+          <div class="navbar-dropdown">
+            <a
+              class="navbar-item"
+              href="https://spring.io/community"
+            >Overview</a>
+            <a class="navbar-item" href="https://spring.io/events">Events</a>
+            <a class="navbar-item" href="https://spring.io/team">Team</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="cloud-function" data-version="5.0.3">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">spring-cloud-function</span>
+  <span class="version">5.0.3</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  <div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div><ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link"  href="introduction.html">Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="../index.html">Spring Cloud Function Reference Documentation</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link"  href="programming-model.html">Programming model</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="standalone-web-applications.html">Standalone Web Applications</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="standalone-streaming-applications.html">Standalone Streaming Applications</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="deploying-a-packaged.html">Deploying a Packaged Function</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link"  href="../functional.html">Functional Bean Definitions</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="serverless-platform-adapters.html">Serverless Platform Adapters</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../adapters/aws-intro.html">AWS Lambda</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../adapters/azure-intro.html">Microsoft Azure Functions</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../adapters/gcp-intro.html">Google Cloud Functions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link"  href="appendix.html">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="https://github.com/spring-cloud/spring-cloud-function/tree/main/spring-cloud-function-samples/function-sample-cloudevent">Cloud Events support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="https://github.com/spring-cloud/spring-cloud-function/tree/main/spring-cloud-function-rsocket">RSocket support</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link"  href="../spring-integration.html">Spring Integration</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+<div class="search">
+  <button class="DocSearch-Button search-button">
+    <svg enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+    </svg>
+    <span>Search</span>
+    <span class="search-key"></span>
+  </button>
+</div>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Programming model"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+        <a href="file:///workspaces/toc/articles/202606/spring-cloud/sources/spring-cloud-function/docs/modules/ROOT/pages/spring-cloud-function/programming-model.adoc">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 0 24 24"
+            width="24"
+          ><path
+              d="m16 2.012 3 3L16.713 7.3l-3-3zM4 14v3h3l8.299-8.287-3-3zm0 6h16v2H4z"
+            ></path></svg>
+          Edit this Page
+        </a>
+        <a href="https://github.com/spring-cloud/spring-cloud-function" title="GitHub">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="512px"
+            id="Layer_1"
+            version="1.1"
+            viewBox="0 0 512 512"
+            width="512px"
+          ><style type="text/css"><![CDATA[
+              .st0{fill-rule:evenodd;clip-rule:evenodd;} ]]></style><g><path
+                class="st0"
+                d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"
+              ></path></g></svg>
+          GitHub Project
+        </a>
+        <a href="https://stackoverflow.com/tags/spring-cloud">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path
+              d="M290.7 311L95 269.7 86.8 309l195.7 41zm51-87L188.2 95.7l-25.5 30.8 153.5 128.3zm-31.2 39.7L129.2 179l-16.7 36.5L293.7 300zM262 32l-32 24 119.3 160.3 32-24zm20.5 328h-200v39.7h200zm39.7 80H42.7V320h-40v160h359.5V320h-40z"
+            ></path></svg>
+          Stack Overflow
+        </a>
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="../index.html">spring-cloud-function</a></li>
+      <li><a href="../index.html">Spring Cloud Function Reference Documentation</a></li>
+      <li><a href="programming-model.html">Programming model</a></li>
+    </ul>
+  </nav>
+</div><h1 id="page-title" class="page">Programming model</h1>
+<div class="sect1">
+<h2 id="function-catalog-and-flexible-function-signatures"><a class="anchor" href="#function-catalog-and-flexible-function-signatures"></a>Function Catalog and Flexible Function Signatures</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the main features of Spring Cloud Function is to adapt and support a range of type signatures for user-defined functions, while providing a consistent execution model.
+That&#8217;s why all user-defined functions are transformed into a canonical representation by <code>FunctionCatalog</code>.</p>
+</div>
+<div class="paragraph">
+<p>While users don&#8217;t normally have to care about the <code>FunctionCatalog</code> at all, it is useful to know what kind of functions are supported in user code.</p>
+</div>
+<div class="paragraph">
+<p>It is also important to understand that Spring Cloud Function provides first-class support for reactive APIs, provided by <a href="https://projectreactor.io/">Project Reactor</a>.
+This allows reactive primitives such as <code>Mono</code> and <code>Flux</code> to be used as types in user-defined functions thereby providing greater flexibility when choosing a programming model for your function implementation.
+A reactive programming model also enables functional support for features that would be otherwise difficult or impossible to implement using an imperative programming style.
+For more on this, please read the section on <a href="#function-arity">Function Arity</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="java-8-function-support"><a class="anchor" href="#java-8-function-support"></a>Java 8 function support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud Function embraces and builds on top of the 3 core functional interfaces defined by Java since Java 8.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Supplier&lt;O&gt;</p>
+</li>
+<li>
+<p>Function&lt;I, O&gt;</p>
+</li>
+<li>
+<p>Consumer&lt;I&gt;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To constantly avoid mentioning <code>Supplier</code>, <code>Function</code> and <code>Consumer</code>, we’ll refer to them as Functional beans where appropriate for the rest of this manual.</p>
+</div>
+<div class="paragraph">
+<p>In a nutshell, any bean in your <code>ApplicationContext</code> that is a Functional bean will be lazily registered with <code>FunctionCatalog</code>.
+This means that it could benefit from all of the additional features described in this reference manual.</p>
+</div>
+<div class="paragraph">
+<p>In the simplest application, all you need to do is to declare a <code>@Bean</code> of type <code>Supplier</code>, <code>Function</code> or <code>Consumer</code> in your application configuration.
+Then, you can use <code>FunctionCatalog</code> to lookup a particular function based on its name.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;String, String&gt; uppercase() {
+    return value -&gt; value.toUpperCase();
+}
+
+// . . .
+
+FunctionCatalog catalog = applicationContext.getBean(FunctionCatalog.class);
+Function uppercase =  catalog.lookup(“uppercase”);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is important to understand that given <code>uppercase</code> is a bean, you can certainly get it form the <code>ApplicationContext</code> directly, but all you will get is just your bean as you declared it without any extra features provided by SCF.
+When you look up a function via <code>FunctionCatalog</code>, the instance you receive is wrapped (instrumented) with additional features (i.e., type conversion, composition, etc.) described in this manual.</p>
+</div>
+<div class="paragraph">
+<p>Also, it is important to understand that a typical user does not use Spring Cloud Function directly.
+Instead, a typical user implements a Java <code>Function</code>, <code>Supplier</code>, or <code>Consumer</code> with the idea of using it in different execution contexts without additional work.</p>
+</div>
+<div class="paragraph">
+<p>For example, the same Java function could be represented as a <em>REST endpoint</em>, a <em>Streaming message handler</em>, or an <em>AWS Lambda</em>, and even more, via Spring Cloud Function provided adapters as well as other frameworks using Spring Cloud Function as the core programming model (e.g. <a href="https://spring.io/projects/spring-cloud-stream">Spring Cloud Stream</a>).</p>
+</div>
+<div class="paragraph">
+<p>In summary, Spring Cloud Function instruments Java functions with additional features to be utilized in variety of execution contexts.</p>
+</div>
+<div class="sect2">
+<h3 id="function-definition"><a class="anchor" href="#function-definition"></a>Function definition</h3>
+<div class="paragraph">
+<p>While the previous example shows you how to lookup a function in <code>FunctionCatalog</code> programmatically, in a typical integration case where Spring Cloud Function is used as the programming model by another framework (e.g. <a href="https://spring.io/projects/spring-cloud-stream">Spring Cloud Stream</a>), you can declare which functions to use via the <code>spring.cloud.function.definition</code> property.
+It is important to know and understand the default behaviour when it comes to discovering functions in <code>FunctionCatalog</code>.</p>
+</div>
+<div class="paragraph">
+<p>For instance, if you only have one Functional bean in your <code>ApplicationContext</code>, the <code>spring.cloud.function.definition</code> property typically will not be required since a single function in <code>FunctionCatalog</code> can be looked up by an empty name, or any name.
+For example, assuming that <code>uppercase</code> is the only function in your catalog, it can be looked up as <code>catalog.lookup(null)</code>, <code>catalog.lookup(“”)</code>, <code>catalog.lookup(“foo”)</code>.</p>
+</div>
+<div class="paragraph">
+<p>That said, for cases where you are using a framework such as Spring Cloud Stream, which uses <code>spring.cloud.function.definition</code>, it is recommended to always use the <code>spring.cloud.function.definition</code> property.</p>
+</div>
+<div class="paragraph">
+<p>For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-test hljs" data-lang="test">spring.cloud.function.definition=uppercase</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="filtering-ineligible-functions"><a class="anchor" href="#filtering-ineligible-functions"></a>Filtering ineligible functions</h3>
+<div class="paragraph">
+<p>A typical <code>ApplicationContext</code> may include beans that are valid Java functions, but not intended as candidates to be registered with <code>FunctionCatalog</code>.
+Such beans could be auto-configurations from other projects or any other bean that qualifies as a Java function.</p>
+</div>
+<div class="paragraph">
+<p>The framework provides default filtering of known beans that should not be candidates for registration with <code>FunctionCatalog</code>.
+You can also add additional beans to this list by providing a comma-delimited list of bean definition names using the <code>spring.cloud.function.ineligible-definitions</code> property.</p>
+</div>
+<div class="paragraph">
+<p>For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-test hljs" data-lang="test">spring.cloud.function.ineligible-definitions=foo,bar</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="supplier"><a class="anchor" href="#supplier"></a>Supplier</h3>
+<div class="paragraph">
+<p>Supplier can be <em>reactive</em> - <code>Supplier&lt;Flux&lt;T&gt;&gt;</code> or <em>imperative</em> - <code>Supplier&lt;T&gt;</code>.
+From an invocation standpoint, this should make no difference to the implementor of such a <code>Supplier</code>.</p>
+</div>
+<div class="paragraph">
+<p>However, when used within frameworks (e.g. <a href="https://spring.io/projects/spring-cloud-stream">Spring Cloud Stream</a>), Suppliers, especially reactive, are often used to represent the source of a stream.
+Therefore, they are invoked once to get the stream (e.g. <code>Flux</code>) to which consumers can subscribe.
+In other words, such suppliers represent an equivalent of an <em>infinite stream</em>.</p>
+</div>
+<div class="paragraph">
+<p>Although, the same reactive suppliers can also represent a <em>finite</em> stream (e.g. result set on polled JDBC data).
+In those cases, such reactive suppliers must be hooked up to some polling mechanism of the underlying framework.</p>
+</div>
+<div class="paragraph">
+<p>To assist with that Spring Cloud Function provides a marker annotation <code>org.springframework.cloud.function.context.PollableBean</code> to signal that such supplier produces a finite stream and may need to be polled again.
+However, it is important to understand that Spring Cloud Function itself provides no behavior for this annotation.</p>
+</div>
+<div class="paragraph">
+<p>In addition, the <code>PollableBean</code> annotation exposes a <em>splittable</em> attribute to signal that the produced stream needs to be split (see <a href="https://www.enterpriseintegrationpatterns.com/patterns/messaging/Sequencer.html">Splitter EIP</a>)</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@PollableBean(splittable = true)
+public Supplier&lt;Flux&lt;String&gt;&gt; someSupplier() {
+	return () -&gt; {
+		String v1 = String.valueOf(System.nanoTime());
+		String v2 = String.valueOf(System.nanoTime());
+		String v3 = String.valueOf(System.nanoTime());
+		return Flux.just(v1, v2, v3);
+	};
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="function"><a class="anchor" href="#function"></a>Function</h3>
+<div class="paragraph">
+<p>Functions can also be written in an imperative or reactive way.
+Yet, unlike <code>Supplier</code> and <code>Consumer</code>, there are no special considerations for the implementor other then understanding that when used within frameworks, such as <a href="https://spring.io/projects/spring-cloud-stream">Spring Cloud Stream</a>, a reactive function is invoked only once to pass a reference to the stream (i.e. <code>Flux</code> or <code>Mono</code>) whereas an imperative function is invoked once per event.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public Function&lt;String, String&gt; uppercase() {
+    . . . .
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bifunction"><a class="anchor" href="#bifunction"></a>BiFunction</h3>
+<div class="paragraph">
+<p>In the event you need to receive some additional data (metadata) with your payload, you can always declare your function signature to receive a <code>Message</code> containing a map of headers with additional information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public Function&lt;Message&lt;String&gt;, String&gt; uppercase() {
+    . . . .
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To make your function signature a bit lighter and more POJO-like, there is another approach. You can use <code>BiFunction</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public BiFunction&lt;String, Map, String&gt; uppercase() {
+    . . . .
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Given that a <code>Message</code> only contains two attributes (payload and headers), and a <code>BiFunction</code> requires two input parameters, the framework will automatically recognise this signature and extract the payload from the <code>Message</code> passing it as a first argument and a <code>Map</code> of headers as the second.
+As a result, your function is not coupled to Spring’s messaging API.
+Keep in mind that <code>BiFunction</code> requires a strict signature where the second argument <strong>must</strong> be a <code>Map</code>.
+The same rule applies to <code>BiConsumer</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="consumer"><a class="anchor" href="#consumer"></a>Consumer</h3>
+<div class="paragraph">
+<p>Consumer is a little bit special because it has a <code>void</code> return type, which implies blocking, at least potentially.
+Most likely you will not need to write <code>Consumer&lt;Flux&lt;?&gt;&gt;</code>, but if you do need to do that, remember to subscribe to the input <code>Flux</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="function-composition"><a class="anchor" href="#function-composition"></a>Function Composition</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Function Composition is a feature that allows one to compose several functions into one.
+The core support is based on the function composition feature provided by <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html#andThen-java.util.function.Function-">Function.andThen(..)</a>, available since Java 8.
+However, Spring Cloud Function provides a few additional features on top of this.</p>
+</div>
+<div class="sect2">
+<h3 id="declarative-function-composition"><a class="anchor" href="#declarative-function-composition"></a>Declarative Function Composition</h3>
+<div class="paragraph">
+<p>This feature allows you to provide composition instructions in a declarative way using <code>|</code> (pipe) or <code>,</code> (comma) delimiters when setting the <code>spring.cloud.function.definition</code> property.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>--spring.cloud.function.definition=uppercase|reverse</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here, we effectively provided a definition of a single function which itself is a composition of function <code>uppercase</code> and function <code>reverse</code>.
+In fact, that is one of the reasons why the property name is <em>definition</em> and not <em>name</em>, since the definition of a function can be a composition of several named functions.
+As mentioned, you can use <code>,</code> instead of <code>|</code>, such as <code>&#8230;&#8203;definition=uppercase,reverse</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="composing-non-functions"><a class="anchor" href="#composing-non-functions"></a>Composing non-Functions</h3>
+<div class="paragraph">
+<p>Spring Cloud Function also supports composing <code>Supplier</code> with <code>Consumer</code> or <code>Function</code> as well as <code>Function</code> with <code>Consumer</code>.
+What&#8217;s important to understand is the end product of such definitions.
+Composing <code>Supplier</code> with <code>Function</code> still results in <code>Supplier</code> while composing <code>Supplier</code> with <code>Consumer</code> will effectively render <code>Runnable</code>.
+Following the same logic, composing <code>Function</code> with <code>Consumer</code> will result in <code>Consumer</code>.</p>
+</div>
+<div class="paragraph">
+<p>And, of course, you can&#8217;t compose uncomposable objects such as <code>Consumer</code> and <code>Function</code>, <code>Consumer</code> and <code>Supplier</code>, etc.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="function-routing-and-filtering"><a class="anchor" href="#function-routing-and-filtering"></a>Function Routing and Filtering</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Since version 2.2, Spring Cloud Function provides a routing feature allowing you to invoke a single function, which acts as a router to an actual function you wish to invoke.
+This feature is very useful in certain FAAS environments where maintaining configurations for several functions could be cumbersome or exposing more than one function is not possible.</p>
+</div>
+<div class="paragraph">
+<p>The <code>RoutingFunction</code> is registered in <em>FunctionCatalog</em>  under the name <code>functionRouter</code>.
+For simplicity and consistency, you can also refer to the <code>RoutingFunction.FUNCTION_NAME</code> constant.</p>
+</div>
+<div class="paragraph">
+<p>This function has the following signature:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class RoutingFunction implements Function&lt;Object, Object&gt; {
+// . . .
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The routing instructions could be communicated in several ways.
+We support providing instructions via Message headers, System properties as well as a pluggable strategy.
+Let&#8217;s look at some of the details.</p>
+</div>
+<div class="sect2">
+<h3 id="messageroutingcallback"><a class="anchor" href="#messageroutingcallback"></a>MessageRoutingCallback</h3>
+<div class="paragraph">
+<p>The <code>MessageRoutingCallback</code> is a strategy to assist with determining the name of the route-to function definition.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public interface MessageRoutingCallback {
+    default String routingResult(Message&lt;?&gt; message) {
+	    return (String) message.getHeaders().get(FunctionProperties.FUNCTION_DEFINITION);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All you need to do is implement and register a <code>MessageRoutingCallback</code> as a bean to be picked up by the <code>RoutingFunction</code>.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public MessageRoutingCallback customRouter() {
+	return new MessageRoutingCallback() {
+		@Override
+		public String routingResult(Message&lt;?&gt; message) {
+			return (String) message.getHeaders().get(FunctionProperties.FUNCTION_DEFINITION);
+		}
+	};
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the preceding example you can see a very simple implementation of <code>MessageRoutingCallback</code>, which determines the function definition from the <code>FunctionProperties.FUNCTION_DEFINITION</code> <code>Message</code> header of the incoming <code>Message</code>, returning an instance of <code>String</code> representing the definition of the function to invoke.</p>
+</div>
+<div class="paragraph">
+<p><strong>Message Headers</strong></p>
+</div>
+<div class="paragraph">
+<p>If the input argument is of type <code>Message&lt;?&gt;</code>, you can communicate routing instructions by setting one of <code>spring.cloud.function.definition</code> or <code>spring.cloud.function.routing-expression</code> <code>Message</code> headers.
+As the name of the property suggests, <code>spring.cloud.function.routing-expression</code> relies on the <em>Spring Expression Language</em> (SpEL).
+For more static cases you can use the <code>spring.cloud.function.definition</code> header, which allows you to provide the name of a single function (e.g., <code>&#8230;&#8203;definition=foo</code>) or a composition instruction (e.g. <code>&#8230;&#8203;definition=foo|bar|baz</code>).
+For more dynamic cases you can use the <code>spring.cloud.function.routing-expression</code> header and provide SpEL expression that should resolve into definition of a function (as described above).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+SpEL evaluation context&#8217;s root object is the actual input argument, so in the case of <code>Message&lt;?&gt;</code> you can construct an expression that has access to both <code>payload</code> and <code>headers</code> (e.g. <code>spring.cloud.function.routing-expression=headers.function_name</code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+SpEL allows users to provide a String representation of the Java code to be executed.
+Given that the <code>spring.cloud.function.routing-expression</code> could be provided via Message headers means that the ability to set such expressions could be exposed to the end user (i.e. HTTP Headers when using the web module), which could result in some problems (e.g. malicious code).
+To manage that, all expressions coming via Message headers will only be evaluated against <code>SimpleEvaluationContext</code>, which has limited functionality and is designed to only evaluate the context object (Message in our case).
+On the other hand, all expressions that are set via property or system environment variable are evaluated against <code>StandardEvaluationContext</code> allowing for the full flexibility of the Java language.
+While setting expressions via system/application property or environment variable is generally considered to be secure as it is not exposed to the end user in normal cases, there are cases where visibility as well as capability to update system, application and environment variables are indeed exposed to the end user via Spring Boot Actuator endpoints provided either by some other Spring project, a third party, or a custom implementation created by the end user.
+Such endpoints must be secured using industry standard web security practices.
+Spring Cloud Function does not expose any such endpoints.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In specific execution environments/models the adapters are responsible to translate and communicate <code>spring.cloud.function.definition</code> and/or <code>spring.cloud.function.routing-expression</code> via <code>Message</code> header.
+For example, when using <em>spring-cloud-function-web</em> you can provide <code>spring.cloud.function.definition</code> as an HTTP header and the framework will propagate it, along with other HTTP headers, as Message headers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Application Properties</strong></p>
+</div>
+<div class="paragraph">
+<p>Routing instructions can also be communicated via <code>spring.cloud.function.definition</code> or <code>spring.cloud.function.routing-expression</code> as application properties.
+The rules described in the previous section apply here as well. The only difference is you provide these instructions as application properties (e.g., <code>--spring.cloud.function.definition=foo</code>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is important to understand that providing <code>spring.cloud.function.definition</code> or <code>spring.cloud.function.routing-expression</code> as Message headers will only work for imperative functions (e.g. <code>Function&lt;Foo, Bar&gt;</code>).
+That is to say that we can <em>only</em> route <strong><strong>per-message</strong></strong> with imperative functions.
+With reactive functions we can not route <strong><strong>per-message</strong></strong>.
+Therefore, you can only provide your routing instructions as application properties.
+It&#8217;s all about unit-of-work.
+In an imperative function, the unit of work is Message so we can route based on such unit-of-work.
+With a reactive function, the unit of work is the entire stream, so we&#8217;ll act only on the instruction provided via application properties and route the entire stream.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Order of priority for routing instructions</strong></p>
+</div>
+<div class="paragraph">
+<p>Given that we have several mechanisms of providing routing instructions, it is important to understand the priorities for conflict resolution in the event multiple mechanisms are used at the same time.
+Here is the order:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>MessageRoutingCallback</code> (Takes precedence when function is imperative regardless if anything else is defined)</p>
+</li>
+<li>
+<p>Message Headers (If function is imperative and no <code>MessageRoutingCallback</code> provided)</p>
+</li>
+<li>
+<p>Application Properties (Any function)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Unroutable Messages</strong></p>
+</div>
+<div class="paragraph">
+<p>In the event a route-to function is not available in the catalog, you will get an exception stating that.</p>
+</div>
+<div class="paragraph">
+<p>There are cases when such behavior is not desired and you may want to have some "catch-all" type function capable of handling such messages.
+To accomplish that, the framework provides the <code>org.springframework.cloud.function.context.DefaultMessageRoutingHandler</code> strategy.
+All you need to do is register it as a bean.
+Its default implementation will simply log the fact that the message is un-routable, but will allow message flow to proceed without the exception, effectively dropping the un-routable message.
+If you need something more sophisticated, all you need to do is provide your own implementation of this strategy and register it as a bean.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public DefaultMessageRoutingHandler defaultRoutingHandler() {
+	return new DefaultMessageRoutingHandler() {
+		@Override
+		public void accept(Message&lt;?&gt; message) {
+			// do something really cool
+		}
+	};
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="function-filtering"><a class="anchor" href="#function-filtering"></a>Function Filtering</h3>
+<div class="paragraph">
+<p>Filtering is the type of routing where there are only two paths - 'go' or 'discard'. In terms of functions it mean you only want to invoke a certain function if some condition returns 'true', otherwise you want to discard input.</p>
+</div>
+<div class="paragraph">
+<p>However, when it comes to discarding input there are many interpretations of what it could mean in the context of your application.
+For example, you may want to log it, or you may want to maintain a counter of discarded messages.
+You may also want to do nothing at all.</p>
+</div>
+<div class="paragraph">
+<p>Because of these different paths, we do not provide a general configuration option for how to deal with discarded messages.
+Instead, we simply recommend to define a simple <code>Consumer</code> which would signify the 'discard' path:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Consumer&lt;?&gt; devNull() {
+   // log, count, or whatever
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can have a routing expression that really only has two paths effectively becoming a filter.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">--spring.cloud.function.routing-expression=headers.contentType.toString().equals('text/plain') ? 'echo' : 'devNull'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Every message that does not fit the criteria to go to 'echo' function will go to 'devNull' where you can simply do nothing with it.
+The signature <code>Consumer&lt;?&gt;</code> will also ensure that no type conversion will be attempted resulting in almost no execution overhead.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When dealing with reactive inputs (e.g. Publisher), routing instructions must only be provided via Function properties.
+This is due to the nature of the reactive functions which are invoked only once to pass a <code>Publisher</code> and the rest is handled by the reactor, hence we cannot access and/or rely on the routing instructions communicated via individual values (e.g., Message).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="multiple-routers"><a class="anchor" href="#multiple-routers"></a>Multiple Routers</h3>
+<div class="paragraph">
+<p>By default, the framework will always have a single routing function configured as described in previous sections.
+However, there are times when you may need more than one routing function.
+In that case you can create your own instance of the <code>RoutingFunction</code> bean in addition to the existing one as long as you give it a name other than <code>functionRouter</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can pass <code>spring.cloud.function.routing-expression</code> or <code>spring.cloud.function.definition</code> to <code>RoutingFunction</code> as key/value pairs in the map.</p>
+</div>
+<div class="paragraph">
+<p>Here is a simple example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@Configuration
+protected static class MultipleRouterConfiguration {
+
+	@Bean
+	RoutingFunction mySpecialRouter(FunctionCatalog functionCatalog, BeanFactory beanFactory, @Nullable MessageRoutingCallback routingCallback) {
+		Map&lt;String, String&gt; propertiesMap = new HashMap&lt;&gt;();
+		propertiesMap.put(FunctionProperties.PREFIX + ".routing-expression", "'reverse'");
+		return new RoutingFunction(functionCatalog, propertiesMap, new BeanFactoryResolver(beanFactory), routingCallback);
+	}
+
+	@Bean
+	public Function&lt;String, String&gt; reverse() {
+		return v -&gt; new StringBuilder(v).reverse().toString();
+	}
+
+	@Bean
+	public Function&lt;String, String&gt; uppercase() {
+		return String::toUpperCase;
+	}
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a test to demonstrates how it works:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void testMultipleRouters() {
+	System.setProperty(FunctionProperties.PREFIX + ".routing-expression", "'uppercase'");
+	FunctionCatalog functionCatalog = this.configureCatalog(MultipleRouterConfiguration.class);
+	Function function = functionCatalog.lookup(RoutingFunction.FUNCTION_NAME);
+	assertThat(function).isNotNull();
+	Message&lt;String&gt; message = MessageBuilder.withPayload("hello").build();
+	assertThat(function.apply(message)).isEqualTo("HELLO");
+
+	function = functionCatalog.lookup("mySpecialRouter");
+	assertThat(function).isNotNull();
+	message = MessageBuilder.withPayload("hello").build();
+	assertThat(function.apply(message)).isEqualTo("olleh");
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="input-output-enrichment"><a class="anchor" href="#input-output-enrichment"></a>Input/Output Enrichment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are often times when you need to modify or refine an incoming or outgoing Message and to keep your code clean of non-functional concerns.
+You don’t want to do it inside of your business logic.</p>
+</div>
+<div class="paragraph">
+<p>You can always accomplish it via <a href="#function-composition">Function Composition</a>.
+Such an approach provides several benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It allows you to isolate this non-functional concern into a separate function which you can compose with the business function as a function definition.</p>
+</li>
+<li>
+<p>It provides you with complete freedom (and danger) as to what you can modify before the incoming message reaches the actual business function.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;Message&lt;?&gt;, Message&lt;?&gt;&gt; enrich() {
+    return message -&gt; MessageBuilder.fromMessage(message).setHeader("foo", "bar").build();
+}
+
+@Bean
+public Function&lt;Message&lt;?&gt;, Message&lt;?&gt;&gt; myBusinessFunction() {
+    // do whatever
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, compose your function by providing the following function definition: <code>enrich|myBusinessFunction</code>.</p>
+</div>
+<div class="paragraph">
+<p>While the described approach is the most flexible, it is also the most involved.
+It requires you to write some code, then make it a bean, or manually register it as a function before you can compose it with the business function as you can see from the preceding example.</p>
+</div>
+<div class="paragraph">
+<p>But what if modifications (enrichments) you are trying to make are trivial as they are in the preceding example?
+Is there a simpler and more dynamic and configurable mechanism to accomplish the same?</p>
+</div>
+<div class="paragraph">
+<p>Since version 3.1.3, the framework allows you to provide SpEL expression to enrich individual message headers for both input going into a function and and output coming out of it.
+Let’s look at one of the tests as an example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void testMixedInputOutputHeaderMapping() throws Exception {
+	try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
+			SampleFunctionConfiguration.class).web(WebApplicationType.NONE).run(
+					"--logging.level.org.springframework.cloud.function=DEBUG",
+					"--spring.main.lazy-initialization=true",
+					"--spring.cloud.function.configuration.split.output-header-mapping-expression.keyOut1='hello1'",
+					"--spring.cloud.function.configuration.split.output-header-mapping-expression.keyOut2=headers.contentType",
+					"--spring.cloud.function.configuration.split.input-header-mapping-expression.key1=headers.path.split('/')[0]",
+					"--spring.cloud.function.configuration.split.input-header-mapping-expression.key2=headers.path.split('/')[1]",
+					"--spring.cloud.function.configuration.split.input-header-mapping-expression.key3=headers.path")) {
+
+		FunctionCatalog functionCatalog = context.getBean(FunctionCatalog.class);
+		FunctionInvocationWrapper function = functionCatalog.lookup("split");
+		Message&lt;byte[]&gt; result = (Message&lt;byte[]&gt;) function.apply(MessageBuilder.withPayload("hello")
+				.setHeader(MessageHeaders.CONTENT_TYPE, "application/json")
+				.setHeader("path", "foo/bar/baz")
+				.build());
+		assertThat(result.getHeaders()).containsKey("keyOut1"));
+		assertThat(result.getHeaders().get("keyOut1")).isEqualTo("hello1");
+		assertThat(result.getHeaders()).containsKey("keyOut2"));
+		assertThat(result.getHeaders().get("keyOut2")).isEqualTo("application/json");
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here you see properties called <code>input-header-mapping-expression</code> and <code>output-header-mapping-expression</code> preceded by the name of the function (i.e. <code>split</code>) followed by the name of the message header key you want to set and the value as SpEL expression.
+The first expression (for 'keyOut1') is a literal SpEL expressions enclosed in single quotes, effectively setting 'keyOut1' to value <code>hello1</code>.
+The <code>keyOut2</code> is set to the value of the existing 'contentType' header.</p>
+</div>
+<div class="paragraph">
+<p>You can also observe some interesting features in the input header mapping where we are actually splitting a value of the existing header 'path', setting individual values of key1 and key2 to the values of split elements based on the index.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If for whatever reason the provided expression evaluation fails, the execution of the function will proceed as if nothing ever happened.
+However, you will see the WARN message in your logs informing you about it.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">o.s.c.f.context.catalog.InputEnricher    : Failed while evaluating expression "hello1"  on incoming message. . .</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the event you are dealing with functions that have multiple inputs (next section), you can use an index immediately after <code>input-header-mapping-expression</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">--spring.cloud.function.configuration.echo.input-header-mapping-expression[0].key1=‘hello1'
+--spring.cloud.function.configuration.echo.input-header-mapping-expression[1].key2='hello2'</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="function-arity"><a class="anchor" href="#function-arity"></a>Function Arity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are times when a stream of data needs to be categorized and organized.
+For example, consider a classic big-data use case of dealing with unorganized data containing, let’s say, ‘orders’ and ‘invoices’, and you want each to go into a separate data store.
+This is where function arity (functions with multiple inputs and outputs) support comes to play.</p>
+</div>
+<div class="paragraph">
+<p>Let’s look at an example of such a function.MessageRoutingCallback</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Full implementation details are available <a href="https://github.com/spring-cloud/spring-cloud-function/blob/main/spring-cloud-function-context/src/test/java/org/springframework/cloud/function/context/catalog/BeanFactoryAwareFunctionRegistryMultiInOutTests.java">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;Flux&lt;Integer&gt;, Tuple2&lt;Flux&lt;String&gt;, Flux&lt;String&gt;&gt;&gt; organise() {
+	return flux -&gt; ...;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Given that Project Reactor is a core dependency of SCF, we are using its Tuple library.
+Tuples give us a unique advantage by communicating to us both <em>cardinality</em> and <em>type</em> information.
+Both are extremely important in the context of SCSt. Cardinality lets us know how many input and output bindings need to be created and bound to the corresponding inputs and outputs of a function.
+Awareness of the type information ensures proper type conversion.</p>
+</div>
+<div class="paragraph">
+<p>Also, this is where the ‘index’ part of the naming convention for binding names comes into play, since, in this function, the two output binding names are <code>organise-out-0</code> and <code>organise-out-1</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+At the moment, function arity is <strong>only</strong> supported for reactive functions (<code>Function&lt;TupleN&lt;Flux&lt;?&gt;&#8230;&#8203;&gt;, TupleN&lt;Flux&lt;?&gt;&#8230;&#8203;&gt;&gt;</code>) centered on complex event processing where evaluation and computation on confluence of events typically requires view into a stream of events rather than single event.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="input-header-propagation"><a class="anchor" href="#input-header-propagation"></a>Input Header propagation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a typical scenario input Message headers are not propagated to output and rightfully so, since the output of a function may be an input to something else requiring it&#8217;s own set of Message headers.
+However, there are times when such propagation may be necessary so Spring Cloud Function provides several mechanisms to accomplish this.</p>
+</div>
+<div class="paragraph">
+<p>First you can always copy headers manually.
+For example, if you have a Function with the signature that takes <code>Message</code> and returns <code>Message</code> (i.e., <code>Function&lt;Message, Message&gt;</code>), you can simply and selectively copy headers yourselves.
+Remember, if your function returns Message, the framework will not do anything to it other then properly converting its payload.
+However, such approach may prove to be a bit tedious, especially in cases when you simply want to copy all headers.
+To assist with cases like this we provide a simple property that would allow you to set a boolean flag on a function where you want input headers to be propagated.
+The property is <code>copy-input-headers</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, let&#8217;s assume you have the following configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@EnableAutoConfiguration
+@Configuration
+protected static class InputHeaderPropagationConfiguration {
+
+	@Bean
+	public Function&lt;String, String&gt; uppercase() {
+		return x -&gt; x.toUpperCase();
+	}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you know you can still invoke this function by sending a Message to it (framework will take care of type conversion and payload extraction)</p>
+</div>
+<div class="paragraph">
+<p>By simply setting <code>spring.cloud.function.configuration.uppercase.copy-input-headers</code> to <code>true</code>, the following assertion will be true as well</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Function&lt;Message&lt;String&gt;, Message&lt;byte[]&gt;&gt; uppercase = catalog.lookup("uppercase", "application/json");
+Message&lt;byte[]&gt; result = uppercase.apply(MessageBuilder.withPayload("bob").setHeader("foo", "bar").build());
+assertThat(result.getHeaders()).containsKey("foo");</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="type-conversion-content-type-negotiation"><a class="anchor" href="#type-conversion-content-type-negotiation"></a>Type conversion (Content-Type negotiation)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Content-Type negotiation is one of the core features of Spring Cloud Function as it allows to not only transform the incoming data to the types declared
+by the function signature, but to do the same transformation during function composition making otherwise un-composable (by type) functions composable.</p>
+</div>
+<div class="paragraph">
+<p>To better understand the mechanics and the necessity behind content-type negotiation, we take a look at a very simple use case by
+using the following function as an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+public Function&lt;Person, String&gt; personFunction {..}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The function shown in the preceding example expects a <code>Person</code> object as an argument and produces a String type as an output. If such function is invoked with the type <code>Person</code>, then all works fine.
+But, typically function plays a role of a handler for the incoming data which most often comes in the raw format such as <code>byte[]</code>, <code>JSON String</code> etc.
+In order for the framework to succeed in passing the incoming data as an argument to this function, it has to somehow transform the incoming data to a <code>Person</code> type.</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Function relies on two native to Spring mechanisms to accomplish that.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>MessageConverter</em> - to convert from incoming Message data to a type declared by the function.</p>
+</li>
+<li>
+<p><em>ConversionService</em> - to convert from incoming non-Message data to a type declared by the function.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This means that depending on the type of the raw data (Message or non-Message) Spring Cloud Function will apply one or the other mechanisms.</p>
+</div>
+<div class="paragraph">
+<p>For most cases when dealing with functions that are invoked as part of some other request (e.g., HTTP, Messaging etc) the framework relies on <code>MessageConverters</code>, since such requests already converted to Spring <code>Message</code>.
+In other words, the framework locates and applies the appropriate <code>MessageConverter</code>.
+To accomplish that, the framework needs some instructions from the user.
+One of these instructions is already provided by the signature of the function itself (Person type).
+Consequently, in theory, that should be (and, in some cases, is) enough.
+However, for the majority of use cases, in order to select the appropriate <code>MessageConverter</code>, the framework needs an additional piece of information.
+That missing piece is <code>contentType</code> header.</p>
+</div>
+<div class="paragraph">
+<p>Such header usually comes as part of the Message where it is injected by the corresponding adapter that created such Message in the first place.
+For example, HTTP POST request will have its content-type HTTP header copied to <code>contentType</code> header of the Message.</p>
+</div>
+<div class="paragraph">
+<p>For cases when such header does not exist framework relies on the default content type as <code>application/json</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="content-type-versus-argument-type"><a class="anchor" href="#content-type-versus-argument-type"></a>Content Type versus Argument Type</h3>
+<div class="paragraph">
+<p>As mentioned earlier, for the framework to select the appropriate <code>MessageConverter</code>, it requires argument type and, optionally, content type information.
+The logic for selecting the appropriate <code>MessageConverter</code> resides with the argument resolvers which trigger right before the invocation of the user-defined function (which is when the actual argument type is known to the framework).
+If the argument type does not match the type of the current payload, the framework delegates to the stack of the pre-configured <code>MessageConverters</code> to see if any one of them can convert the payload.</p>
+</div>
+<div class="paragraph">
+<p>The combination of <code>contentType</code> and argument type is the mechanism by which framework determines if message can be converted to a target type by locating the appropriate <code>MessageConverter</code>.
+If no appropriate <code>MessageConverter</code> is found, an exception is thrown, which you can handle by adding a custom <code>MessageConverter</code> (see <code><a href="#user-defined-message-converters">User-defined Message Converters</a></code>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Do not expect <code>Message</code> to be converted into some other type based only on the <code>contentType</code>.
+Remember that the <code>contentType</code> is complementary to the target type.
+It is a hint, which <code>MessageConverter</code> may or may not take into consideration.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="message-converters"><a class="anchor" href="#message-converters"></a>Message Converters</h3>
+<div class="paragraph">
+<p><code>MessageConverters</code> define two methods:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Object fromMessage(Message&lt;?&gt; message, Class&lt;?&gt; targetClass);
+
+Message&lt;?&gt; toMessage(Object payload, @Nullable MessageHeaders headers);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is important to understand the contract of these methods and their usage, specifically in the context of Spring Cloud Stream.</p>
+</div>
+<div class="paragraph">
+<p>The <code>fromMessage</code> method converts an incoming <code>Message</code> to an argument type.
+The payload of the <code>Message</code> could be any type, and it is up to the actual implementation of the <code>MessageConverter</code> to support multiple types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="provided-messageconverters"><a class="anchor" href="#provided-messageconverters"></a>Provided MessageConverters</h3>
+<div class="paragraph">
+<p>As mentioned earlier, the framework already provides a stack of <code>MessageConverters</code> to handle most common use cases.
+The following list describes the provided <code>MessageConverters</code>, in order of precedence (the first <code>MessageConverter</code> that works is used):</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>JsonMessageConverter</code>:  Supports conversion of the payload of the <code>Message</code> to/from POJO for cases when <code>contentType</code> is <code>application/json</code> using Jackson (DEFAULT) or Gson libraries. This message converter also aware of <code>type</code> parameter (e.g., <em>application/json;type=foo.bar.Person</em>). This is useful for cases where types may not be known at the time when function is developed, hence function signature may look like <code>Function&lt;?, ?&gt;</code> or <code>Function</code> or <code>Function&lt;Object, Object&gt;</code>. In other words for type conversion we typically derive type from function signature. Having, mime-type parameter allows you to communicate type in a more dynamic way.</p>
+</li>
+<li>
+<p><code>ByteArrayMessageConverter</code>: Supports conversion of the payload of the <code>Message</code> from <code>byte[]</code> to <code>byte[]</code> for cases when <code>contentType</code> is <code>application/octet-stream</code>. It is essentially a pass through and exists primarily for backward compatibility.</p>
+</li>
+<li>
+<p><code>StringMessageConverter</code>: Supports conversion of any type to a <code>String</code> when <code>contentType</code> is <code>text/plain</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>When no appropriate converter is found, the framework throws an exception. When that happens, you should check your code and configuration and ensure you did not miss anything (that is, ensure that you provided a <code>contentType</code> by using a binding or a header).
+However, most likely, you found some uncommon case (such as a custom <code>contentType</code> perhaps) and the current stack of provided <code>MessageConverters</code> does not know how to convert.
+If that is the case, you can add custom <code>MessageConverter</code>. See <a href="#user-defined-message-converters">User-defined Message Converters</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-defined-message-converters"><a class="anchor" href="#user-defined-message-converters"></a>User-defined MessageConverters</h3>
+<div class="paragraph">
+<p>Spring Cloud Function exposes a mechanism to define and register additional <code>MessageConverters</code>.
+To use it, implement <code>org.springframework.messaging.converter.MessageConverter</code>, configure it as a <code>@Bean</code>.
+It is then appended to the existing stack of `MessageConverter`s.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It is important to understand that custom <code>MessageConverter</code> implementations are added to the head of the existing stack.
+Consequently, custom <code>MessageConverter</code> implementations take precedence over the existing ones, which lets you override as well as add to the existing converters.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following example shows how to create a message converter bean to support a new content type called <code>application/bar</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+public static class SinkApplication {
+
+    ...
+
+    @Bean
+    public MessageConverter customMessageConverter() {
+        return new MyCustomMessageConverter();
+    }
+}
+
+public class MyCustomMessageConverter extends AbstractMessageConverter {
+
+    public MyCustomMessageConverter() {
+        super(new MimeType("application", "bar"));
+    }
+
+    @Override
+    protected boolean supports(Class&lt;?&gt; clazz) {
+        return (Bar.class.equals(clazz));
+    }
+
+    @Override
+    protected Object convertFromInternal(Message&lt;?&gt; message, Class&lt;?&gt; targetClass, Object conversionHint) {
+        Object payload = message.getPayload();
+        return (payload instanceof Bar ? payload : new Bar((byte[]) payload));
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="note-on-json-options"><a class="anchor" href="#note-on-json-options"></a>Note on JSON options</h3>
+<div class="paragraph">
+<p>In Spring Cloud Function we support Jackson and Gson mechanisms to deal with JSON.
+And for your benefit have abstracted it under <code>org.springframework.cloud.function.json.JsonMapper</code> which itself is aware of two mechanisms and will use the one selected by you or following the default rule.
+The default rules are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Whichever library is on the classpath that is the mechanism that is going to be used. So if you have <code>com.fasterxml.jackson.*</code> to the classpath, Jackson is going to be used and if you have <code>com.google.code.gson</code>, then Gson will be used.</p>
+</li>
+<li>
+<p>If you have both, then Gson will be the default, or you can set <code>spring.cloud.function.preferred-json-mapper</code> property with either of two values: <code>gson</code> or <code>jackson</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>That said, the type conversion is usually transparent to the developer.
+However, given that <code>org.springframework.cloud.function.json.JsonMapper</code> is also registered as a bean you can easily inject it into your code if needed.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="kotlin-lambda-support"><a class="anchor" href="#kotlin-lambda-support"></a>Kotlin Lambda support</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We also provide support for Kotlin lambdas (since v2.0).
+Consider the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Bean
+open fun kotlinSupplier(): () -&gt; String {
+    return  { "Hello from Kotlin" }
+}
+
+@Bean
+open fun kotlinFunction(): (String) -&gt; String {
+    return  { it.toUpperCase() }
+}
+
+@Bean
+open fun kotlinConsumer(): (String) -&gt; Unit {
+    return  { println(it) }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above represents Kotlin lambdas configured as Spring beans. The signature of each maps to a Java equivalent of <code>Supplier</code>, <code>Function</code> and <code>Consumer</code>, and thus supported/recognized signatures by the framework.
+While mechanics of Kotlin-to-Java mapping are outside of the scope of this documentation, it is important to understand that the same rules for signature transformation outlined in "Java 8 function support" section are applied here as well.</p>
+</div>
+<div class="paragraph">
+<p>To enable Kotlin support all you need is to add Kotlin SDK libraries on the classpath which will trigger appropriate autoconfiguration and supporting classes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="function-component-scan"><a class="anchor" href="#function-component-scan"></a>Function Component Scan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud Function will scan for implementations of <code>Function</code>, <code>Consumer</code> and <code>Supplier</code> in a package called <code>functions</code> if it exists.
+Using this feature you can write functions that have no dependencies on Spring - not even the <code>@Component</code> annotation is needed.
+If you want to use a different package, you can set <code>spring.cloud.function.scan.packages</code>.
+You can also use <code>spring.cloud.function.scan.enabled=false</code> to switch off the scan completely.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="data-masking"><a class="anchor" href="#data-masking"></a>Data Masking</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A typical application comes with several levels of logging.
+Certain cloud/serverless platforms may include sensitive data in the packets that are being logged for everyone to see.
+While it is the responsibility of individual developers to inspect the data that is being logged, since logging comes from the framework itself, as of version 4.1, we have introduced <code>JsonMasker</code> to initially help with masking sensitive data in AWS Lambda payloads.
+However, the <code>JsonMasker</code> is generic and is available to any module.
+At the moment it will only work with structured data such as JSON.
+All you need is to specify the keys you want to mask and it will take care of the rest.
+Keys should be specified in the file <code>META-INF/mask.keys</code>.
+The format of the file is very simple where you can delimit several keys by commas, new line, or both.</p>
+</div>
+<div class="paragraph">
+<p>Here is the example of the contents of such file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">eventSourceARN
+asdf1, SS</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here you see three keys defined.
+Once such a file exists, the <code>JsonMasker</code> will use it to mask values of the keys specified.</p>
+</div>
+<div class="paragraph">
+<p>And, here is the sample code that shows the usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">private final static JsonMasker masker = JsonMasker.INSTANCE();
+// . . .
+logger.info("Received: " + masker.mask(new String(payload, StandardCharsets.UTF_8)));</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../index.html">Spring Cloud Function Reference Documentation</a></span>
+  <span class="next"><a href="standalone-web-applications.html">Standalone Web Applications</a></span>
+</nav>
+</article>
+  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">spring-cloud-function</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            5.0.3<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-right">
+                  <ul class="projects">
+  <li>
+    Related Spring Documentation
+    <ul class="projects-list">
+        <li>
+<a href="https://docs.spring.io/spring-boot/">
+  Spring Boot
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-framework/reference/">
+  Spring Framework
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Cloud
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-build/reference/">
+  Spring Cloud Build
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-bus/reference/">
+  Spring Cloud Bus
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-circuitbreaker/reference/">
+  Spring Cloud Circuit Breaker
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-commons/reference/">
+  Spring Cloud Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-config/reference/">
+  Spring Cloud Config
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-consul/reference/">
+  Spring Cloud Consul
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-contract/reference/">
+  Spring Cloud Contract
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-function/reference/">
+  Spring Cloud Function
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-gateway/reference/">
+  Spring Cloud Gateway
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-kubernetes/reference/">
+  Spring Cloud Kubernetes
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-netflix/reference/">
+  Spring Cloud Netflix
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-openfeign/reference/">
+  Spring Cloud OpenFeign
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-stream/reference/">
+  Spring Cloud Stream
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-task/reference/">
+  Spring Cloud Task
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-vault/reference/">
+  Spring Cloud Vault
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-cloud-zookeeper/reference/">
+  Spring Cloud Zookeeper
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  Spring Data
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-data/cassandra/reference/">
+  Spring Data Cassandra
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/commons/reference/">
+  Spring Data Commons
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/couchbase/reference/">
+  Spring Data Couchbase
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/elasticsearch/reference/">
+  Spring Data Elasticsearch
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/jpa/reference/">
+  Spring Data JPA
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/keyvalue/reference/">
+  Spring Data KeyValue
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/ldap/reference/">
+  Spring Data LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/mongodb/reference/">
+  Spring Data MongoDB
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/neo4j/reference/">
+  Spring Data Neo4j
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/redis/reference/">
+  Spring Data Redis
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/relational/reference/">
+  Spring Data JDBC &amp; R2DBC
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-data/rest/reference/">
+  Spring Data REST
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-integration/reference/">
+  Spring Integration
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-batch/reference/">
+  Spring Batch
+</a>
+</li>
+        <li>
+<a class="anchor"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+<a href="https://docs.spring.io/spring-security/reference/">
+  Spring Security
+</a>
+<ul>
+    <li>
+<a href="https://docs.spring.io/spring-authorization-server/reference/">
+  Spring Authorization Server
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-ldap/reference/">
+  Spring LDAP
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-security-kerberos/reference/">
+  Spring Security Kerberos
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-session/reference/">
+  Spring Session
+</a>
+</li>
+    <li>
+<a href="https://docs.spring.io/spring-vault/reference/">
+  Spring Vault
+</a>
+</li>
+</ul>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-ai/reference/">
+  Spring AI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-amqp/reference/">
+  Spring AMQP
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-cli/reference/">
+  Spring CLI
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-graphql/reference/">
+  Spring GraphQL
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-kafka/reference/">
+  Spring for Apache Kafka
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-modulith/reference/">
+  Spring Modulith
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-pulsar/reference/">
+  Spring for Apache Pulsar
+</a>
+</li>
+        <li>
+<a href="https://docs.spring.io/spring-shell/reference/">
+  Spring Shell
+</a>
+</li>
+    </ul>
+  </li
+  <li><a href="../spring-projects.html">All Docs...</a></li>
+</ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<footer class="footer flex">
+    <div id="spring-links flex">
+        <img id="springlogo" src="../_/img/spring-logo.svg" alt="Spring">
+        <p class="smallest antialiased">Copyright © 2005 - <script>var d = new Date();
+        document.write(d.getFullYear());</script> Broadcom. All Rights Reserved. The term "Broadcom" refers to Broadcom Inc. and/or its subsidiaries.<br /><a href="https://www.vmware.com/help/legal.html">Terms of Use</a> • <a href="https://www.vmware.com/help/privacy.html" rel="noopener noreferrer">Privacy</a> • <a href="https://spring.io/trademarks">Trademark Guidelines</a> <span id="thank-you-mobile">• <a href="https://spring.io/thank-you">Thank you</a></span> • <a href="https://www.vmware.com/help/privacy/california-privacy-rights.html">Your California Privacy Rights</a> • <a class="ot-sdk-show-settings">Cookie Settings</a> <span id="teconsent"></span></p>
+        <p class="smallest antialiased has-gray-text">Apache®, Apache Tomcat®, Apache Kafka®, Apache Cassandra&trade;, and Apache Geode&trade; are trademarks or registered trademarks of the Apache Software Foundation in the United States and/or other countries. Java&trade;, Java&trade; SE, Java&trade; EE, and OpenJDK&trade; are trademarks of Oracle and/or its affiliates. Kubernetes® is a registered trademark of the Linux Foundation in the United States and other countries. Linux® is the registered trademark of Linus Torvalds in the United States and other countries. Windows® and Microsoft® Azure are registered trademarks of Microsoft Corporation. “AWS” and “Amazon Web Services” are trademarks or registered trademarks of Amazon.com Inc. or its affiliates. All other trademarks and copyrights are property of their respective owners and are only mentioned for informative purposes. Other names may be trademarks of their respective owners.</p>
+    </div>
+    <div id="social-icons" class="flex jc-between">
+        <a href="https://www.youtube.com/user/SpringSourceDev" title="Youtube"><svg id="youtube-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle class="cls-1" cx="20" cy="20" r="20"/><path class="cls-2" d="M30.91,14.53a2.89,2.89,0,0,0-2-2C27.12,12,20,12,20,12s-7.12,0-8.9.47a2.9,2.9,0,0,0-2,2A30.56,30.56,0,0,0,8.63,20a30.44,30.44,0,0,0,.46,5.47,2.89,2.89,0,0,0,2,2C12.9,28,20,28,20,28s7.12,0,8.9-.47a2.87,2.87,0,0,0,2-2A30.56,30.56,0,0,0,31.37,20,28.88,28.88,0,0,0,30.91,14.53ZM17.73,23.41V16.59L23.65,20Z"/></svg></a>
+        <a href="https://github.com/spring-projects" title="GitHub"><svg id="github-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><path class="cls-1" d="M38,0a38,38,0,1,0,38,38A38,38,0,0,0,38,0Z"/></g><path class="cls-2" d="M38,15.59A22.95,22.95,0,0,0,30.71,60.3c1.15.21,1.57-.5,1.57-1.11s0-2,0-3.9c-6.38,1.39-7.73-3.07-7.73-3.07A6.09,6.09,0,0,0,22,48.86c-2.09-1.42.15-1.39.15-1.39a4.81,4.81,0,0,1,3.52,2.36c2,3.5,5.37,2.49,6.67,1.91a4.87,4.87,0,0,1,1.46-3.07c-5.09-.58-10.45-2.55-10.45-11.34a8.84,8.84,0,0,1,2.36-6.15,8.29,8.29,0,0,1,.23-6.07s1.92-.62,6.3,2.35a21.82,21.82,0,0,1,11.49,0c4.38-3,6.3-2.35,6.3-2.35a8.29,8.29,0,0,1,.23,6.07,8.84,8.84,0,0,1,2.36,6.15c0,8.81-5.37,10.75-10.48,11.32a5.46,5.46,0,0,1,1.56,4.25c0,3.07,0,5.54,0,6.29s.42,1.33,1.58,1.1A22.94,22.94,0,0,0,38,15.59Z"/></svg></a>
+        <a href="https://twitter.com/springcentral" title="Twitter"><svg id="twitter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.93 75.93"><circle class="cls-1" cx="37.97" cy="37.97" r="37.97"/><path id="Twitter-2" data-name="Twitter" class="cls-2" d="M55.2,22.73a15.43,15.43,0,0,1-4.88,1.91,7.56,7.56,0,0,0-5.61-2.49A7.78,7.78,0,0,0,37,30a7.56,7.56,0,0,0,.2,1.79,21.63,21.63,0,0,1-15.84-8.23,8,8,0,0,0,2.37,10.52,7.66,7.66,0,0,1-3.48-1v.09A7.84,7.84,0,0,0,26.45,41a7.54,7.54,0,0,1-2,.28A7.64,7.64,0,0,1,23,41.09a7.71,7.71,0,0,0,7.18,5.47,15.21,15.21,0,0,1-9.55,3.37,15.78,15.78,0,0,1-1.83-.11,21.41,21.41,0,0,0,11.78,3.54c14.13,0,21.86-12,21.86-22.42,0-.34,0-.68,0-1a15.67,15.67,0,0,0,3.83-4.08,14.9,14.9,0,0,1-4.41,1.24A7.8,7.8,0,0,0,55.2,22.73Z"/></svg></a>
+    </div>
+</footer>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/asciidoctor-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+
+<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+            <main class="modal__content" id="modal-1-content">
+                <div id="searchbox"></div>
+                <div id="counter"></div>
+                <div class="search-link-box">
+                    <a class="search-link" href="../search.html">Search in all Spring Docs</a>
+                </div>
+                <div class="search-by">
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.algolia.com/" aria-label="Search by Algolia">
+                        <img class="light" width="140" src="../_/img/algolia-light.svg" />
+                        <img class="dark" width="140" src="../_/img/algolia-dark.svg" />
+                    </a>
+                </div>
+                <div id="hits"></div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.17.0/dist/algoliasearch-lite.umd.js" integrity="sha256-Lf9DrpGmcRip6OQzbcL6lnvNmoZNSKpyQX5pMlwatWE=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.54.1/dist/instantsearch.production.min.js" integrity="sha256-xYsZPDeNjYNTBWLvqD2Lxe98hOxcDgOHyMPfz4tVAbk=" crossorigin="anonymous"></script>
+<script async id="search-script" src="../_/js/vendor/search.js" data-app-id="WB1FQYI187" data-api-key="c2e84f15fa630d534f1c62b1c413bb77" data-index-name="springdocs" data-stylesheet="../_/css/vendor/search.css" data-page-version="5.0.3" data-page-component="cloud-function"></script>
+  </body>
+</html>

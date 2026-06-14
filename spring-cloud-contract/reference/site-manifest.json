@@ -1,0 +1,393 @@
+{
+  "$id": "https://schemas.antora.org/site-manifest/1-0-0/draft-01",
+  "generated": "2026-06-14T07:28:28.112Z",
+  "url": "https://docs.spring.io/spring-cloud-contract/reference",
+  "components": {
+    "cloud-contract": {
+      "title": "spring-cloud-contract",
+      "latest": "5.0.3",
+      "versions": {
+        "5.0.3": {
+          "url": "/index.html",
+          "pages": [
+            {
+              "path": "index.adoc",
+              "url": "/index.html",
+              "title": "Spring Cloud Contract Reference Documentation"
+            },
+            {
+              "path": "advanced.adoc",
+              "url": "/advanced.html",
+              "title": "Spring Cloud Contract customization"
+            },
+            {
+              "path": "appendix.adoc",
+              "url": "/appendix.html",
+              "title": "Common application properties"
+            },
+            {
+              "path": "building.adoc",
+              "url": "/building.html",
+              "title": "How to Build Spring Cloud Contract"
+            },
+            {
+              "path": "configprops.adoc",
+              "url": "/configprops.html",
+              "title": "Configuration Properties"
+            },
+            {
+              "path": "customization/dsl-customization.adoc",
+              "url": "/customization/dsl-customization.html",
+              "title": "DSL Customization"
+            },
+            {
+              "path": "customization/pluggable-architecture.adoc",
+              "url": "/customization/pluggable-architecture.html",
+              "title": "Using the Pluggable Architecture"
+            },
+            {
+              "path": "customization/wiremock-customization.adoc",
+              "url": "/customization/wiremock-customization.html",
+              "title": "WireMock Customization"
+            },
+            {
+              "path": "docker-project.adoc",
+              "url": "/docker-project.html",
+              "title": "Docker Project"
+            },
+            {
+              "path": "getting-started.adoc",
+              "url": "/getting-started.html",
+              "title": "Getting Started"
+            },
+            {
+              "path": "getting-started/cdc.adoc",
+              "url": "/getting-started/cdc.html",
+              "title": "Step-by-step Guide to Consumer Driven Contracts (CDC) with Contracts on the Producer Side"
+            },
+            {
+              "path": "getting-started/first-application.adoc",
+              "url": "/getting-started/first-application.html",
+              "title": "Developing Your First Spring Cloud Contract-based Application"
+            },
+            {
+              "path": "getting-started/introducing-spring-cloud-contract.adoc",
+              "url": "/getting-started/introducing-spring-cloud-contract.html",
+              "title": "Introducing Spring Cloud Contract"
+            },
+            {
+              "path": "getting-started/three-second-tour.adoc",
+              "url": "/getting-started/three-second-tour.html",
+              "title": "A Three-second Tour"
+            },
+            {
+              "path": "getting-started/whats-next.adoc",
+              "url": "/getting-started/whats-next.html",
+              "title": "Next Steps"
+            },
+            {
+              "path": "gradle-project.adoc",
+              "url": "/gradle-project.html",
+              "title": "Gradle Project"
+            },
+            {
+              "path": "howto.adoc",
+              "url": "/howto.html",
+              "title": "&#8220;How-to&#8221; Guides"
+            },
+            {
+              "path": "howto/contract-dsl-rest-docs.adoc",
+              "url": "/howto/contract-dsl-rest-docs.html",
+              "title": "How Can I Generate Spring REST Docs Snippets from the Contracts?"
+            },
+            {
+              "path": "howto/how-to-common-repo-with-contracts.adoc",
+              "url": "/howto/how-to-common-repo-with-contracts.html",
+              "title": "How Can I use a Common Repository with Contracts Instead of Storing Them with the Producer?"
+            },
+            {
+              "path": "howto/how-to-debug-wiremock.adoc",
+              "url": "/howto/how-to-debug-wiremock.html",
+              "title": "How Can I Debug the Mapping, Request, or Response Being Sent by WireMock?"
+            },
+            {
+              "path": "howto/how-to-debug.adoc",
+              "url": "/howto/how-to-debug.html",
+              "title": "How Can I Debug the Request/Response Being Sent by the Generated Tests Client?"
+            },
+            {
+              "path": "howto/how-to-do-stubs-versioning.adoc",
+              "url": "/howto/how-to-do-stubs-versioning.html",
+              "title": "How to Do Stubs versioning?"
+            },
+            {
+              "path": "howto/how-to-generate-from-scc.adoc",
+              "url": "/howto/how-to-generate-from-scc.html",
+              "title": "How Can I Generate YAML, or X files from Spring Cloud Contract Contracts?"
+            },
+            {
+              "path": "howto/how-to-generate-stubs-at-runtime.adoc",
+              "url": "/howto/how-to-generate-stubs-at-runtime.html",
+              "title": "How Can I Generate Stubs at Runtime"
+            },
+            {
+              "path": "howto/how-to-mark-contract-in-progress.adoc",
+              "url": "/howto/how-to-mark-contract-in-progress.html",
+              "title": "How Can I Mark that a Contract Is in Progress"
+            },
+            {
+              "path": "howto/how-to-not-write-contracts-in-groovy.adoc",
+              "url": "/howto/how-to-not-write-contracts-in-groovy.html",
+              "title": "How Can I Write Contracts in a Language Other than Groovy?"
+            },
+            {
+              "path": "howto/how-to-provide-dynamic-values.adoc",
+              "url": "/howto/how-to-provide-dynamic-values.html",
+              "title": "How Can I Provide Dynamic Values to a Contract?"
+            },
+            {
+              "path": "howto/how-to-reference-text-from-file.adoc",
+              "url": "/howto/how-to-reference-text-from-file.html",
+              "title": "How Can I Reference Text from File?"
+            },
+            {
+              "path": "howto/how-to-see-registered-stubs.adoc",
+              "url": "/howto/how-to-see-registered-stubs.html",
+              "title": "How Can I See What Got Registered in the HTTP Server Stub?"
+            },
+            {
+              "path": "howto/how-to-use-git-as-storage.adoc",
+              "url": "/howto/how-to-use-git-as-storage.html",
+              "title": "How Can I Use Git as the Storage for Contracts and Stubs?"
+            },
+            {
+              "path": "howto/how-to-use-stubs-from-a-location.adoc",
+              "url": "/howto/how-to-use-stubs-from-a-location.html",
+              "title": "How Can I Use Stubs from a Location"
+            },
+            {
+              "path": "howto/how-to-use-the-failonnostubs-feature.adoc",
+              "url": "/howto/how-to-use-the-failonnostubs-feature.html",
+              "title": "How Can I Make The Build Pass if There Are No Contracts or Stubs"
+            },
+            {
+              "path": "howto/how-to-work-with-transitivie.adoc",
+              "url": "/howto/how-to-work-with-transitivie.html",
+              "title": "How Can I Work with Transitive Dependencies?"
+            },
+            {
+              "path": "howto/why-spring-cloud-contract.adoc",
+              "url": "/howto/why-spring-cloud-contract.html",
+              "title": "Why use Spring Cloud Contract?"
+            },
+            {
+              "path": "legal.adoc",
+              "url": "/legal.html",
+              "title": "Legal"
+            },
+            {
+              "path": "maven-project.adoc",
+              "url": "/maven-project.html",
+              "title": "Maven Project"
+            },
+            {
+              "path": "project-features-contract.adoc",
+              "url": "/project-features-contract.html",
+              "title": "Contract DSL"
+            },
+            {
+              "path": "project-features-contract/common-top-elements.adoc",
+              "url": "/project-features-contract/common-top-elements.html",
+              "title": "Common Top-Level Elements"
+            },
+            {
+              "path": "project-features-contract/dsl-dynamic-properties.adoc",
+              "url": "/project-features-contract/dsl-dynamic-properties.html",
+              "title": "Dynamic properties"
+            },
+            {
+              "path": "project-features-contract/http.adoc",
+              "url": "/project-features-contract/http.html",
+              "title": "HTTP Contracts"
+            },
+            {
+              "path": "project-features-flows/context-paths.adoc",
+              "url": "/project-features-flows/context-paths.html",
+              "title": "Working with Context Paths"
+            },
+            {
+              "path": "project-features-flows/custom-mode.adoc",
+              "url": "/project-features-flows/custom-mode.html",
+              "title": "Custom Mode"
+            },
+            {
+              "path": "project-features-flows/feature-webflux-explicit.adoc",
+              "url": "/project-features-flows/feature-webflux-explicit.html",
+              "title": "WebFlux with Explicit Mode"
+            },
+            {
+              "path": "project-features-flows/feature-webflux.adoc",
+              "url": "/project-features-flows/feature-webflux.html",
+              "title": "WebFlux with WebTestClient"
+            },
+            {
+              "path": "project-features-flows/graphql.adoc",
+              "url": "/project-features-flows/graphql.html",
+              "title": "GraphQL"
+            },
+            {
+              "path": "project-features-flows/grpc.adoc",
+              "url": "/project-features-flows/grpc.html",
+              "title": "GRPC"
+            },
+            {
+              "path": "project-features-flows/jax-rs.adoc",
+              "url": "/project-features-flows/jax-rs.html",
+              "title": "JAX-RS"
+            },
+            {
+              "path": "project-features-flows/rest-docs.adoc",
+              "url": "/project-features-flows/rest-docs.html",
+              "title": "Working with REST Docs"
+            },
+            {
+              "path": "project-features-integrations.adoc",
+              "url": "/project-features-integrations.html",
+              "title": "Spring Cloud Contract Integrations"
+            },
+            {
+              "path": "project-features-messaging.adoc",
+              "url": "/project-features-messaging.html",
+              "title": "Messaging"
+            },
+            {
+              "path": "project-features-stubrunner.adoc",
+              "url": "/project-features-stubrunner.html",
+              "title": "Spring Cloud Contract Stub Runner"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-boot.adoc",
+              "url": "/project-features-stubrunner/stub-runner-boot.html",
+              "title": "Using the Stub Runner Boot Application"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-cloud.adoc",
+              "url": "/project-features-stubrunner/stub-runner-cloud.html",
+              "title": "Stub Runner Spring Cloud"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-common.adoc",
+              "url": "/project-features-stubrunner/stub-runner-common.html",
+              "title": "Common Properties"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-core.adoc",
+              "url": "/project-features-stubrunner/stub-runner-core.html",
+              "title": "Stub Runner Core"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-fail-on-no-stubs.adoc",
+              "url": "/project-features-stubrunner/stub-runner-fail-on-no-stubs.html",
+              "title": "Fail On No Stubs"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-generate-stubs-at-runtime.adoc",
+              "url": "/project-features-stubrunner/stub-runner-generate-stubs-at-runtime.html",
+              "title": "Generating Stubs at Runtime"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-junit.adoc",
+              "url": "/project-features-stubrunner/stub-runner-junit.html",
+              "title": "Stub Runner JUnit Rule and Stub Runner JUnit5 Extension"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-publishing-stubs-as-jars.adoc",
+              "url": "/project-features-stubrunner/stub-runner-publishing-stubs-as-jars.html",
+              "title": "Publishing Stubs as JARs"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-snapshot-versions.adoc",
+              "url": "/project-features-stubrunner/stub-runner-snapshot-versions.html",
+              "title": "Snapshot Versions"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-stubs-per-consumer.adoc",
+              "url": "/project-features-stubrunner/stub-runner-stubs-per-consumer.html",
+              "title": "Consumer-Driven Contracts: Stubs Per Consumer"
+            },
+            {
+              "path": "project-features-stubrunner/stub-runner-stubs-protocol.adoc",
+              "url": "/project-features-stubrunner/stub-runner-stubs-protocol.html",
+              "title": "Fetching Stubs or Contract Definitions From A Location"
+            },
+            {
+              "path": "project-features.adoc",
+              "url": "/project-features.html",
+              "title": "Spring Cloud Contract Features"
+            },
+            {
+              "path": "search.adoc",
+              "url": "/search.html",
+              "title": "Search"
+            },
+            {
+              "path": "spring-projects.adoc",
+              "url": "/spring-projects.html",
+              "title": "Spring Projects"
+            },
+            {
+              "path": "using.adoc",
+              "url": "/using.html",
+              "title": "Using Spring Cloud Contract"
+            },
+            {
+              "path": "using/cdc-external-repo.adoc",
+              "url": "/using/cdc-external-repo.html",
+              "title": "Consumer Driven Contracts with Contracts in an External Repository"
+            },
+            {
+              "path": "using/cdc-git.adoc",
+              "url": "/using/cdc-git.html",
+              "title": "Consumer-driven Contracts with Contracts on the Producer Side, Pushed to Git"
+            },
+            {
+              "path": "using/cdc-producer-side.adoc",
+              "url": "/using/cdc-producer-side.html",
+              "title": "Consumer Driven Contracts with Contracts on the Producer Side"
+            },
+            {
+              "path": "using/provider-contract-testing-non-jvm.adoc",
+              "url": "/using/provider-contract-testing-non-jvm.html",
+              "title": "Provider Contract Testing with Stubs in Artifactory in a Non-JVM World"
+            },
+            {
+              "path": "using/provider-contract-testing-non-spring.adoc",
+              "url": "/using/provider-contract-testing-non-spring.html",
+              "title": "Provider Contract Testing with Stubs in Artifactory for a non-Spring Application"
+            },
+            {
+              "path": "using/provider-contract-testing-rest-docs.adoc",
+              "url": "/using/provider-contract-testing-rest-docs.html",
+              "title": "Provider Contract Testing with REST Docs and Stubs in Nexus or Artifactory"
+            },
+            {
+              "path": "using/provider-contract-testing-with-stubs-in-git.adoc",
+              "url": "/using/provider-contract-testing-with-stubs-in-git.html",
+              "title": "Provider Contract Testing with Stubs in Git"
+            },
+            {
+              "path": "using/provider-contract-testing-with-stubs.adoc",
+              "url": "/using/provider-contract-testing-with-stubs.html",
+              "title": "Provider Contract Testing with Stubs in Nexus or Artifactory"
+            },
+            {
+              "path": "yml-schema.adoc",
+              "url": "/yml-schema.html",
+              "title": "YML Schema"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

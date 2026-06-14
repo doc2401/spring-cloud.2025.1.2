@@ -1,0 +1,3 @@
+org.springframework.cloud.circuitbreaker.resilience4j
+org.springframework.cloud.circuitbreaker.retry
+org.springframework.cloud.circuitbreaker.springretry
